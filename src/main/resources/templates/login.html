@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.css" th:href="@{css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" href="css/login-page.css" th:href="@{css/login-page.css}">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>SoCal</title>
+    <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/login-page.js" th:src="@{js/login-page.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row main">
+        <div class="col-md-4 col-md-offset-2 box-container">
+            <div id="logo-container">
+                <img src="images/logo.png" th:src="@{images/logo.png}">
+            </div>
+        </div>
+        <!--INPUT FORMS: REGISTRATION, LOGIN.-->
+        <div class="col-md-4 box-main box-top">
+            <!--REGISTER FORM.-->
+            <div id="register-form" class="hidden">
+                <form class="form-horizontal" method="POST" action="/newuser">
+                    <!--LOGIN-->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"
+                                                                      aria-hidden="true"></span></span>
+                                <input type="text" maxlength="16" id="login-input" class="form-control" name="login"
+                                       placeholder="Enter login" autocomplete="off">
+                            </div>
+                            <!--ALERTS-->
+                            <div id="alert-login-too-short" class="alert alert-danger hidden" role="alert">
+                                <p> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Login needs to be at least 4 symbols long.</p>
+                            </div>
+                            <div id="alert-login-is-not-valid" class="alert alert-danger hidden" role="alert">
+                                <p> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> User with such login is already registered.</p>
+                            </div>
+                            <div id="alert-login-is-not-a-word" class="alert alert-danger hidden" role="alert">
+                                <p> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Login must not contain any symbols.</p>
+                            </div>
+                            <div id="alert-login-is-valid" class="alert alert-success hidden" role="alert">
+                                <p> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Login is valid.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--EMAIL-->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"
+                                                                      aria-hidden="true"></span></span>
+                                <input type="text" maxlength="35" id="email-input" class="form-control" name="email" placeholder="Enter email" autocomplete="off">
+                            </div>
+                            <div id="alert-email-too-short" class="alert alert-danger hidden" role="alert">
+                                <p> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Email needs to be at least 5 symbols long.</p>
+                            </div>
+                            <div id="alert-email-is-valid" class="alert alert-success hidden" role="alert">
+                                <p> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Email is valid.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--PHONE-->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-earphone"
+                                                                      aria-hidden="true"></span></span>
+                                <input type="text" maxlength="18" id="phone-input" class="form-control" name="phone" placeholder="Enter phone number" autocomplete="off">
+                            </div>
+                            <div id="alert-phone-too-short" class="alert alert-danger hidden" role="alert">
+                                <p> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Phone number needs to be at least 8 symbols long.</p>
+                            </div>
+                            <div id="alert-phone-is-valid" class="alert alert-success hidden" role="alert">
+                                <p> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Phone number is valid.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--PASSWORD-->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"
+                                                                      aria-hidden="true"></span></span>
+                                <input type="password" maxlength="30" id="password-input" class="form-control" name="password" placeholder="Enter password" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <!--PASSWORD CONFIRM-->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-exclamation-sign"
+                                                                      aria-hidden="true"></span></span>
+                                <input type="password" maxlength="30" id="password-confirm-input" class="form-control" name="password-confirm" placeholder="Enter password" autocomplete="off">
+                            </div>
+                            <!--ALERTS-->
+                            <div id="alert-password-too-short" class="alert alert-danger hidden" role="alert">
+                                <p> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Password needs to be at least 6 symbols long.</p>
+                            </div>
+                            <!--ALERTS-->
+                            <div id="alert-password-not-confirmed" class="alert alert-danger hidden" role="alert">
+                                <p> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Confirm password.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--SUBMIT BUTTON-->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button type="submit" id="sign-up" class="btn btn-primary btn-md btn-block">Sign up</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--LOGIN FORM.-->
+            <div id="login-form">
+                <span th:if="${param.error != null}">
+                    <div id="alert-login-error" class="alert alert-danger" role="alert">
+                        <p> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Login or password is wrong.</p>
+                    </div>
+                </span>
+                <span th:if="${param.logout != null}">
+                    <div id="alert-login-logout" class="alert alert-success" role="alert">
+                        <p> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Goodbye.</p>
+                    </div>
+                </span>
+                <form class="form-horizontal" method="POST" action="/j_spring_security_check">
+                    <!--LOGIN-->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"
+                                                                      aria-hidden="true"></span></span>
+                                <input type="text" class="form-control" name="j_login" placeholder="Enter your login">
+                            </div>
+                        </div>
+                    </div>
+                    <!--PASSWORD-->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"
+                                                                      aria-hidden="true"></span></span>
+                                <input type="password" class="form-control" name="j_password"
+                                       placeholder="Enter your password">
+                            </div>
+                        </div>
+                    </div>
+                    <!--SUBMIT BUTTON-->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary btn-md btn-block">Log in</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--LINKS TO INPUT FORMS.-->
+        <div class="col-md-4 col-md-offset-6 box-main box-bottom">
+            <div id="register-link-to-login" class="hidden">
+                <p>
+                    Already have an account? <a id="link-to-login">Log in</a>
+                </p>
+            </div>
+            <div id="login-link-to-register">
+                <p>
+                    Don't have an account? <a id="link-to-register">Sign up</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="js/bootstrap.min.js" th:src="@{js/bootstrap.min.js}"></script>
+</body>
+</html>

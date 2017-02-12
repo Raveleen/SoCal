@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.css" th:href="@{css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" href="css/search.css" th:href="@{css/search.css}">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <title th:text="Search">SoCal</title>
+    <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/search.js" th:src="@{js/search.js}"></script>
+</head>
+<body>
+<!--TOP NAVBAR: LOGO + NAVIGATION.-->
+<nav class="navbar navbar-inverse navbar-fixed-top nav-top">
+    <div class="container-fluid">
+        <div class="navbar-header col-md-offset-1">
+            <img src="images/logo-navbar.png" class="navbar-brand" th:src="@{images/logo-navbar.png}">
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/search"><span class="glyphicon glyphicon-search"></span></a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-off"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!--PAGE.-->
+<div class="container">
+    <div class="row">
+        <!--LEFT SIDEBAR: MENU.-->
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="/"><span class="glyphicon glyphicon-user"></span> My page</a></li>
+                <li><a href="/dialogs"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
+                <li><a href="/calendar"><span class="glyphicon glyphicon-th-large glyphicon"></span> Calendar</a></li>
+                <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
+            </ul>
+        </div>
+        <!--CENTER: USERS SEARCH.-->
+        <div id="search-append" class="col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 col-md-offset-2 main">
+            <div id="custom-search-input">
+                <input id="input-search" maxlength="16" type="text" class="form-control" placeholder="Search for...">
+            </div>
+        </div>
+        <!--RIGHT SIDEBAR: ACCOUNT INFO.-->
+        <div class="col-sm-3 col-md-2 sidebar-right">
+            <div class="user-block">
+                <div class="profile-sidebar box-main">
+                    <div th:if="${user.profileImage} != null">
+                        <div>
+                            <img class="profile-userpic centered-and-cropped" th:src="@{'/profile-image/' + ${user.profileImage.id}}">
+                        </div>
+                    </div>
+                    <div th:if="${user.profileImage} == null">
+                        <div>
+                            <img class="profile-userpic centered-and-cropped" src="images/default-user-image.png"
+                                 th:src="@{images/default-user-image.png}">
+                        </div>
+                    </div>
+                    <div class="profile-usertitle">
+                        <div class="profile-usertitle-name">
+                            <p th:text="${user.login}">just a user</p>
+                            <p id="id-top">(#<span id="ids" th:text="${user.id}"></span>)</p>
+                        </div>
+                        <div class="profile-usertitle-info">
+                            <p><span id="profile-info" th:text="${user.info}"></span></p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-6 profile-usertitle-left">
+                            <a th:href="@{'/followers/' + ${user.id}}"><p>Followers:</p>
+                                <p id="followers" th:text="${followers}"></p></a>
+                        </div>
+                        <div class="col-sm-6 profile-usertitle-right">
+                            <a th:href="@{'/following/' + ${user.id}}"><p>Following:</p>
+                                <p id="following" th:text="${following}">0</p></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="js/bootstrap.min.js" th:src="@{js/bootstrap.min.js}"></script>
+</body>
+</html>
