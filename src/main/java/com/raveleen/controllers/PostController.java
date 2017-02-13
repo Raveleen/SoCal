@@ -137,7 +137,7 @@ public class PostController {
                 .append("<div class=\"comment-container\">").append("</div>")
                 .append("<form id=\"form-" + temp.getId() + "\" enctype=\"multipart/form-data\" class=\"create-comment-form\" method=\"POST\">")
                 .append("<div class=\"form-group\"><div class=\"col-sm-12\">")
-                .append("<textarea class=\"form-control\" minlength=\"20\" maxlength=\"500\" rows=\"2\" class=\"comment-text\" name=\"comment-text\"></textarea>")
+                .append("<textarea required class=\"form-control\" minlength=\"20\" maxlength=\"500\" rows=\"2\" class=\"comment-text\" name=\"comment-text\"></textarea>")
                 .append("</div></div><div class=\"form-group\"><div class=\"col-sm-12\">")
                 .append("<button type=\"button\" \" class=\"create-comment-button btn btn-primary btn-md btn-block\">Comment it</button>")
                 .append("</div></div></form>");
