@@ -70,6 +70,11 @@ $(document).ready(function () {
     //COMMENTS.
     //_Opening comments when clicking on "comments" line.
     $(document.body).on("click", ".comment-button", function () {
+        if($(this).closest(".post").find(".comment-text").val().length) {
+            $(this).closest(".post").find(".create-comment-button").prop("disabled", true);
+        } else {
+            $(this).closest(".post").find(".create-comment-button").prop("disabled", false);
+        }
         comments_from = 0;
         comments_flag = true;
         var id = $(this).closest(".post").attr("id");
@@ -120,6 +125,7 @@ $(document).ready(function () {
     });
     //_Create comment
     $(document.body).on("click", ".create-comment-button", function () {
+        $(this).closest(".post").find(".create-comment-button").prop("disabled", true);
         var id = $(this).closest(".post").attr("id");
         var a = $("#" + id).find(".post-comments");
         var b = a.find(".comment-container");
@@ -134,6 +140,7 @@ $(document).ready(function () {
             success: function(data) {
                 b.append(data);
                 document.getElementById('form-' + id).reset();
+                $(this).prop("disabled", true);
                 comments_from += 1;
                 var temp = parseInt($("#" + id).find(".comments-number").text());
                 $("#" + id).find(".comments-number").text(temp + 1);
@@ -218,5 +225,14 @@ $(document).ready(function () {
                 })
             }
         })
+    });
+    $(document.body).on("keyup", ".comment-text", function () {
+        var id = $(this).closest(".post").attr("id");
+        var a = $("#" + id).find(".create-comment-button");
+        if($(this).val().length == 0) {
+            a.prop("disabled", true);
+        } else {
+            a.prop("disabled", false);
+        }
     });
 });

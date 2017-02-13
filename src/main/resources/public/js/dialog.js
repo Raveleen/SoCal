@@ -2,6 +2,7 @@
  * Created by Святослав on 02.02.2017.
  */
 $(document).ready(function () {
+    $("#create-message-button").prop("disabled", true);
     var special_alert_1 = "<div id=\"special-alert\" class=\"appended-result\"><div class=\"row search-result\"><div class=\"col-sm-12\"><div id=\"no-more-users\"><h5>THERE IS NO DIALOGS YET.</h5></div></div></div><hr class=\"middle\"></div>";
     var load_more_messages = "<div id=\"load-more-messages\" class=\"appended-result\"><div class=\"row search-result\"><div class=\"col-sm-12\"><hr class=\"middle\"></div><div class=\"col-sm-12 load-more\"><a id=\"load-messages-href\"><span id=\"plus\" class=\"glyphicon glyphicon-plus\"></span><span class=\"glyphicon glyphicon-menu-up hidden\"></span></a></div><div class=\"col-sm-12\"><hr class=\"middle\"></div></div></div>";
     var from = 0;
@@ -59,6 +60,7 @@ $(document).ready(function () {
             success: function (data) {
                 document.getElementById("send-message").reset();
                 $("#characters-number").text(1000);
+                $("#create-message-button").prop("disabled", true);
             }
         })
     });
@@ -80,6 +82,11 @@ $(document).ready(function () {
         });
     }
     $("#mesage-text").keyup(function () {
+        if($("#mesage-text").val().length == 0) {
+            $("#create-message-button").prop("disabled", true);
+        } else {
+            $("#create-message-button").prop("disabled", false);
+        }
         $("#characters-number").text(1000 - $("#mesage-text").val().length);
     });
     $(document.body).on("mouseover", ".unread-message", function () {

@@ -8,7 +8,11 @@ $(document).on('change', ':file', function () {
     input.trigger('fileselect', [numFiles, label]);
 });
 $(document).ready(function () {
+    $("#create-post-button").prop("disabled", true);
+    $(".create-comment-button").prop("disabled", true);
     //VARIABLES.
+    var flag_file = 0;
+    var flag_text = 0;
     var user_id = $("#ids").text();
     var special_alert_no_more_posts = "<div id=\"special-alert\" class=\"appended-result\"><div class=\"row search-result\"><div class=\"col-sm-12\"><div id=\"no-more-posts\"><h5>THERE IS NO MORE POSTS.</h5></div></div></div><hr class=\"middle\"></div>";
     var special_alert_no_posts = "<div id=\"special-alert\" class=\"appended-result\"><div class=\"row search-result\"><div class=\"col-sm-12\"><div id=\"no-more-posts\"><h5>THERE IS NO POSTS.</h5></div></div></div><hr class=\"middle\"></div>";
@@ -96,12 +100,26 @@ $(document).ready(function () {
                 document.getElementById('create-post-form').reset();
                 $("#characters-number").text(5000);
                 from += 1;
+                flag_file = 0;
+                flag_text = 0;
+                $("#create-post-button").prop("disabled", true);
             }
         })
     });
     //"POST IT" FORM.
     //_Counter of symbols
     $("#post-text").keyup(function () {
+        if ($("#post-text").val().length == 0) {
+            flag_text = 0;
+        }
+        if ($("#post-text").val().length > 0) {
+            flag_text = 1;
+        }
+        if ((flag_file + flag_text) == 2) {
+            $("#create-post-button").prop("disabled", false);
+        } else {
+            $("#create-post-button").prop("disabled", true);
+        }
         $("#characters-number").text(5000 - $("#post-text").val().length);
     });
     //_Arrow, which opens form
@@ -128,15 +146,35 @@ $(document).ready(function () {
     $(':file').on('fileselect', function (event, numFiles, label) {
         var input = $(this).parents('.input-group').find(':text'),
             log = numFiles > 1 ? numFiles + ' files selected' : label;
-        if (input.length) {
-            input.val(log);
+        if (numFiles == 0) {
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+            flag_file = 0;
+            $("#create-post-button").prop("disabled", true);
         } else {
-            if (log) alert(log);
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+            flag_file = 1;
+            if ((flag_file + flag_text) == 2) {
+                $("#create-post-button").prop("disabled", false);
+            }
         }
+
     });
-    //COMMENTS.
+    //COMMENTS.comment-text
     //_Opening comments when clicking on "comments" line.
     $(document.body).on("click", ".comment-button", function () {
+        if($(this).closest(".post").find(".comment-text").val().length) {
+            $(this).closest(".post").find(".create-comment-button").prop("disabled", true);
+        } else {
+            $(this).closest(".post").find(".create-comment-button").prop("disabled", false);
+        }
         comments_from = 0;
         comments_flag = true;
         var id = $(this).closest(".post").attr("id");
@@ -187,6 +225,7 @@ $(document).ready(function () {
     });
     //_Create comment
     $(document.body).on("click", ".create-comment-button", function () {
+        $(this).closest(".post").find(".create-comment-button").prop("disabled", true);
         var id = $(this).closest(".post").attr("id");
         var a = $("#" + id).find(".post-comments");
         var b = a.find(".comment-container");
@@ -201,11 +240,21 @@ $(document).ready(function () {
             success: function(data) {
                 b.append(data);
                 document.getElementById('form-' + id).reset();
+                $(this).prop("disabled", true);
                 comments_from += 1;
                 var temp = parseInt($("#" + id).find(".comments-number").text());
                 $("#" + id).find(".comments-number").text(temp + 1);
             }
         })
+    });
+    $(document.body).on("keyup", ".comment-text", function () {
+        var id = $(this).closest(".post").attr("id");
+        var a = $("#" + id).find(".create-comment-button");
+        if($(this).val().length == 0) {
+            a.prop("disabled", true);
+        } else {
+            a.prop("disabled", false);
+        }
     });
     //_Load +10 comments
     $(document.body).on("click", "#load-comments-href", function () {
