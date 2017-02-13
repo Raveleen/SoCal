@@ -75,7 +75,7 @@ public class FollowerController {
 
         int i = 0;
         for (CustomUser customUser1 : users) {
-            response[i] = utilsService.createFragmentUser(customUser, customUser1);
+            response[i] = utilsService.createFragmentUser(customUser1, customUser);
             i++;
         }
 

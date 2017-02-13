@@ -40,7 +40,7 @@ public class PostController {
         CustomUser customUser = userService.getUserByLogin(login);
 
         Post post = new Post();
-        if (body != null) {
+        if (body.getBytes() != null) {
             Image image = new Image(body.getBytes());
             imageService.addImage(image);
             post.setAuthor(customUser);
