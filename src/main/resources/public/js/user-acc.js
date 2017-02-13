@@ -170,7 +170,7 @@ $(document).ready(function () {
     //COMMENTS.comment-text
     //_Opening comments when clicking on "comments" line.
     $(document.body).on("click", ".comment-button", function () {
-        if($(this).closest(".post").find(".comment-text").val().length) {
+        if($(this).closest(".post").find(".comment-text").val().length == 0) {
             $(this).closest(".post").find(".create-comment-button").prop("disabled", true);
         } else {
             $(this).closest(".post").find(".create-comment-button").prop("disabled", false);
