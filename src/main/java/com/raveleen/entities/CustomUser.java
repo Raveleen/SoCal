@@ -31,8 +31,8 @@ public class CustomUser {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_relations",
-            joinColumns = @JoinColumn(name = "followed_ID", referencedColumnName="id"),
-            inverseJoinColumns = @JoinColumn(name = "follower_ID", referencedColumnName="id"))
+            joinColumns = @JoinColumn(name = "followed_ID", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "follower_ID", referencedColumnName = "id"))
     private List<CustomUser> followers = new ArrayList<>();
 
     @ManyToMany(mappedBy = "followers")
@@ -41,11 +41,11 @@ public class CustomUser {
     @ManyToMany(mappedBy = "likedBy")
     private List<Post> likedPosts = new ArrayList<>();
 
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="profile_image_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "profile_image_id")
     private ProfileImage profileImage;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "author")
     private List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "id")
@@ -131,6 +131,15 @@ public class CustomUser {
     public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
+
+    /*
+    public void addPost(Post post) {
+        this.posts.add(post);
+    }
+
+    public void removePost(Post post) {
+        this.posts.remove(post);
+    }*/
 
     public List<Dialog> getDialogs() {
         return dialogs;

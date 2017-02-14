@@ -16,7 +16,7 @@ public interface PostService {
     Post getById(long id);
     void updatePost(Post post);
     void deletePostById(long id);
-    void addPost(Post post);
+    Post addPost(Post post);
     int getNumberOfLikes(long id);
     int getNumberOfComments(long id);
     boolean isLiked(long id1, long id2);

@@ -39,19 +39,15 @@ public class PostController {
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
 
+        Image image = new Image(body.getBytes());
+        imageService.addImage(image);
         Post post = new Post();
-        if (body.getBytes() != null) {
-            Image image = new Image(body.getBytes());
-            imageService.addImage(image);
-            post.setAuthor(customUser);
-            post.setText(text);
-            post.setImage(image);
-            postService.addPost(post);
-        } else {
-            post.setAuthor(customUser);
-            post.setText(text);
-            postService.addPost(post);
-        }
+        post.setAuthor(customUser);
+        post.setText(text);
+        post.setImage(image);
+        postService.addPost(post);
+
+        post = postService.addPost(post);
 
         return createFragment(post, customUser.getId(), customUser.getId());
     }
@@ -59,6 +55,11 @@ public class PostController {
     @RequestMapping(value = "/post-delete/{post-id}", method = RequestMethod.POST)
     @ResponseBody
     public String deletePost(@PathVariable("post-id") long postId) throws IOException {
+        /*User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String login = user.getUsername();
+        CustomUser customUser = userService.getUserByLogin(login);
+        customUser.removePost(postService.getById(postId));
+        userService.updateUser(customUser);*/
         postService.deletePostById(postId);
 
         return "deleted";

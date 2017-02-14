@@ -62,8 +62,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public void addPost(Post post) {
-        postRepository.saveAndFlush(post);
+    public Post addPost(Post post) {
+        return postRepository.saveAndFlush(post);
     }
 
     @Override

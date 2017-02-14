@@ -16,4 +16,14 @@ public class App {
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
     }
+
+    @Bean
+    public CommandLineRunner demo(final UserService userService) {
+        return new CommandLineRunner() {
+            @Override
+            public void run(String... strings) throws Exception {
+                userService.addUser(new CustomUser("Raveleen", "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8", UserRole.ADMIN));
+            }
+        };
+    }
 }
