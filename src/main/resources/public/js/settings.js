@@ -8,6 +8,7 @@ $(document).on('change', ':file', function() {
     input.trigger('fileselect', [numFiles, label]);
 });
 $(document).ready(function () {
+    $("#upload").prop("disabled", true);
     document.getElementById("info").defaultValue = $("#usinfo").text();
     var input_a = 1;
     var input_b = 1;
@@ -87,10 +88,21 @@ $(document).ready(function () {
         var input = $(this).parents('.input-group').find(':text'),
             log = numFiles > 1 ? numFiles + ' files selected' : label;
 
-        if( input.length ) {
-            input.val(log);
+        if (numFiles == 0) {
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+            $("#upload").prop("disabled", true);
         } else {
-            if( log ) alert(log);
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+            $("#upload").prop("disabled", false);
         }
 
     });
