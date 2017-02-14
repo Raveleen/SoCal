@@ -38,10 +38,13 @@ public class LikesController {
         CustomUser customUser = userService.getUserByLogin(login);
 
         Post post = postService.getById(id);
-        post.addLike(customUser);
-        postService.updatePost(post);
-
-        return "liked";
+        if (!postService.isLiked(customUser.getId(), id)) {
+            post.addLike(customUser);
+            postService.updatePost(post);
+            return "liked";
+        } else {
+            return null;
+        }
     }
 
     @RequestMapping("/unlike/{post_id}")
