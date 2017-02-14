@@ -460,6 +460,11 @@ a.unlike-button:hover {
     text-align: left;
 }
 
+#header {
+    color: rgba(228, 98, 232, 0.8);
+    text-align: left;
+}
+
 .pink {
     color: rgba(228, 98, 232, 0.8);
 }
