@@ -5,6 +5,7 @@ import com.raveleen.entities.Post;
 import com.raveleen.services.ImageService;
 import com.raveleen.services.PostService;
 import com.raveleen.services.UserService;
+import com.raveleen.services.UtilsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -27,10 +28,10 @@ public class CalendarController {
     private UserService userService;
 
     @Autowired
-    private ImageService imageService;
+    private PostService postService;
 
     @Autowired
-    private PostService postService;
+    private UtilsService utilsService;
     @RequestMapping("/calendar")
     public String calendarSelf(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -72,6 +73,25 @@ public class CalendarController {
         int i = 0;
         for (Post temp : posts) {
             response[i] = createFragment(temp, customUser.getId(), userId);
+            i++;
+        }
+
+        return response;
+    }
+
+    @RequestMapping(value = "/user-list/recs/{user-id}/{from}")
+    @ResponseBody
+    public String[] getUsersFollowers(@PathVariable("user-id") long userId, @PathVariable("from") int from) {
+        List<CustomUser> users = userService.recFollowingByFollowedId(userId, from);
+        String[] response = new String[users.size()];
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String login = user.getUsername();
+        CustomUser customUser = userService.getUserByLogin(login);
+
+        int i = 0;
+        for (CustomUser customUser1 : users) {
+            response[i] = utilsService.createFragmentUser(customUser1, customUser);
             i++;
         }
 

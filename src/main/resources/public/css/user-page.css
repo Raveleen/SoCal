@@ -455,7 +455,7 @@ a.unlike-button:hover {
     color: #9d9d9d;
 }
 
-#header {
+.header {
     color: rgba(228, 98, 232, 0.8);
     text-align: left;
 }

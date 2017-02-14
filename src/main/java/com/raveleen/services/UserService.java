@@ -2,6 +2,7 @@ package com.raveleen.services;
 
 import com.raveleen.entities.CustomUser;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -36,4 +37,6 @@ public interface UserService {
     List<CustomUser> followersByFollowedId(long id, int from);
 
     List<CustomUser> followingByFollowedId(long id, int from);
+
+    List<CustomUser> recFollowingByFollowedId(long id, int from);
 }

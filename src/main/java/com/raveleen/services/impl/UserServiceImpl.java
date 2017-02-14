@@ -131,4 +131,17 @@ public class UserServiceImpl implements UserService {
         Pageable temp = new PageRequest(a, 10);
         return userRepository.followingByFollowedId(id, temp);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<CustomUser> recFollowingByFollowedId(long id, int from) {
+        int a;
+        if (from == 0) {
+            a = 0;
+        } else {
+            a = from / 3;
+        }
+        Pageable temp = new PageRequest(a, 3);
+        return userRepository.recFollowingByFollowedId(id, temp);
+    }
 }

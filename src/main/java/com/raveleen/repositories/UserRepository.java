@@ -37,4 +37,7 @@ public interface UserRepository extends JpaRepository<CustomUser, Long> {
 
     @Query("SELECT u FROM CustomUser u INNER JOIN u.followers c WHERE (c.id = :id1)")
     List<CustomUser> followingByFollowedId(@Param("id1")long id, Pageable pageable);
+
+    @Query("SELECT u FROM CustomUser u INNER JOIN u.followers c WHERE c.id IN (SELECT u.id FROM CustomUser u INNER JOIN u.followers c WHERE c.id = :id1)")
+    List<CustomUser> recFollowingByFollowedId(@Param("id1")long id, Pageable pageable);
 }

@@ -21,10 +21,8 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-th-large glyphicon"></span></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
+                <li><a href="/search"><span class="glyphicon glyphicon-search"></span></a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-off"></span></a></li>
             </ul>
         </div>
     </div>
@@ -44,14 +42,15 @@
         </div>
         <!--CENTER: CALENDAR.-->
         <div class="col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 col-md-offset-2 main">
-            <div id="rec1-row" class="row">
-
-            </div>
-            <div id="rec2-row" class="row">
-
-            </div>
             <div id="posts-container" class="row">
-
+                <div class="appended-result">
+                    <div class="row search-result">
+                        <div class="col-sm-12">
+                            <div class="header"><h5>POSTS FROM WHO THIS USER FOLLOWS:</h5></div>
+                        </div>
+                    </div>
+                    <hr class=\"middle\">
+                </div>
             </div>
         </div>
         <!--RIGHT SIDEBAR: ACCOUNT INFO.-->
