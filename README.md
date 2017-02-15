@@ -4,6 +4,7 @@
 
 ## Authorization
 Simple registration form, with login validation and password confirmation. Login form with login and password confirmation. 
+<img src="https://github.com/Raveleen/SoCal/blob/master/ezgif.com-c9ed5065ed.gif"/>
 
 ## User page
 User-friendly, minimalistic interface, post creation form that hidden by default. In other users profiles you also would be able to send messages to user, follow him, read their posts, or read posts that they found interesting. Also you can look throw followers and followings of the user.
