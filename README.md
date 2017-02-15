@@ -1,3 +1,4 @@
+<img src="https://github.com/Raveleen/SoCal/blob/master/Untitled-2.png" align="right" />
 # SoCal
 >Simple social network with user-friendly interface.
 
