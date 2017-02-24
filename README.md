@@ -7,7 +7,6 @@
 Simple registration form with login validation and password confirmation. Login form with login and password confirmation. 
 
 ## User page
-<img src="https://github.com/Raveleen/SoCal/blob/master/followers-and-followings.gif" align="right"/>
 User-friendly, minimalistic interface, post creation form, hidden by default. In other users profiles you also will be able to send messages to user, follow him, read his posts, or read posts that he is interested in. Also you can look through followers and followings of the user.
 
 ## User search
