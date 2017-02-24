@@ -10,7 +10,7 @@ Simple registration form with login validation and password confirmation. Login 
 User-friendly, minimalistic interface, post creation form, hidden by default. In other users profiles you also will be able to send messages to user, follow him, read his posts, or read posts that he is interested in. Also you can look through followers and followings of the user.
 
 ## User search
-<img src="https://github.com/Raveleen/SoCal/blob/master/user-search.gif" align="right"/>
+<img src="https://github.com/Raveleen/SoCal/blob/master/user-search.gif" style="width: 100px;" align="right"/>
 If you want to find someone (e.g your friends, members of family) you can click on an icon in top-right corner of a page ( do not mistake it for logout icon ), press it, and you will be redirected to the search page. You can search users by inputting their login or just parts of it in the search form. Search results are loaded dynamically, so you will immediately see results of search. If there is more than ten search results, you just have to scroll down the page in order to load more results dynamicaly.
 
 ## Posts and comments 
