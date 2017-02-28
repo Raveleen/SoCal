@@ -1,8 +1,11 @@
 package com.raveleen.controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Locale;
+
 import com.raveleen.entities.CustomUser;
 import com.raveleen.entities.Post;
-import com.raveleen.services.ImageService;
 import com.raveleen.services.PostService;
 import com.raveleen.services.UserService;
 import com.raveleen.services.UtilsService;
@@ -14,10 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Святослав on 17.01.2017.
@@ -32,6 +31,7 @@ public class CalendarController {
 
     @Autowired
     private UtilsService utilsService;
+
     @RequestMapping("/calendar")
     public String calendarSelf(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -99,7 +99,6 @@ public class CalendarController {
     }
 
     private String createFragment(Post temp, long customUserId, long userId) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMMMM dd, yyyy HH:mm:ss", Locale.US);
         StringBuilder sb = new StringBuilder();
         sb.append("<div id=\"")
                 .append(temp.getId())
@@ -131,6 +130,7 @@ public class CalendarController {
         sb.append(temp.getText());
         sb.append("</p></br>");
         sb.append("<p class=\"post-body-date\">");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMMMM dd, yyyy HH:mm:ss", Locale.US);
         sb.append(simpleDateFormat.format(temp.getCreateDate()));
         sb.append("</p>");
         sb.append("</div>");

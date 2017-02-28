@@ -1,5 +1,11 @@
 package com.raveleen.controllers;
 
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Locale;
+
 import com.raveleen.entities.CustomUser;
 import com.raveleen.entities.Image;
 import com.raveleen.entities.Post;
@@ -12,11 +18,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Святослав on 31.12.2016.

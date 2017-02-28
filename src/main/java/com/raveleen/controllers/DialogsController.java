@@ -1,6 +1,11 @@
 package com.raveleen.controllers;
 
-import com.raveleen.entities.*;
+import java.io.IOException;
+import java.util.List;
+
+import com.raveleen.entities.CustomUser;
+import com.raveleen.entities.Dialog;
+import com.raveleen.entities.Message;
 import com.raveleen.services.DialogService;
 import com.raveleen.services.MessageService;
 import com.raveleen.services.UserService;
@@ -12,8 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by Святослав on 31.12.2016.
