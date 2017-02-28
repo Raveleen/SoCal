@@ -1,11 +1,10 @@
 package com.raveleen.entities;
 
-import org.hibernate.annotations.CreationTimestamp;
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 /**
  * Created by Святослав on 03.01.2017.

@@ -1,10 +1,9 @@
 package com.raveleen.entities;
 
 import com.raveleen.entities.enums.UserRole;
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.*;
 
 /**
  * Created by Святослав on 31.12.2016.

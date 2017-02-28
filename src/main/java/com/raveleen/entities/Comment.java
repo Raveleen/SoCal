@@ -1,9 +1,8 @@
 package com.raveleen.entities;
 
-import org.hibernate.annotations.CreationTimestamp;
-
-import javax.persistence.*;
 import java.util.Date;
+import javax.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 /**
  * Created by Святослав on 31.12.2016.
