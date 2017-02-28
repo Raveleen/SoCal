@@ -64,17 +64,15 @@ public class ThymeleafConfig extends WebMvcConfigurerAdapter implements Applicat
     }
 
     @Bean
-    public DialogService dialogService(){
+    public DialogService dialogService() {
         return new DialogServiceImpl();
     }
 
     @Bean
-    public MessageService messageService(){
+    public MessageService messageService() {
         return new MessageServiceImpl();
     }
-    /**
-     * Utils.
-     */
+
     private ApplicationContext applicationContext;
 
     public void setApplicationContext(ApplicationContext applicationContext) {
