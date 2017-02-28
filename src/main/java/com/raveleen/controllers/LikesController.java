@@ -39,6 +39,7 @@ public class LikesController {
 
         Post post = postService.getById(id);
         if (!postService.isLiked(customUser.getId(), id)) {
+            System.out.println("ISN'T LIKED " + id);
             post.addLike(customUser);
             postService.updatePost(post);
             return "liked";
@@ -104,11 +105,11 @@ public class LikesController {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
-        CustomUser customUser = userService.getUserByLogin(login);
+        CustomUser self = userService.getUserByLogin(login);
 
         int i = 0;
-        for (CustomUser customUser1 : users) {
-            response[i] = utilsService.createFragmentUser(customUser, customUser1);
+        for (CustomUser temp : users) {
+            response[i] = utilsService.createFragmentUser(temp, self);
             i++;
         }
 
