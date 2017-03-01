@@ -8,7 +8,7 @@ $(document).ready(function () {
     var input_d = 0;
 
     function signUpDisableToFalse() {
-        if ((input_a + input_b + input_c + input_d) == 4) {
+        if ((input_a + input_b + input_c + input_d) === 4) {
             $("#sign-up").prop("disabled", false);
         }
     }
@@ -31,7 +31,7 @@ $(document).ready(function () {
         if ($("#password-input").val().length < 6) {
             input_d = 0;
             signUpDisableToTrueAndShowElement(alerts[0]);
-        } else if ($("#password-input").val() != $("#password-confirm-input").val()) {
+        } else if ($("#password-input").val() !== $("#password-confirm-input").val()) {
             input_d = 0;
             signUpDisableToTrueAndShowElement(alerts[1]);
         } else {
@@ -59,19 +59,19 @@ $(document).ready(function () {
         $.get("login/validation?login=" + $("#login-input").val(), function (data) {
             var alerts = ["#alert-login-too-short", "#alert-login-is-not-valid", "#alert-login-is-not-a-word", "#alert-login-is-valid"];
             hideAndRemoveHidden(alerts);
-            if (data == "1") {
+            if (data === "1") {
                 input_a = 0;
                 signUpDisableToTrueAndShowElement("#alert-login-too-short");
             }
-            if (data == "2") {
+            if (data === "2") {
                 input_a = 0;
                 signUpDisableToTrueAndShowElement("#alert-login-is-not-valid");
             }
-            if (data == "3") {
+            if (data === "3") {
                 input_a = 0;
                 signUpDisableToTrueAndShowElement("#alert-login-is-not-a-word");
             }
-            if (data == "4") {
+            if (data === "4") {
                 input_a = 1;
                 signUpDisableToFalse();
             }
