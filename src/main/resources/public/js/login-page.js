@@ -13,6 +13,16 @@ $(document).ready(function () {
         }
     }
 
+    function signUpDisableToTrueAndShowElement(elementID) {
+        $("#sign-up").prop("disabled", true);
+        $(elementID).show();
+    }
+
+    function hideAndRemoveHidden(elementID) {
+        $(elementID).hide();
+        $(elementID).removeClass("hidden");
+    }
+
     $("#sign-up").prop("disabled", true);
     $("#link-to-login").click(function () {
         $("#register-form").hide();
@@ -30,28 +40,21 @@ $(document).ready(function () {
     });
     $("#login-input").keyup(function () {
         $.get("login/validation?login=" + $("#login-input").val(), function (data) {
-            $("#alert-login-too-short").hide();
-            $("#alert-login-is-not-valid").hide();
-            $("#alert-login-is-not-a-word").hide();
-            $("#alert-login-is-valid").hide();
-            $("#alert-login-too-short").removeClass("hidden");
-            $("#alert-login-is-not-valid").removeClass("hidden");
-            $("#alert-login-is-not-a-word").removeClass("hidden");
-            $("#alert-login-is-valid").removeClass("hidden");
+            hideAndRemoveHidden("#alert-login-too-short");
+            hideAndRemoveHidden("#alert-login-is-not-valid");
+            hideAndRemoveHidden("#alert-login-is-not-a-word");
+            hideAndRemoveHidden("#alert-login-is-valid");
             if (data == "1") {
                 input_a = 0;
-                $("#sign-up").prop("disabled", true);
-                $("#alert-login-too-short").show();
+                signUpDisableToTrueAndShowElement("#alert-login-too-short");
             }
             if (data == "2") {
                 input_a = 0;
-                $("#sign-up").prop("disabled", true);
-                $("#alert-login-is-not-valid").show();
+                signUpDisableToTrueAndShowElement("#alert-login-is-not-valid");
             }
             if (data == "3") {
                 input_a = 0;
-                $("#sign-up").prop("disabled", true);
-                $("#alert-login-is-not-a-word").show();
+                signUpDisableToTrueAndShowElement("#alert-login-is-not-a-word");
             }
             if (data == "4") {
                 input_a = 1;
@@ -60,60 +63,48 @@ $(document).ready(function () {
         })
     });
     $("#email-input").keyup(function () {
-        $("#alert-email-too-short").hide();
-        $("#alert-email-too-short").removeClass("hidden");
+        hideAndRemoveHidden("#alert-email-too-short");
         if ($("#email-input").val().length < 5) {
             input_b = 0;
-            $("#sign-up").prop("disabled", true);
-            $("#alert-email-too-short").show();
+            signUpDisableToTrueAndShowElement("#alert-email-too-short");
         } else {
             input_b = 1;
             signUpDisableToFalse();
         }
     });
     $("#phone-input").keyup(function () {
-        $("#alert-phone-too-short").hide();
-        $("#alert-phone-too-short").removeClass("hidden");
+        hideAndRemoveHidden("#alert-phone-too-short");
         if ($("#phone-input").val().length < 8) {
             input_c = 0;
-            $("#sign-up").prop("disabled", true);
-            $("#alert-phone-too-short").show();
+            signUpDisableToTrueAndShowElement("#alert-phone-too-short");
         } else {
             input_c = 1;
             signUpDisableToFalse();
         }
     });
     $("#password-input").keyup(function () {
-        $("#alert-password-too-short").hide();
-        $("#alert-password-not-confirmed").hide();
-        $("#alert-password-too-short").removeClass("hidden");
-        $("#alert-password-not-confirmed").removeClass("hidden");
+        hideAndRemoveHidden("#alert-password-too-short");
+        hideAndRemoveHidden("#alert-password-not-confirmed");
         if ($("#password-input").val().length < 6) {
             input_d = 0;
-            $("#sign-up").prop("disabled", true);
-            $("#alert-password-too-short").show();
+            signUpDisableToTrueAndShowElement("#alert-password-too-short");
         } else if ($("#password-input").val() != $("#password-confirm-input").val()) {
             input_d = 0;
-            $("#sign-up").prop("disabled", true);
-            $("#alert-password-not-confirmed").show();
+            signUpDisableToTrueAndShowElement("#alert-password-not-confirmed");
         } else {
             input_d = 1;
             signUpDisableToFalse();
         }
     });
     $("#password-confirm-input").keyup(function () {
-        $("#alert-password-too-short").hide();
-        $("#alert-password-not-confirmed").hide();
-        $("#alert-password-too-short").removeClass("hidden");
-        $("#alert-password-not-confirmed").removeClass("hidden");
+        hideAndRemoveHidden("#alert-password-too-short");
+        hideAndRemoveHidden("#alert-password-not-confirmed");
         if ($("#password-input").val().length < 6) {
             input_d = 0;
-            $("#sign-up").prop("disabled", true);
-            $("#alert-password-too-short").show();
+            signUpDisableToTrueAndShowElement("#alert-password-too-short");
         } else if ($("#password-input").val() != $("#password-confirm-input").val()) {
             input_d = 0;
-            $("#sign-up").prop("disabled", true);
-            $("#alert-password-not-confirmed").show();
+            signUpDisableToTrueAndShowElement("#alert-password-not-confirmed");
         } else {
             input_d = 1;
             signUpDisableToFalse();
