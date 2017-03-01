@@ -40,6 +40,27 @@ $(document).ready(function () {
         }
     }
 
+    function inputCheck(inputId, size, alert, varName) {
+        hideAndRemoveHidden([alert]);
+        if ($(inputId).val().length < size) {
+            if (varName === "c") {
+                input_c = 0;
+            }
+            if (varName === "b") {
+                input_b = 0;
+            }
+            signUpDisableToTrueAndShowElement(alert);
+        } else {
+            if (varName === "c") {
+                input_c = 1;
+            }
+            if (varName === "b") {
+                input_b = 1;
+            }
+            signUpDisableToFalse();
+        }
+    }
+
     $("#sign-up").prop("disabled", true);
     $("#link-to-login").click(function () {
         $("#register-form").hide();
@@ -78,24 +99,10 @@ $(document).ready(function () {
         })
     });
     $("#email-input").keyup(function () {
-        hideAndRemoveHidden(["#alert-email-too-short"]);
-        if ($("#email-input").val().length < 5) {
-            input_b = 0;
-            signUpDisableToTrueAndShowElement("#alert-email-too-short");
-        } else {
-            input_b = 1;
-            signUpDisableToFalse();
-        }
+        inputCheck("#email-input", 5, "#alert-email-too-short", "b")
     });
     $("#phone-input").keyup(function () {
-        hideAndRemoveHidden(["#alert-phone-too-short"]);
-        if ($("#phone-input").val().length < 8) {
-            input_c = 0;
-            signUpDisableToTrueAndShowElement("#alert-phone-too-short");
-        } else {
-            input_c = 1;
-            signUpDisableToFalse();
-        }
+        inputCheck("#phone-input", 8, "#alert-phone-too-short", "c")
     });
     $("#password-input").keyup(function () {
         passwordConfirmation();
