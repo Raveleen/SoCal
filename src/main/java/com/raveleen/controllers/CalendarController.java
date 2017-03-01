@@ -5,11 +5,9 @@ import com.raveleen.entities.Post;
 import com.raveleen.services.PostService;
 import com.raveleen.services.UserService;
 import com.raveleen.services.UtilsService;
-
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -72,10 +70,10 @@ public class CalendarController {
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
 
-        int i = 0;
+        int counter = 0;
         for (Post temp : posts) {
-            response[i] = createFragment(temp, customUser.getId(), userId);
-            i++;
+            response[counter] = createFragment(temp, customUser.getId(), userId);
+            counter++;
         }
 
         return response;
@@ -191,14 +189,19 @@ public class CalendarController {
                 .append("<div class=\"comment-container\">").append("</div>")
                 .append("<form id=\"form-")
                 .append(temp.getId())
-                .append("\" enctype=\"multipart/form-data\" class=\"create-comment-form\" method=\"POST\">")
+                .append("\" enctype=\"multipart/form-data\" class=\"create-comment-form\"")
+                .append("method=\"POST\">")
                 .append("<div class=\"form-group\">")
                 .append("<div class=\"col-sm-12\">")
-                .append("<textarea class=\"form-control comment-text\" minlength=\"20\" maxlength=\"500\" rows=\"2\" name=\"comment-text\">")
+                .append("<textarea class=\"form-control comment-text\" minlength=\"20\"")
+                .append("maxlength=\"500\" rows=\"2\" name=\"comment-text\">")
                 .append("</textarea></div></div>")
                 .append("<div class=\"form-group\">")
                 .append("<div class=\"col-sm-12\">")
-                .append("<button type=\"button\" \" class=\"create-comment-button btn btn-primary btn-md btn-block\">Comment it</button>")
+                .append("<button type=\"button\" \"")
+                .append("class=\"create-comment-button btn btn-primary btn-md btn-block\">")
+                .append("Comment it")
+                .append("</button>")
                 .append("</div></div></form></div></div></div>");
         return sb.toString();
     }

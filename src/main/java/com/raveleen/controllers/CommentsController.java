@@ -4,19 +4,21 @@ import com.raveleen.entities.Comment;
 import com.raveleen.entities.CustomUser;
 import com.raveleen.entities.Post;
 import com.raveleen.services.CommentService;
-import com.raveleen.services.ImageService;
 import com.raveleen.services.PostService;
 import com.raveleen.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by Святослав on 01.02.2017.
@@ -35,14 +37,15 @@ public class CommentsController {
     @RequestMapping(value = "/post/comments-number/{id}")
     @ResponseBody
     public String commentsNumber(@PathVariable("id") long id) {
-        String response = new String();
+        String response;
         response = "" + postService.getNumberOfComments(id);
         return response;
     }
 
     @RequestMapping(value = "/comment-create/{post-id}", method = RequestMethod.POST)
     @ResponseBody
-    public String createComment(@RequestParam("comment-text") String text, @PathVariable("post-id") long postId) throws IOException {
+    public String createComment(@RequestParam("comment-text") String text,
+                                @PathVariable("post-id") long postId) throws IOException {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
@@ -66,11 +69,11 @@ public class CommentsController {
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
 
-        int i = 0;
+        int counter = 0;
         //If user gets his own comment, he gets possibility to delete this post.
         for (Comment temp : comments) {
-            response[i] = createCommentFragment(temp, customUser.getId());
-            i++;
+            response[counter] = createCommentFragment(temp, customUser.getId());
+            counter++;
         }
 
         return response;
@@ -85,30 +88,38 @@ public class CommentsController {
     }
 
     private String createCommentFragment(Comment comment, long customUserId) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, dd, HH:mm:ss", Locale.US);
         StringBuilder sb = new StringBuilder();
-
         sb.append("<div id=\"comment-").append(comment.getId());
         sb.append("\" class=\"comment appended-result row\">")
-                .append("<div class=\"col-sm-3 profile-usertitle-small\"><div class=\"col-sm-12\"><div class=\"profile-usertitle-name-small\"><p class=\"user-name\"><a class=\"user-name\" href=\"/user/")
+                .append("<div class=\"col-sm-3 profile-usertitle-small\">")
+                .append("<div class=\"col-sm-12\">")
+                .append("<div class=\"profile-usertitle-name-small\">")
+                .append("<p class=\"user-name\">")
+                .append("<a class=\"user-name\" href=\"/user/")
                 .append(comment.getFrom().getId())
                 .append("\">")
                 .append(comment.getFrom().getLogin())
-                .append("</a></p></div></div><div class=\"col-sm-12\">");
+                .append("</a></p></div></div>")
+                .append("<div class=\"col-sm-12\">");
         sb.append("<p class=\"post-body-date\">");
-        sb.append(simpleDateFormat.format(comment.getCreateDate()));
-        sb.append("</p>");
-        sb.append("</div></div>")
-                .append("<div class=\"col-sm-8\"><p class=\"post-comment-text\">")
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, dd, HH:mm:ss", Locale.US);
+        sb.append(simpleDateFormat.format(comment.getCreateDate()))
+                .append("</p></div></div>")
+                .append("<div class=\"col-sm-8\">")
+                .append("<p class=\"post-comment-text\">")
                 .append(comment.getText())
-                .append("</p>")
-                .append("</div>");
+                .append("</p></div>");
         if (comment.getFrom().getId() == customUserId) {
-            sb.append("<div class=\"col-sm-1\"><div class=\"delete-button-div\"><a class=\"delete-button-comment\"><span class=\"glyphicon glyphicon-remove\"></span></a></div>");
+            sb.append("<div class=\"col-sm-1\">")
+                    .append("<div class=\"delete-button-div\">")
+                    .append("<a class=\"delete-button-comment\">")
+                    .append("<span class=\"glyphicon glyphicon-remove\">")
+                    .append("</span></a></div></div>");
         } else {
-            sb.append("<div class=\"col-sm-1\"><div class=\"delete-button-div\"></div>");
+            sb.append("<div class=\"col-sm-1\">")
+                    .append("<div class=\"delete-button-div\">")
+                    .append("</div></div>");
         }
-        sb.append("</div>");
         return sb.toString();
     }
 }

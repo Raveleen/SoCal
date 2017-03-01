@@ -1,7 +1,21 @@
 package com.raveleen.configurations;
 
-import com.raveleen.services.*;
-import com.raveleen.services.impl.*;
+import com.raveleen.services.ImageService;
+import com.raveleen.services.UtilsService;
+import com.raveleen.services.ProfileImageService;
+import com.raveleen.services.UserService;
+import com.raveleen.services.PostService;
+import com.raveleen.services.CommentService;
+import com.raveleen.services.DialogService;
+import com.raveleen.services.MessageService;
+import com.raveleen.services.impl.ImageServiceImpl;
+import com.raveleen.services.impl.ProfileImageServiceImpl;
+import com.raveleen.services.impl.UserServiceImpl;
+import com.raveleen.services.impl.PostServiceImpl;
+import com.raveleen.services.impl.CommentServiceImpl;
+import com.raveleen.services.impl.DialogServiceImpl;
+import com.raveleen.services.impl.MessageServiceImpl;
+import com.raveleen.services.impl.UserDetailsServiceImpl;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -25,9 +39,6 @@ import org.thymeleaf.templatemode.TemplateMode;
 @EnableWebMvc
 @ComponentScan("com.raveleen")
 public class ThymeleafConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
-    /**
-     * Beans.
-     */
     @Bean
     public ImageService imageService() {
         return new ImageServiceImpl();
@@ -83,10 +94,6 @@ public class ThymeleafConfig extends WebMvcConfigurerAdapter implements Applicat
         super();
     }
 
-    /**
-     * THYMELEAF-SPECIFIC ARTIFACTS
-     * TemplateResolver <- TemplateEngine <- ViewResolver
-     */
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
@@ -114,10 +121,6 @@ public class ThymeleafConfig extends WebMvcConfigurerAdapter implements Applicat
         return resolver;
     }
 
-    /**
-     * GENERAL CONFIGURATION ARTIFACTS
-     * Static Resources, i18n Messages, Formatters (Conversion Service)
-     */
     @Bean
     public CommonsMultipartResolver setMultipartResolver() {
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
