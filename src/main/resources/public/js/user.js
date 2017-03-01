@@ -11,12 +11,12 @@ $(document).ready(function () {
     var comments_flag = true;
     var flag = true;
     $.get("/is-following/" + $("#ids").text(), function (data) {
-        if (data == true) {
+        if (data === true) {
             $("#unfollow").removeClass("hidden");
             $("#follow").hide();
             $("#follow").removeClass("hidden");
         }
-        if (data == false) {
+        if (data === false) {
             $("#follow").removeClass("hidden");
             $("#unfollow").hide();
             $("#unfollow").removeClass("hidden");
@@ -24,7 +24,7 @@ $(document).ready(function () {
     });
     $("#button-follow").click(function () {
         $.get("/follow/" + $("#ids").text(), function (data) {
-            if (data == "followed") {
+            if (data === "followed") {
                 $.get("/user/followers-number/" + $("#ids").text(), function (data) {
                     $("#followers").text(data);
                 });
@@ -35,7 +35,7 @@ $(document).ready(function () {
     });
     $("#button-unfollow").click(function () {
         $.get("/unfollow/" + $("#ids").text(), function (data) {
-            if (data == "unfollowed") {
+            if (data === "unfollowed") {
                 $.get("/user/followers-number/" + $("#ids").text(), function (data) {
                     $("#followers").text(data);
                 });
@@ -105,7 +105,7 @@ $(document).ready(function () {
     //COMMENTS.
     //_Opening comments when clicking on "comments" line.
     $(document.body).on("click", ".comment-button", function () {
-        if($(this).closest(".post").find(".comment-text").val().length == 0) {
+        if ($(this).closest(".post").find(".comment-text").val().length == 0) {
             $(this).closest(".post").find(".create-comment-button").prop("disabled", true);
         } else {
             $(this).closest(".post").find(".create-comment-button").prop("disabled", false);
@@ -124,15 +124,14 @@ $(document).ready(function () {
             type: 'GET',
             contentType: false,
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 var i = 0;
                 var array = data;
-                if (array[0] == null) {
-                } else {
+                if (array[0] !== null) {
                     while (i < data.length) {
                         b.prepend('' + array[i]);
-                        if ((i == data.length - 1 ) && (data.length < 10)) {
-                        } else if ((i == data.length - 1 ) && (data.length = 10)) {
+                        if ((i === data.length - 1 ) && (data.length < 10)) {
+                        } else if ((i === data.length - 1 ) && (data.length === 10)) {
                             b.prepend('' + load_more_comments);
                         }
                         i++;
@@ -150,10 +149,10 @@ $(document).ready(function () {
             type: 'POST',
             contentType: false,
             processData: false,
-            success: function() {
+            success: function () {
                 $("#" + comment_id).remove();
                 comments_from -= 1;
-                var temp = parseInt($("#" + id).find(".comments-number").text());
+                var temp = parseInt($("#" + id).find(".comments-number").text(), 10);
                 $("#" + id).find(".comments-number").text(temp - 1);
             }
         })
@@ -172,12 +171,12 @@ $(document).ready(function () {
             type: 'POST',
             contentType: false,
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 b.append(data);
                 document.getElementById('form-' + id).reset();
                 $(this).prop("disabled", true);
                 comments_from += 1;
-                var temp = parseInt($("#" + id).find(".comments-number").text());
+                var temp = parseInt($("#" + id).find(".comments-number").text(), 10);
                 $("#" + id).find(".comments-number").text(temp + 1);
             }
         })
@@ -185,7 +184,7 @@ $(document).ready(function () {
     $(document.body).on("keyup", ".comment-text", function () {
         var id = $(this).closest(".post").attr("id");
         var a = $("#" + id).find(".create-comment-button");
-        if($(this).val().length == 0) {
+        if ($(this).val().length === 0) {
             a.prop("disabled", true);
         } else {
             a.prop("disabled", false);
@@ -203,15 +202,14 @@ $(document).ready(function () {
             type: 'GET',
             contentType: false,
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 var i = 0;
                 var array = data;
-                if (array[0] == null) {
-                } else {
+                if (array[0] !== null) {
                     while (i < data.length) {
                         b.prepend('' + array[i]);
-                        if ((i == data.length - 1 ) && (data.length < 10)) {
-                        } else if ((i == data.length - 1 ) && (data.length = 10)) {
+                        if ((i === data.length - 1 ) && (data.length < 10)) {
+                        } else if ((i === data.length - 1 ) && (data.length === 10)) {
                             b.prepend('' + load_more_comments);
                         }
                         i++;
@@ -233,7 +231,7 @@ $(document).ready(function () {
             type: 'GET',
             contentType: false,
             processData: false,
-            success: function() {
+            success: function () {
                 b.hide();
                 c.removeClass("hidden");
                 c.show();
@@ -255,7 +253,7 @@ $(document).ready(function () {
             type: 'GET',
             contentType: false,
             processData: false,
-            success: function() {
+            success: function () {
                 var a = $("#" + id).find(".like-button-div");
                 a.find(".unlike-button").hide();
                 a.find(".unlike-button").removeClass("hidden");

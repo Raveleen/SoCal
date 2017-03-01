@@ -8,6 +8,13 @@ $(document).on('change', ':file', function() {
     input.trigger('fileselect', [numFiles, label]);
 });
 $(document).ready(function () {
+    function inputLog(input, log) {
+        if (input.length) {
+            input.val(log);
+        } else {
+            if (log) alert(log);
+        }
+    }
     $("#upload").prop("disabled", true);
     document.getElementById("info").defaultValue = $("#usinfo").text();
     var input_a = 1;
@@ -24,30 +31,30 @@ $(document).ready(function () {
             $("#alert-login-is-not-valid").removeClass("hidden");
             $("#alert-login-is-not-a-word").removeClass("hidden");
             $("#alert-login-is-valid").removeClass("hidden");
-            if (data == "1") {
+            if (data === "1") {
                 input_a = 0;
                 $("#update").prop("disabled", true);
                 $("#alert-login-too-short").show();
             }
-            if (data == "2") {
+            if (data === "2") {
                 input_a = 1;
                 if ((input_a + input_b + input_c) == 3) {
                     $("#update").prop("disabled", false);
                 }
             }
-            if (data == "3") {
+            if (data === "3") {
                 input_a = 0;
                 $("#update").prop("disabled", true);
                 $("#alert-login-is-not-valid").show();
             }
-            if (data == "4") {
+            if (data === "4") {
                 input_a = 0;
                 $("#update").prop("disabled", true);
                 $("#alert-login-is-not-a-word").show();
             }
-            if (data == "5") {
+            if (data === "5") {
                 input_a = 1;
-                if ((input_a + input_b + input_c) == 3) {
+                if ((input_a + input_b + input_c) === 3) {
                     $("#update").prop("disabled", false);
                 }
             }
@@ -89,19 +96,10 @@ $(document).ready(function () {
             log = numFiles > 1 ? numFiles + ' files selected' : label;
 
         if (numFiles == 0) {
-            if (input.length) {
-                input.val(log);
-            } else {
-                if (log) alert(log);
-            }
+            inputLog(input, log);
             $("#upload").prop("disabled", true);
         } else {
-            if (input.length) {
-                input.val(log);
-            } else {
-                if (log) alert(log);
-            }
-
+            inputLog(input, log);
             $("#upload").prop("disabled", false);
         }
 
