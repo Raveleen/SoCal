@@ -18,9 +18,26 @@ $(document).ready(function () {
         $(elementID).show();
     }
 
-    function hideAndRemoveHidden(elementID) {
-        $(elementID).hide();
-        $(elementID).removeClass("hidden");
+    function hideAndRemoveHidden(elementsIDs) {
+        for (var i = 0; i < elementsIDs.length; i++) {
+            $(elementsIDs[i]).hide();
+            $(elementsIDs[i]).removeClass("hidden");
+        }
+    }
+
+    function passwordConfirmation() {
+        var alerts = ["#alert-password-too-short", "#alert-password-not-confirmed"]
+        hideAndRemoveHidden(alerts);
+        if ($("#password-input").val().length < 6) {
+            input_d = 0;
+            signUpDisableToTrueAndShowElement(alerts[0]);
+        } else if ($("#password-input").val() != $("#password-confirm-input").val()) {
+            input_d = 0;
+            signUpDisableToTrueAndShowElement(alerts[1]);
+        } else {
+            input_d = 1;
+            signUpDisableToFalse();
+        }
     }
 
     $("#sign-up").prop("disabled", true);
@@ -40,10 +57,8 @@ $(document).ready(function () {
     });
     $("#login-input").keyup(function () {
         $.get("login/validation?login=" + $("#login-input").val(), function (data) {
-            hideAndRemoveHidden("#alert-login-too-short");
-            hideAndRemoveHidden("#alert-login-is-not-valid");
-            hideAndRemoveHidden("#alert-login-is-not-a-word");
-            hideAndRemoveHidden("#alert-login-is-valid");
+            var alerts = ["#alert-login-too-short", "#alert-login-is-not-valid", "#alert-login-is-not-a-word", "#alert-login-is-valid"];
+            hideAndRemoveHidden(alerts);
             if (data == "1") {
                 input_a = 0;
                 signUpDisableToTrueAndShowElement("#alert-login-too-short");
@@ -63,7 +78,7 @@ $(document).ready(function () {
         })
     });
     $("#email-input").keyup(function () {
-        hideAndRemoveHidden("#alert-email-too-short");
+        hideAndRemoveHidden(["#alert-email-too-short"]);
         if ($("#email-input").val().length < 5) {
             input_b = 0;
             signUpDisableToTrueAndShowElement("#alert-email-too-short");
@@ -73,7 +88,7 @@ $(document).ready(function () {
         }
     });
     $("#phone-input").keyup(function () {
-        hideAndRemoveHidden("#alert-phone-too-short");
+        hideAndRemoveHidden(["#alert-phone-too-short"]);
         if ($("#phone-input").val().length < 8) {
             input_c = 0;
             signUpDisableToTrueAndShowElement("#alert-phone-too-short");
@@ -83,31 +98,9 @@ $(document).ready(function () {
         }
     });
     $("#password-input").keyup(function () {
-        hideAndRemoveHidden("#alert-password-too-short");
-        hideAndRemoveHidden("#alert-password-not-confirmed");
-        if ($("#password-input").val().length < 6) {
-            input_d = 0;
-            signUpDisableToTrueAndShowElement("#alert-password-too-short");
-        } else if ($("#password-input").val() != $("#password-confirm-input").val()) {
-            input_d = 0;
-            signUpDisableToTrueAndShowElement("#alert-password-not-confirmed");
-        } else {
-            input_d = 1;
-            signUpDisableToFalse();
-        }
+        passwordConfirmation();
     });
     $("#password-confirm-input").keyup(function () {
-        hideAndRemoveHidden("#alert-password-too-short");
-        hideAndRemoveHidden("#alert-password-not-confirmed");
-        if ($("#password-input").val().length < 6) {
-            input_d = 0;
-            signUpDisableToTrueAndShowElement("#alert-password-too-short");
-        } else if ($("#password-input").val() != $("#password-confirm-input").val()) {
-            input_d = 0;
-            signUpDisableToTrueAndShowElement("#alert-password-not-confirmed");
-        } else {
-            input_d = 1;
-            signUpDisableToFalse();
-        }
+        passwordConfirmation();
     });
 });
