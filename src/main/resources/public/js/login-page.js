@@ -6,6 +6,13 @@ $(document).ready(function () {
     var input_b = 0;
     var input_c = 0;
     var input_d = 0;
+
+    function signUpDisableToFalse() {
+        if ((input_a + input_b + input_c + input_d) == 4) {
+            $("#sign-up").prop("disabled", false);
+        }
+    }
+
     $("#sign-up").prop("disabled", true);
     $("#link-to-login").click(function () {
         $("#register-form").hide();
@@ -48,9 +55,7 @@ $(document).ready(function () {
             }
             if (data == "4") {
                 input_a = 1;
-                if ((input_a + input_b + input_c + input_d) == 4) {
-                    $("#sign-up").prop("disabled", false);
-                }
+                signUpDisableToFalse();
             }
         })
     });
@@ -63,9 +68,7 @@ $(document).ready(function () {
             $("#alert-email-too-short").show();
         } else {
             input_b = 1;
-            if ((input_a + input_b + input_c + input_d) == 4) {
-                $("#sign-up").prop("disabled", false);
-            }
+            signUpDisableToFalse();
         }
     });
     $("#phone-input").keyup(function () {
@@ -77,9 +80,7 @@ $(document).ready(function () {
             $("#alert-phone-too-short").show();
         } else {
             input_c = 1;
-            if ((input_a + input_b + input_c + input_d) == "4") {
-                $("#sign-up").prop("disabled", false);
-            }
+            signUpDisableToFalse();
         }
     });
     $("#password-input").keyup(function () {
@@ -97,9 +98,7 @@ $(document).ready(function () {
             $("#alert-password-not-confirmed").show();
         } else {
             input_d = 1;
-            if ((input_a + input_b + input_c + input_d) == "4") {
-                $("#sign-up").prop("disabled", false);
-            }
+            signUpDisableToFalse();
         }
     });
     $("#password-confirm-input").keyup(function () {
@@ -117,9 +116,7 @@ $(document).ready(function () {
             $("#alert-password-not-confirmed").show();
         } else {
             input_d = 1;
-            if ((input_a + input_b + input_c + input_d) == "4") {
-                $("#sign-up").prop("disabled", false);
-            }
+            signUpDisableToFalse();
         }
     });
 });
