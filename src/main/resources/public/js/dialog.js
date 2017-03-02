@@ -12,12 +12,12 @@ $(document).ready(function () {
     $.get("/messages/" + dialog_id + "/0", function (data) {
         var i = 0;
         var array = data;
-        if (array[0] == null) {
+        if (array[0] === null) {
         } else {
             while (i < data.length) {
                 $("#dialog-container").prepend('' + array[i]);
                 i++;
-                if ((i == data.length) && (data.length == 10)) {
+                if ((i === data.length) && (data.length === 10)) {
                     $("#dialog-container").prepend('' + load_more_messages);
                 }
             }
@@ -34,12 +34,12 @@ $(document).ready(function () {
             success: function (data) {
                 var i = 0;
                 var array = data;
-                if (array[0] == null) {
+                if (array[0] === null) {
                 } else {
                     while (i < data.length) {
                         $("#dialog-container").prepend('' + array[i]);
-                        if ((i == data.length - 1 ) && (data.length < 10)) {
-                        } else if ((i == data.length - 1 ) && (data.length = 10)) {
+                        if ((i === data.length - 1 ) && (data.length < 10)) {
+                        } else if ((i === data.length - 1 ) && (data.length === 10)) {
                             $("#dialog-container").prepend('' + load_more_messages);
                         }
                         i++;
@@ -82,7 +82,7 @@ $(document).ready(function () {
         });
     }
     $("#mesage-text").keyup(function () {
-        if($("#mesage-text").val().length == 0) {
+        if($("#mesage-text").val().length === 0) {
             $("#create-message-button").prop("disabled", true);
         } else {
             $("#create-message-button").prop("disabled", false);

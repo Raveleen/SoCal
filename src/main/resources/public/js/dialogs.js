@@ -9,7 +9,7 @@ $(document).ready(function () {
     $.get("/dialogs/0", function (data) {
         var i = 0;
         var array = data;
-        if (array[0] == null) {
+        if (array[0] === null) {
             $("#dialogs-container").append('' + special_alert_1);
         } else {
             while (i < data.length) {
@@ -25,12 +25,12 @@ $(document).ready(function () {
             $.get("/dialogs/" + from, function (data) {
                 var i = 0;
                 var array = data;
-                if (array[0] == null) {
+                if (array[0] === null) {
                     flag = false;
                 } else {
                     while (i < data.length) {
                         $("#dialogs-container").append('' + array[i]);
-                        if ((i == data.length - 1 ) && (data.length < 10)) {
+                        if ((i === data.length - 1 ) && (data.length < 10)) {
                             from = 0;
                             flag = false;
                         }

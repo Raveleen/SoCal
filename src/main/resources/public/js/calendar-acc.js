@@ -17,8 +17,8 @@ $(document).ready(function () {
     $.get("/get-following-posts/" + user_id + "/0", function (data) {
         var i = 0;
         var array = data;
-        if (array[0] == null) {
-            if (document.getElementById("#special-alert") != null) {
+        if (array[0] === null) {
+            if (document.getElementById("#special-alert") !== null) {
                 $("#special-alert").remove();
                 $("#posts-container").append('' + special_alert_no_posts);
             } else {
@@ -27,7 +27,7 @@ $(document).ready(function () {
         } else {
             while (i < data.length) {
                 $("#posts-container").append('' + array[i]);
-                if ((i == data.length - 1 ) && (data.length < 10)) {
+                if ((i === data.length - 1 ) && (data.length < 10)) {
                     if (document.getElementById("#special-alert") != null) {
                         $("#special-alert").remove();
                         $("#posts-container").append('' + special_alert_no_more_posts);
