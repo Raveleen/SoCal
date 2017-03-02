@@ -24,12 +24,6 @@ $(document).ready(function () {
             $("#update").prop("disabled", false);
         }
     }
-    function hideAndRemoveHidden(elementsIDs) {
-        for (var i = 0; i < elementsIDs.length; i++) {
-            $(elementsIDs[i]).hide();
-            $(elementsIDs[i]).removeClass("hidden");
-        }
-    }
     function inputCheck(inputId, size, alert, varName) {
         hideAndRemoveHidden([alert]);
         if ($(inputId).val().length < size) {
@@ -39,7 +33,7 @@ $(document).ready(function () {
             if (varName === "b") {
                 input_b = 0;
             }
-            signUpDisableToTrueAndShowElement(alert);
+            disableUpdate(alert);
         } else {
             if (varName === "c") {
                 input_c = 1;
@@ -47,7 +41,7 @@ $(document).ready(function () {
             if (varName === "b") {
                 input_b = 1;
             }
-            signUpDisableToFalse();
+            enableUpdate();
         }
     }
     $("#upload").prop("disabled", true);

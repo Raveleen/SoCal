@@ -12,19 +12,10 @@ $(document).ready(function () {
             $("#sign-up").prop("disabled", false);
         }
     }
-
     function signUpDisableToTrueAndShowElement(elementID) {
         $("#sign-up").prop("disabled", true);
         $(elementID).show();
     }
-
-    function hideAndRemoveHidden(elementsIDs) {
-        for (var i = 0; i < elementsIDs.length; i++) {
-            $(elementsIDs[i]).hide();
-            $(elementsIDs[i]).removeClass("hidden");
-        }
-    }
-
     function passwordConfirmation() {
         var alerts = ["#alert-password-too-short", "#alert-password-not-confirmed"]
         hideAndRemoveHidden(alerts);
@@ -39,7 +30,6 @@ $(document).ready(function () {
             signUpDisableToFalse();
         }
     }
-
     function inputCheck(inputId, size, alert, varName) {
         hideAndRemoveHidden([alert]);
         if ($(inputId).val().length < size) {
@@ -60,7 +50,6 @@ $(document).ready(function () {
             signUpDisableToFalse();
         }
     }
-
     $("#sign-up").prop("disabled", true);
     $("#link-to-login").click(function () {
         $("#register-form").hide();
