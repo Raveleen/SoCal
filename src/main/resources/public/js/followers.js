@@ -10,26 +10,10 @@ $(document).ready(function () {
         followStartingManipulation(data);
     });
     $("#button-follow").click(function () {
-        $.get("/follow/" + $("#ids").text(), function (data) {
-            if (data == "followed") {
-                $.get("/user/followers-number/" + $("#ids").text(), function (data) {
-                    $("#followers").text(data);
-                });
-                $("#follow").hide();
-                $("#unfollow").show();
-            }
-        });
+        buttonFollowClicked();
     });
     $("#button-unfollow").click(function () {
-        $.get("/unfollow/" + $("#ids").text(), function (data) {
-            if (data == "unfollowed") {
-                $.get("/user/followers-number/" + $("#ids").text(), function (data) {
-                    $("#followers").text(data);
-                });
-                $("#unfollow").hide();
-                $("#follow").show();
-            }
-        });
+        buttonUnfollowClicked();
     });
     $.get("/user-list/followers/" + user_id + "/0", function (data) {
         var i = 0;

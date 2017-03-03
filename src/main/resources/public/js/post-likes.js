@@ -6,6 +6,15 @@ $(document).ready(function () {
     var from = 0;
     var post_id = $("#post-id").text();
     var flag = true;
+    $.get("/is-following/" + $("#ids").text(), function (data) {
+        followStartingManipulation(data);
+    });
+    $("#button-follow").click(function () {
+        buttonFollowClicked();
+    });
+    $("#button-unfollow").click(function () {
+        buttonUnfollowClicked();
+    });
     $.get("/user-list/likes/" + post_id + "/0", function (data) {
         var i = 0;
         var array = data;

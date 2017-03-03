@@ -1,16 +1,38 @@
 /**
  * Created by Святослав on 03.03.2017.
  */
+function removeHiddenAndHide(elementOneID, elementTwoID) {
+    $(elementOneID).removeClass("hidden");
+    $(elementTwoID).hide();
+    $(elementTwoID).removeClass("hidden");
+}
+function updateFollowSection(hideID, showID) {
+    $.get("/user/followers-number/" + $("#ids").text(), function (data) {
+        $("#followers").text(data);
+    });
+    $(hideID).hide();
+    $(showID).show();
+}
 function followStartingManipulation(data) {
     if (data === true) {
-        $("#unfollow").removeClass("hidden");
-        $("#follow").hide();
-        $("#follow").removeClass("hidden");
+        removeHiddenAndHide("#unfollow", "#follow");
     }
     if (data === false) {
-        $("#follow").removeClass("hidden");
-        $("#unfollow").hide();
-        $("#unfollow").removeClass("hidden");
+        removeHiddenAndHide("#follow", "#unfollow");
     }
+}
+function buttonFollowClicked() {
+    $.get("/follow/" + $("#ids").text(), function (data) {
+        if (data === "followed") {
+            updateFollowSection("#follow", "#unfollow");
+        }
+    });
+}
+function buttonUnfollowClicked() {
+    $.get("/unfollow/" + $("#ids").text(), function (data) {
+        if (data === "unfollowed") {
+            updateFollowSection("#unfollow", "#follow");
+        }
+    });
 }
 
