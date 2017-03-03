@@ -10,15 +10,6 @@ $(document).ready(function () {
     var comments_from = 0;
     var comments_flag = true;
     var flag = true;
-    $.get("/is-following/" + $("#ids").text(), function (data) {
-        followStartingManipulation(data);
-    });
-    $("#button-follow").click(function () {
-        buttonFollowClicked();
-    });
-    $("#button-unfollow").click(function () {
-        buttonUnfollowClicked();
-    });
     var user_id = $("#ids").text();
     //GETTING POSTS.
     //_Getting first posts on load.

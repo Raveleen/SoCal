@@ -35,4 +35,14 @@ function buttonUnfollowClicked() {
         }
     });
 }
-
+$(document).ready(function () {
+    $.get("/is-following/" + $("#ids").text(), function (data) {
+        followStartingManipulation(data);
+    });
+    $("#button-follow").click(function () {
+        buttonFollowClicked();
+    });
+    $("#button-unfollow").click(function () {
+        buttonUnfollowClicked();
+    });
+});
