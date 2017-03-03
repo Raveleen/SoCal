@@ -11,16 +11,7 @@ $(document).ready(function () {
     var comments_flag = true;
     var flag = true;
     $.get("/is-following/" + $("#ids").text(), function (data) {
-        if (data == true) {
-            $("#unfollow").removeClass("hidden");
-            $("#follow").hide();
-            $("#follow").removeClass("hidden");
-        }
-        if (data == false) {
-            $("#follow").removeClass("hidden");
-            $("#unfollow").hide();
-            $("#unfollow").removeClass("hidden");
-        }
+        followStartingManipulation(data);
     });
     $("#button-follow").click(function () {
         $.get("/follow/" + $("#ids").text(), function (data) {
