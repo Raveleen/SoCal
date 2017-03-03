@@ -29,7 +29,7 @@ $(document).ready(function () {
         }
     }
 
-    function stringsConcat(user_id, photo_id) {
+    function stringsConcat(user_id, photo_id, login) {
         temp = temp + user_id + temp_1;
         if (photo_id == "-1") {
             temp = temp + temp_2;
@@ -66,7 +66,7 @@ $(document).ready(function () {
                         var user_id = array[i][1];
                         var photo_id = array[i][2];
                         if ((login != null) && (user_id != null) && (photo_id != null)) {
-                            stringsConcat(user_id, photo_id);
+                            stringsConcat(user_id, photo_id, login);
                         } else {
                             local_flag = false;
                             specialAlertRemove(i);
