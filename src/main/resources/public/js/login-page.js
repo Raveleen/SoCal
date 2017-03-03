@@ -17,7 +17,7 @@ $(document).ready(function () {
         $(elementID).show();
     }
     function passwordConfirmation() {
-        var alerts = ["#alert-password-too-short", "#alert-password-not-confirmed"]
+        var alerts = ["#alert-password-too-short", "#alert-password-not-confirmed"];
         hideAndRemoveHidden(alerts);
         if ($("#password-input").val().length < 6) {
             input_d = 0;
