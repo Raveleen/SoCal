@@ -186,23 +186,26 @@ public class CalendarController {
                 .append(postService.getNumberOfComments(temp.getId()))
                 .append("</span> comments.<p></a></div></div>");
         sb.append("<div class=\"post-comments row hidden\">")
-                .append("<div class=\"comment-container\">").append("</div>")
+                .append("<div class=\"comment-container\">")
+                .append("</div>")
                 .append("<form id=\"form-")
                 .append(temp.getId())
-                .append("\" enctype=\"multipart/form-data\" class=\"create-comment-form\"")
-                .append("method=\"POST\">")
+                .append("\" enctype=\"multipart/form-data\"")
+                .append("class=\"create-comment-form\" method=\"POST\">")
                 .append("<div class=\"form-group\">")
                 .append("<div class=\"col-sm-12\">")
-                .append("<textarea class=\"form-control comment-text\" minlength=\"20\"")
-                .append("maxlength=\"500\" rows=\"2\" name=\"comment-text\">")
+                .append("<textarea class=\"form-control comment-text\"")
+                .append("minlength=\"20\" maxlength=\"500\" rows=\"2\" name=\"comment-text\">")
                 .append("</textarea></div></div>")
                 .append("<div class=\"form-group\">")
                 .append("<div class=\"col-sm-12\">")
-                .append("<button type=\"button\" \"")
+                .append("<button disabled type=\"button\" ")
                 .append("class=\"create-comment-button btn btn-primary btn-md btn-block\">")
                 .append("Comment it")
-                .append("</button>")
-                .append("</div></div></form></div></div></div>");
+                .append("</button></div></div></form>");
+        sb.append("</div>");
+        sb.append("</div>");
+        sb.append("</div>");
         return sb.toString();
     }
 }
