@@ -5,6 +5,19 @@ $(document).ready(function () {
     var load_more_comments = "<div id=\"load-more-comments\" class=\"appended-result\"><div class=\"row search-result\"><div class=\"col-sm-12\"><hr class=\"middle\"></div><div class=\"col-sm-12 load-more\"><a id=\"load-comments-href\"><span id=\"plus\" class=\"glyphicon glyphicon-plus\"></span><span class=\"glyphicon glyphicon-menu-up hidden\"></span></a></div><div class=\"col-sm-12\"><hr class=\"middle\"></div></div></div>";
     var comments_from = 0;
     var comments_flag = true;
+    function appender(data) {
+        var i = 0;
+        if (data[0] !== null) {
+            while (i < data.length) {
+                b.prepend('' + data[i]);
+                if ((i === data.length - 1 ) && (data.length < 10)) {
+                } else if ((i === data.length - 1 ) && (data.length === 10)) {
+                    b.prepend('' + load_more_comments);
+                }
+                i++;
+            }
+        }
+    }
     $(".create-comment-button").prop("disabled", true);
     $(document.body).on("click", ".comment-button", function () {
         if($(this).closest(".post").find(".comment-text").val().length === 0) {
@@ -27,19 +40,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function(data) {
-                var i = 0;
-                var array = data;
-                if (array[0] === null) {
-                } else {
-                    while (i < data.length) {
-                        b.prepend('' + array[i]);
-                        if ((i === data.length - 1 ) && (data.length < 10)) {
-                        } else if ((i === data.length - 1 ) && (data.length === 10)) {
-                            b.prepend('' + load_more_comments);
-                        }
-                        i++;
-                    }
-                }
+                appender(data);
             }
         })
     });
@@ -94,18 +95,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function(data) {
-                var i = 0;
-                var array = data;
-                if (array[0] !== null) {
-                    while (i < data.length) {
-                        b.prepend('' + array[i]);
-                        if ((i === data.length - 1 ) && (data.length < 10)) {
-                        } else if ((i === data.length - 1 ) && (data.length === 10)) {
-                            b.prepend('' + load_more_comments);
-                        }
-                        i++;
-                    }
-                }
+                appender(data);
             }
         })
     });
