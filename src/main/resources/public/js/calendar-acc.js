@@ -3,7 +3,6 @@
  */
 $(document).ready(function () {
     var special_alert_1 = "<div id=\"special-alert\" class=\"appended-result\"><div class=\"row search-result\"><div class=\"col-sm-12\"><div id=\"no-more-users\"><h5>NO USERS TO SHOW.</h5></div></div></div><hr class=\"middle\"></div>";
-    var recs_from = 0;
     var special_alert_no_more_posts = "<div id=\"special-alert\" class=\"appended-result\"><div class=\"row search-result\"><div class=\"col-sm-12\"><div id=\"no-more-posts\"><h5>THERE IS NO MORE POSTS.</h5></div></div></div><hr class=\"middle\"></div>";
     var special_alert_no_posts = "<div id=\"special-alert\" class=\"appended-result\"><div class=\"row search-result\"><div class=\"col-sm-12\"><div id=\"no-more-posts\"><h5>THERE IS NO POSTS.</h5></div></div></div><hr class=\"middle\"></div>";
     var load_more_comments = "<div id=\"load-more-comments\" class=\"appended-result\"><div class=\"row search-result\"><div class=\"col-sm-12\"><hr class=\"middle\"></div><div class=\"col-sm-12 load-more\"><a id=\"load-comments-href\"><span id=\"plus\" class=\"glyphicon glyphicon-plus\"></span><span class=\"glyphicon glyphicon-menu-up hidden\"></span></a></div><div class=\"col-sm-12\"><hr class=\"middle\"></div></div></div>";
@@ -185,56 +184,6 @@ $(document).ready(function () {
                         i++;
                     }
                 }
-            }
-        })
-    });
-    //POST CONTROL.
-    //_Like post.
-    $(document.body).on("click", ".like-button", function () {
-        var id = $(this).closest(".post").attr("id");
-        var a = $("#" + id).find(".like-button-div");
-        var b = a.find(".like-button");
-        var c = a.find(".unlike-button");
-        var d = a.find(".likes-number");
-        $.ajax({
-            url: '/like/' + id,
-            type: 'GET',
-            contentType: false,
-            processData: false,
-            success: function() {
-                b.hide();
-                c.removeClass("hidden");
-                c.show();
-                $.ajax({
-                    url: '/number-of-likes/' + id,
-                    type: 'GET',
-                    success: function (data) {
-                        d.text(data);
-                    }
-                })
-            }
-        })
-    });
-    //_Unlike post.
-    $(document.body).on("click", ".unlike-button", function () {
-        var id = $(this).closest(".post").attr("id");
-        $.ajax({
-            url: '/unlike/' + id,
-            type: 'GET',
-            contentType: false,
-            processData: false,
-            success: function() {
-                var a = $("#" + id).find(".like-button-div");
-                a.find(".unlike-button").hide();
-                a.find(".unlike-button").removeClass("hidden");
-                a.find(".like-button").show();
-                $.ajax({
-                    url: '/number-of-likes/' + id,
-                    type: 'GET',
-                    success: function (data) {
-                        a.find(".likes-number").text(data);
-                    }
-                })
             }
         })
     });
