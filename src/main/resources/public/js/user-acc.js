@@ -10,103 +10,16 @@ $(document).on('change', ':file', function () {
 $(document).ready(function () {
     $("#create-post-button").prop("disabled", true);
     $(".create-comment-button").prop("disabled", true);
-    //VARIABLES.
     var flag_file = 0;
     var flag_text = 0;
-    var user_id = $("#ids").text();
-    var special_alert_no_more_posts = "<div id=\"special-alert\" class=\"appended-result\"><div class=\"row search-result\"><div class=\"col-sm-12\"><div id=\"no-more-posts\"><h5>THERE IS NO MORE POSTS.</h5></div></div></div><hr class=\"middle\"></div>";
-    var special_alert_no_posts = "<div id=\"special-alert\" class=\"appended-result\"><div class=\"row search-result\"><div class=\"col-sm-12\"><div id=\"no-more-posts\"><h5>THERE IS NO POSTS.</h5></div></div></div><hr class=\"middle\"></div>";
     var load_more_comments = "<div id=\"load-more-comments\" class=\"appended-result\"><div class=\"row search-result\"><div class=\"col-sm-12\"><hr class=\"middle\"></div><div class=\"col-sm-12 load-more\"><a id=\"load-comments-href\"><span id=\"plus\" class=\"glyphicon glyphicon-plus\"></span><span class=\"glyphicon glyphicon-menu-up hidden\"></span></a></div><div class=\"col-sm-12\"><hr class=\"middle\"></div></div></div>";
-    var from = 0;
     var comments_from = 0;
     var comments_flag = true;
-    var flag = true;
     //FIRST ACTIONS ON LOAD.
     $("#arrow-up").hide();
     $("#arrow-up").removeClass("hidden");
     $("#create-post-form-div").hide();
     $("#create-post-form-div").removeClass("hidden");
-    //GETTING POSTS.
-    //_Getting first posts on load.
-    $.get("/get-posts/" + user_id + "/0", function (data) {
-        var i = 0;
-        var array = data;
-        if (array[0] == null) {
-            if (document.getElementById("#special-alert") != null) {
-                $("#special-alert").remove();
-                $("#posts-container").append('' + special_alert_no_posts);
-            } else {
-                $("#posts-container").append('' + special_alert_no_posts);
-            }
-        } else {
-            while (i < data.length) {
-                $("#posts-container").append('' + array[i]);
-                if ((i == data.length - 1 ) && (data.length < 10)) {
-                    if (document.getElementById("#special-alert") != null) {
-                        $("#special-alert").remove();
-                        $("#posts-container").append('' + special_alert_no_more_posts);
-                    } else {
-                        $("#posts-container").append('' + special_alert_no_more_posts);
-                    }
-                }
-                i++;
-            }
-        }
-    });
-    //_Getting posts dynamically on scrolling.
-    $(window).scroll(function () {
-        if (($(window).scrollTop() + $(window).height() > $(document).height() - 50) && (flag == true)) {
-            from += 10;
-            $.get("/get-posts/" + user_id + "/" + from, function (data) {
-                var i = 0;
-                var array = data;
-                if (array[0] == null) {
-                    flag = false;
-                    $("#special-alert").remove();
-                    $("#posts-container").append('' + special_alert_no_more_posts);
-                } else {
-                    while (i < data.length) {
-                        $("#posts-container").append('' + array[i]);
-                        if ((i == data.length - 1 ) && (data.length < 10)) {
-                            if (document.getElementById("#special-alert") != null) {
-                                $("#special-alert").remove();
-                                $("#posts-container").append('' + special_alert_no_more_posts);
-                            } else {
-                                $("#posts-container").append('' + special_alert_no_more_posts);
-                            }
-                            from = 0;
-                            flag = false;
-                        }
-                        i++;
-                    }
-                }
-            });
-        }
-    });
-    //_Sending new post after click on "Post it". Getting post "on success" after posting.
-    $("#create-post-button").click(function () {
-        var form = $('form')[0];
-        var formData = new FormData(form);
-        $.ajax({
-            url: '/post-create',
-            data: formData,
-            type: 'POST',
-            contentType: false,
-            processData: false,
-            success: function(data) {
-                $("#posts-container").prepend(data);
-                $("#special-alert").remove();
-                $("#posts-container").append('' + special_alert_no_more_posts);
-                document.getElementById('create-post-form').reset();
-                $("#characters-number").text(5000);
-                from += 1;
-                flag_file = 0;
-                flag_text = 0;
-                $("#create-post-button").prop("disabled", true);
-            }
-        })
-    });
-    //"POST IT" FORM.
     //_Counter of symbols
     $("#post-text").keyup(function () {
         if ($("#post-text").val().length == 0) {
@@ -282,70 +195,6 @@ $(document).ready(function () {
                         i++;
                     }
                 }
-            }
-        })
-    });
-    //POST CONTROL.
-    //_Delete post.
-    $(document.body).on("click", ".delete-button", function () {
-        var id = $(this).closest(".post").attr("id");
-        $.ajax({
-            url: '/post-delete/' + id,
-            type: 'POST',
-            contentType: false,
-            processData: false,
-            success: function() {
-                $("#" + id).remove();
-                from -= 1;
-            }
-        })
-    });
-    //_Like post.
-    $(document.body).on("click", ".like-button", function () {
-        var id = $(this).closest(".post").attr("id");
-        var a = $("#" + id).find(".like-button-div");
-        var b = a.find(".like-button");
-        var c = a.find(".unlike-button");
-        var d = a.find(".likes-number");
-        $.ajax({
-            url: '/like/' + id,
-            type: 'GET',
-            contentType: false,
-            processData: false,
-            success: function() {
-                b.hide();
-                c.removeClass("hidden");
-                c.show();
-                $.ajax({
-                    url: '/number-of-likes/' + id,
-                    type: 'GET',
-                    success: function (data) {
-                        d.text(data);
-                    }
-                })
-            }
-        })
-    });
-    //_Unlike post.
-    $(document.body).on("click", ".unlike-button", function () {
-        var id = $(this).closest(".post").attr("id");
-        $.ajax({
-            url: '/unlike/' + id,
-            type: 'GET',
-            contentType: false,
-            processData: false,
-            success: function() {
-                var a = $("#" + id).find(".like-button-div");
-                a.find(".unlike-button").hide();
-                a.find(".unlike-button").removeClass("hidden");
-                a.find(".like-button").show();
-                $.ajax({
-                    url: '/number-of-likes/' + id,
-                    type: 'GET',
-                    success: function (data) {
-                       a.find(".likes-number").text(data);
-                    }
-                })
             }
         })
     });
