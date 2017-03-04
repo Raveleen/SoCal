@@ -28,7 +28,7 @@ $(document).ready(function () {
             while (i < data.length) {
                 $("#posts-container").append('' + array[i]);
                 if ((i === data.length - 1 ) && (data.length < 10)) {
-                    if (document.getElementById("#special-alert") != null) {
+                    if (document.getElementById("#special-alert") !== null) {
                         $("#special-alert").remove();
                         $("#posts-container").append('' + special_alert_no_more_posts);
                     } else {
@@ -42,7 +42,7 @@ $(document).ready(function () {
     $.get("/user-list/recs/" + user_id + "/0", function (data) {
         var i = 0;
         var array = data;
-        if (array[0] == null) {
+        if (array[0] === null) {
             $("#rec1-row").append('' + special_alert_1);
         } else {
             while (i < data.length) {
@@ -53,20 +53,20 @@ $(document).ready(function () {
     });
     //_Getting posts dynamically on scrolling.
     $(window).scroll(function () {
-        if (($(window).scrollTop() + $(window).height() > $(document).height() - 50) && (flag == true)) {
+        if (($(window).scrollTop() + $(window).height() > $(document).height() - 50) && (flag === true)) {
             from += 10;
             $.get("/get-following-posts/" + user_id + "/" + from, function (data) {
                 var i = 0;
                 var array = data;
-                if (array[0] == null) {
+                if (array[0] === null) {
                     flag = false;
                     $("#special-alert").remove();
                     $("#posts-container").append('' + special_alert_no_more_posts);
                 } else {
                     while (i < data.length) {
                         $("#posts-container").append('' + array[i]);
-                        if ((i == data.length - 1 ) && (data.length < 10)) {
-                            if (document.getElementById("#special-alert") != null) {
+                        if ((i === data.length - 1 ) && (data.length < 10)) {
+                            if (document.getElementById("#special-alert") !== null) {
                                 $("#special-alert").remove();
                                 $("#posts-container").append('' + special_alert_no_more_posts);
                             } else {
@@ -84,7 +84,7 @@ $(document).ready(function () {
     //COMMENTS.
     //_Opening comments when clicking on "comments" line.
     $(document.body).on("click", ".comment-button", function () {
-        if($(this).closest(".post").find(".comment-text").val().length == 0) {
+        if($(this).closest(".post").find(".comment-text").val().length === 0) {
             $(this).closest(".post").find(".create-comment-button").prop("disabled", true);
         } else {
             $(this).closest(".post").find(".create-comment-button").prop("disabled", false);
@@ -106,12 +106,11 @@ $(document).ready(function () {
             success: function(data) {
                 var i = 0;
                 var array = data;
-                if (array[0] == null) {
+                if (array[0] === null) {
                 } else {
                     while (i < data.length) {
                         b.prepend('' + array[i]);
-                        if ((i == data.length - 1 ) && (data.length < 10)) {
-                        } else if ((i == data.length - 1 ) && (data.length = 10)) {
+                        if ((i === data.length - 1 ) && (data.length === 10)) {
                             b.prepend('' + load_more_comments);
                         }
                         i++;
@@ -132,7 +131,7 @@ $(document).ready(function () {
             success: function() {
                 $("#" + comment_id).remove();
                 comments_from -= 1;
-                var temp = parseInt($("#" + id).find(".comments-number").text());
+                var temp = parseInt($("#" + id).find(".comments-number").text(), 10);
                 $("#" + id).find(".comments-number").text(temp - 1);
             }
         })
@@ -156,7 +155,7 @@ $(document).ready(function () {
                 document.getElementById('form-' + id).reset();
                 $(this).prop("disabled", true);
                 comments_from += 1;
-                var temp = parseInt($("#" + id).find(".comments-number").text());
+                var temp = parseInt($("#" + id).find(".comments-number").text(), 10);
                 $("#" + id).find(".comments-number").text(temp + 1);
             }
         })
@@ -176,12 +175,11 @@ $(document).ready(function () {
             success: function(data) {
                 var i = 0;
                 var array = data;
-                if (array[0] == null) {
-                } else {
+                if (array[0] !== null) {
                     while (i < data.length) {
                         b.prepend('' + array[i]);
-                        if ((i == data.length - 1 ) && (data.length < 10)) {
-                        } else if ((i == data.length - 1 ) && (data.length = 10)) {
+                        if ((i === data.length - 1 ) && (data.length < 10)) {
+                        } else if ((i === data.length - 1 ) && (data.length === 10)) {
                             b.prepend('' + load_more_comments);
                         }
                         i++;
@@ -243,7 +241,7 @@ $(document).ready(function () {
     $(document.body).on("keyup", ".comment-text", function () {
         var id = $(this).closest(".post").attr("id");
         var a = $("#" + id).find(".create-comment-button");
-        if($(this).val().length == 0) {
+        if($(this).val().length === 0) {
             a.prop("disabled", true);
         } else {
             a.prop("disabled", false);
