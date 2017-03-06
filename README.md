@@ -18,4 +18,4 @@ If you want to find someone (e.g your friends, members of family) you can click 
 Write down interesting stories of your life or anything else. You can write almost everything within 5000 symbols. Comment your friends' posts, like them and have fun. Posts on pages are loaded dynamically after you scroll down the page to bottom.
 
 ## Dialogs and messages
-In order to start a dialog you need to find a user and click "Send message". If there is no dialog beeetween you and the user, it will be immediately created, and you will be redirected to the dialog. After creating the dialog you can always find it in the dialogs list, by clicking on "Messages" button in menu on the left side of page.
+In order to start a dialog you need to find a user and click "Send message". If there is no dialog between you and the user, it will be immediately created, and you will be redirected to the dialog. After creating the dialog you can always find it in the dialogs list, by clicking on "Messages" button in menu on the left side of page.
