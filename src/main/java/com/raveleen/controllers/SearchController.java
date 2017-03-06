@@ -2,6 +2,7 @@ package com.raveleen.controllers;
 
 import com.raveleen.entities.CustomUser;
 import com.raveleen.services.UserService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -10,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 /**
  * Created by Святослав on 31.12.2016.
@@ -36,7 +35,8 @@ public class SearchController {
 
     @RequestMapping("/search/{pattern}/{number}")
     @ResponseBody
-    public String[][] search(@PathVariable("pattern") String pattern, @PathVariable("number") int number) {
+    public String[][] search(@PathVariable("pattern") String pattern,
+                             @PathVariable("number") int number) {
         List<CustomUser> list = userService.findByLoginStartingWith(pattern, number);
         System.out.println(list.toString());
         String[][] storage = new String[10][3];
@@ -49,7 +49,9 @@ public class SearchController {
             } else {
                 storage[counter][2] = "" + "-1";
             }
-            System.out.println(storage[counter][0] + " " + storage[counter][1] + " " + storage[counter][2]);
+            System.out.println(storage[counter][0] + " "
+                    + storage[counter][1] + " "
+                    + storage[counter][2]);
             counter += 1;
         }
 

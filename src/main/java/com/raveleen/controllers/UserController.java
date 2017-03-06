@@ -1,20 +1,16 @@
 package com.raveleen.controllers;
 
-import com.raveleen.entities.enums.UserRole;
 import com.raveleen.entities.CustomUser;
 import com.raveleen.services.UserService;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by Святослав on 03.01.2017.
@@ -46,7 +42,8 @@ public class UserController {
 
     /**
      * USER ACCOUNT.
-     * Redirects user to him account immediately after registration/login and after click on "My page" link.
+     * Redirects user to him account immediately after registration/login and
+     * after click on "My page" link.
      */
     @RequestMapping("/")
     public String index(Model model) {

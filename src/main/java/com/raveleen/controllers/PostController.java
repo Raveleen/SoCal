@@ -6,17 +6,19 @@ import com.raveleen.entities.Post;
 import com.raveleen.services.ImageService;
 import com.raveleen.services.PostService;
 import com.raveleen.services.UserService;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -96,9 +98,11 @@ public class PostController {
                 .append("<div class=\"col-sm-2\">")
                 .append("<div>");
         if (temp.getAuthor().getProfileImage() == null) {
-            sb.append("<img class=\"profile-userpic-small centered-and-cropped\" src=\"/images/default-user-image.png\">");
+            sb.append("<img class=\"profile-userpic-small ")
+                    .append("centered-and-cropped\" src=\"/images/default-user-image.png\">");
         } else {
-            sb.append("<img class=\"profile-userpic-small centered-and-cropped\" src=\"/profile-image/")
+            sb.append("<img class=\"profile-userpic-small ")
+                    .append("centered-and-cropped\" src=\"/profile-image/")
                     .append(temp.getAuthor().getProfileImage().getId())
                     .append("\">");
         }

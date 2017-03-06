@@ -61,7 +61,8 @@ public class CommentsController {
 
     @RequestMapping(value = "/get-comments/{post-id}/{from}")
     @ResponseBody
-    public String[] getComments(@PathVariable("post-id") long postId, @PathVariable("from") int from) {
+    public String[] getComments(@PathVariable("post-id") long postId,
+                                @PathVariable("from") int from) {
         List<Comment> comments = commentService.findByPostIdOrderByCreateDate(postId, from);
         String[] response = new String[comments.size()];
 

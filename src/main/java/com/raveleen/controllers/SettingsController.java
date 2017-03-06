@@ -4,6 +4,7 @@ import com.raveleen.entities.CustomUser;
 import com.raveleen.entities.ProfileImage;
 import com.raveleen.services.ProfileImageService;
 import com.raveleen.services.UserService;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 /**
  * Created by Святослав on 17.01.2017.
@@ -62,7 +61,8 @@ public class SettingsController {
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public String uploadProfilePhoto(@RequestParam(value = "photo") MultipartFile body) throws IOException {
+    public String uploadProfilePhoto(@RequestParam(value = "photo") MultipartFile body)
+            throws IOException {
         if (body == null) {
             return "/settings";
         }

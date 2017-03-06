@@ -85,17 +85,17 @@ public class DialogsController {
         System.out.println(dialog);
         CustomUser us1 = dialog.getUser1();
         CustomUser us2 = dialog.getUser2();
-        long us1ID = us1.getId();
-        long us2ID = us2.getId();
+        long us1Id = us1.getId();
+        long us2Id = us2.getId();
 
-        if (us1ID == dbUser.getId()) {
+        if (us1Id == dbUser.getId()) {
             model.addAttribute("dialogUser", us2);
-            model.addAttribute("dialogUserFollowers", userService.getNumberOfFollowers(us2ID));
-            model.addAttribute("dialogUserFollowing", userService.getNumberOfFollowings(us2ID));
+            model.addAttribute("dialogUserFollowers", userService.getNumberOfFollowers(us2Id));
+            model.addAttribute("dialogUserFollowing", userService.getNumberOfFollowings(us2Id));
         } else {
             model.addAttribute("dialogUser", us1);
-            model.addAttribute("dialogUserFollowers", userService.getNumberOfFollowers(us1ID));
-            model.addAttribute("dialogUserFollowing", userService.getNumberOfFollowings(us1ID));
+            model.addAttribute("dialogUserFollowers", userService.getNumberOfFollowers(us1Id));
+            model.addAttribute("dialogUserFollowing", userService.getNumberOfFollowings(us1Id));
         }
         model.addAttribute("dialog", dialog);
         model.addAttribute("user", dbUser);

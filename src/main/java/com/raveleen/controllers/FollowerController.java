@@ -3,6 +3,7 @@ package com.raveleen.controllers;
 import com.raveleen.entities.CustomUser;
 import com.raveleen.services.UserService;
 import com.raveleen.services.UtilsService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -11,8 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 /**
  * Created by Святослав on 31.12.2016.
@@ -65,7 +64,8 @@ public class FollowerController {
 
     @RequestMapping(value = "/user-list/followers/{user-id}/{from}")
     @ResponseBody
-    public String[] getUsersFollowers(@PathVariable("user-id") long userId, @PathVariable("from") int from) {
+    public String[] getUsersFollowers(@PathVariable("user-id") long userId,
+                                      @PathVariable("from") int from) {
         List<CustomUser> users = userService.followersByFollowedId(userId, from);
         String[] response = new String[users.size()];
 
@@ -73,10 +73,10 @@ public class FollowerController {
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
 
-        int i = 0;
+        int counter = 0;
         for (CustomUser customUser1 : users) {
-            response[i] = utilsService.createFragmentUser(customUser1, customUser);
-            i++;
+            response[counter] = utilsService.createFragmentUser(customUser1, customUser);
+            counter++;
         }
 
         return response;
@@ -84,7 +84,8 @@ public class FollowerController {
 
     @RequestMapping(value = "/user-list/following/{user-id}/{from}")
     @ResponseBody
-    public String[] getUsersFollowing(@PathVariable("user-id") long userId, @PathVariable("from") int from) {
+    public String[] getUsersFollowing(@PathVariable("user-id") long userId,
+                                      @PathVariable("from") int from) {
         List<CustomUser> users = userService.followingByFollowedId(userId, from);
         String[] response = new String[users.size()];
 
@@ -92,10 +93,10 @@ public class FollowerController {
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
 
-        int i = 0;
+        int counter = 0;
         for (CustomUser customUser1 : users) {
-            response[i] = utilsService.createFragmentUser(customUser1, customUser);
-            i++;
+            response[counter] = utilsService.createFragmentUser(customUser1, customUser);
+            counter++;
         }
 
         return response;
