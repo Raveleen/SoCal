@@ -1,11 +1,9 @@
 package com.raveleen.repositories;
 
 import com.raveleen.entities.Comment;
-import com.raveleen.entities.Post;
+import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 /**
  * Created by Святослав on 15.01.2017.
