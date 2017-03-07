@@ -1,6 +1,9 @@
 package com.raveleen.entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * Created by Святослав on 15.01.2017.

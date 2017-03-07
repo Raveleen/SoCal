@@ -3,8 +3,19 @@ package com.raveleen.entities;
 import com.raveleen.entities.enums.UserRole;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
-
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 /**
  * Created by Святослав on 31.12.2016.
  */
