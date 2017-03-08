@@ -2,8 +2,8 @@ package com.raveleen.controllers;
 
 import com.raveleen.services.ImageService;
 import com.raveleen.services.ProfileImageService;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

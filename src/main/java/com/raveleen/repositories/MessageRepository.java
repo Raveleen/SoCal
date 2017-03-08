@@ -14,14 +14,14 @@ import org.springframework.data.repository.query.Param;
 public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findByDialogIdOrderByCreateDateDesc(long id, Pageable pageable);
 
-    @Query("SELECT COUNT(u) FROM Message u " +
-            "INNER JOIN u.from c " +
-            "INNER JOIN u.dialog b " +
-            "WHERE c.id = :user_id AND b.id = :dialog AND u.isread = 0")
+    @Query("SELECT COUNT(u) FROM Message u "
+            + "INNER JOIN u.from c "
+            + "INNER JOIN u.dialog b "
+            + "WHERE c.id = :user_id AND b.id = :dialog AND u.isread = 0")
     int numberOfUnreadMessages(@Param("dialog") long id, @Param("user_id") long userId);
 
-    @Query("SELECT u FROM Message u " +
-            "INNER JOIN u.dialog b " +
-            "WHERE b.id = :dialog AND u.createDate > :lsdate")
+    @Query("SELECT u FROM Message u "
+            + "INNER JOIN u.dialog b "
+            + "WHERE b.id = :dialog AND u.createDate > :lsdate")
     List<Message> getNewMessages(@Param("dialog") long id, @Param("lsdate") Date time);
 }
