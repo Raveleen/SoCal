@@ -1,9 +1,6 @@
 package com.raveleen.services;
 
 import com.raveleen.entities.CustomUser;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
-
 import java.util.List;
 
 /**

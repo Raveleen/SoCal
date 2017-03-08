@@ -7,5 +7,6 @@ import com.raveleen.entities.Image;
  */
 public interface ImageService {
     Image getImage(long id);
+
     Image addImage(Image image);
 }

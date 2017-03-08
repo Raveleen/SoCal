@@ -3,11 +3,12 @@ package com.raveleen.services;
 import com.raveleen.entities.CustomUser;
 import com.raveleen.entities.Dialog;
 import com.raveleen.entities.Message;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by Святослав on 11.01.2017.
@@ -15,17 +16,11 @@ import java.util.Locale;
 @Service
 public class UtilsService {
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private DialogService dialogService;
-
-    @Autowired
     private MessageService messageService;
 
-    public boolean isWord(String s) {
+    public boolean isWord(String temp) {
         boolean flag = true;
-        for (char a : s.toCharArray()) {
+        for (char a : temp.toCharArray()) {
             if (!((a >= 65 && a <= 90) || (a >= 97 && a <= 122))) {
                 flag = false;
             }
@@ -35,22 +30,66 @@ public class UtilsService {
 
     public String createFragmentUser(CustomUser customUser, CustomUser self) {
         StringBuilder sb = new StringBuilder();
-        sb.append("<div id=\"" + customUser.getId() + "\" class=\"search appended-result\"><div class=\"row search-result\"><div class=\"col-sm-2\"><div>");
+        sb.append("<div id=\"")
+                .append(customUser.getId())
+                .append("\" class=\"search appended-result\">")
+                .append("<div class=\"row search-result\">")
+                .append("<div class=\"col-sm-2\"><div>");
         if (customUser.getProfileImage() == null) {
-            sb.append("<img class=\"profile-userpic-small centered-and-cropped\" src=\"/images/default-user-image.png\">");
+            sb.append("<img class=\"profile-userpic-small centered-and-cropped\" ")
+                    .append("src=\"/images/default-user-image.png\">");
         } else {
-            sb.append("<img class=\"profile-userpic-small centered-and-cropped\" src=\"/profile-image/")
-                    .append(customUser.getProfileImage().getId()).append("\">");
+            sb.append("<img class=\"profile-userpic-small centered-and-cropped\" ")
+                    .append("src=\"/profile-image/")
+                    .append(customUser.getProfileImage().getId())
+                    .append("\">");
         }
-        sb.append("</div></div><div class=\"col-sm-6\"><div class=\"profile-usertitle-small\"><div class=\"profile-usertitle-name-small\"><p class=\"user-name\"><a class=\"user-name\" href=\"/user/");
-        sb.append(customUser.getId()).append("\">").append(customUser.getLogin());
-        sb.append("</a></p></div></div></div><div class=\"col-sm-2\"><div class=\"profile-userbuttons\"><div class=\"calendar-href\"><a href=\"/calendar/").append(customUser.getId());
+        sb.append("</div></div>")
+                .append("<div class=\"col-sm-6\">")
+                .append("<div class=\"profile-usertitle-small\">")
+                .append("<div class=\"profile-usertitle-name-small\">")
+                .append("<p class=\"user-name\">")
+                .append("<a class=\"user-name\" href=\"/user/")
+                .append(customUser.getId())
+                .append("\">")
+                .append(customUser.getLogin())
+                .append("</a></p></div></div></div>")
+                .append("<div class=\"col-sm-2\">")
+                .append("<div class=\"profile-userbuttons\">")
+                .append("<div class=\"calendar-href\">")
+                .append("<a href=\"/calendar/")
+                .append(customUser.getId());
         if (customUser.getId() == self.getId()) {
-            sb.append("\"><button type=\"submit\" class=\"btn btn-primary btn-md btn-block button-calendar\"><span class=\"glyphicon glyphicon-th-large glyphicon\"></span></button></a></div></div></div><div class=\"col-sm-2\"><div class=\"message-href\" class=\"\"><button id=\"button-message\" type=\"submit\" class=\"btn btn-primary btn-md btn-block\" disabled><span class=\"glyphicon glyphicon-remove\"></span></button></div></div></div><hr class=\"middle\"></div>");
+            sb.append("\">")
+                    .append("<button type=\"submit\" ")
+                    .append("class=\"btn btn-primary btn-md btn-block button-calendar\">")
+                    .append("<span class=\"glyphicon glyphicon-th-large glyphicon\">")
+                    .append("</span></button></a></div></div></div>")
+                    .append("<div class=\"col-sm-2\">")
+                    .append("<div class=\"message-href\" class=\"\">")
+                    .append("<button id=\"button-message\" type=\"submit\" ")
+                    .append("class=\"btn btn-primary btn-md btn-block\" disabled>")
+                    .append("<span class=\"glyphicon glyphicon-remove\">")
+                    .append("</span></button></div></div></div>")
+                    .append("<hr class=\"middle\">")
+                    .append("</div>");
         } else {
-            sb.append("\"><button type=\"submit\" class=\"btn btn-primary btn-md btn-block button-calendar\"><span class=\"glyphicon glyphicon-th-large glyphicon\"></span></button></a></div></div></div><div class=\"col-sm-2\"><div class=\"message-href\" class=\"\"><a href=\"/message-to/");
-            sb.append(customUser.getId());
-            sb.append("\"><button id=\"button-message\" type=\"submit\" class=\"btn btn-primary btn-md btn-block\"><span class=\"glyphicon glyphicon-envelope\"></span></button></a></div></div></div><hr class=\"middle\"></div>");
+            sb.append("\">")
+                    .append("<button type=\"submit\" ")
+                    .append("class=\"btn btn-primary btn-md btn-block button-calendar\">")
+                    .append("<span class=\"glyphicon glyphicon-th-large glyphicon\">")
+                    .append("</span></button></a></div></div></div>")
+                    .append("<div class=\"col-sm-2\">")
+                    .append("<div class=\"message-href\" class=\"\">")
+                    .append("<a href=\"/message-to/")
+                    .append(customUser.getId())
+                    .append("\">")
+                    .append("<button id=\"button-message\" type=\"submit\" ")
+                    .append("class=\"btn btn-primary btn-md btn-block\">")
+                    .append("<span class=\"glyphicon glyphicon-envelope\">")
+                    .append("</span></button></a></div></div></div>")
+                    .append("<hr class=\"middle\">")
+                    .append("</div>");
         }
         return sb.toString();
     }
@@ -83,31 +122,38 @@ public class UtilsService {
 
     public String createFragmentMessage(Message message, CustomUser self) {
         StringBuilder sb = new StringBuilder();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMMMM dd, yyyy HH:mm:ss", Locale.US);
         CustomUser second = message.getFrom();
 
         if ((second.getId() != self.getId()) && (!message.isread())) {
-            sb.append("<div class=\"unread-message comment appended-result row\" id=\"").append(message.getId()).append("\">");
+            sb.append("<div class=\"unread-message comment appended-result row\" id=\"")
+                    .append(message.getId())
+                    .append("\">");
             message.setIsread(true);
             message = messageService.addMessage(message);
         } else {
-            sb.append("<div id=\"").append(message.getId());
-            sb.append("\" class=\"comment appended-result row\">");
+            sb.append("<div id=\"")
+                    .append(message.getId())
+                    .append("\" class=\"comment appended-result row\">");
         }
-        sb.append("<div class=\"col-sm-3 profile-usertitle-small\"><div class=\"col-sm-12\"><div class=\"profile-usertitle-name-small\"><p class=\"user-name\"><a class=\"user-name\" href=\"/user/")
+        sb.append("<div class=\"col-sm-3 profile-usertitle-small\">")
+                .append("<div class=\"col-sm-12\">")
+                .append("<div class=\"profile-usertitle-name-small\">")
+                .append("<p class=\"user-name\">")
+                .append("<a class=\"user-name\" href=\"/user/")
                 .append(message.getFrom().getId())
                 .append("\">")
                 .append(message.getFrom().getLogin())
-                .append("</a></p></div></div><div class=\"col-sm-12\">");
-        sb.append("<p class=\"post-body-date\">");
-        sb.append(simpleDateFormat.format(message.getCreateDate()));
-        sb.append("</p>");
-        sb.append("</div></div>")
-                .append("<div class=\"col-sm-9\"><p class=\"post-comment-text\">")
+                .append("</a></p></div></div>")
+                .append("<div class=\"col-sm-12\">")
+                .append("<p class=\"post-body-date\">");
+        SimpleDateFormat simpleDateFormat =
+                new SimpleDateFormat("EEE, MMMMM dd, yyyy HH:mm:ss", Locale.US);
+        sb.append(simpleDateFormat.format(message.getCreateDate()))
+                .append("</p></div></div>")
+                .append("<div class=\"col-sm-9\">")
+                .append("<p class=\"post-comment-text\">")
                 .append(message.getText())
-                .append("</p>")
-                .append("</div>");
-        sb.append("</div>");
+                .append("</p></div></div>");
         return sb.toString();
     }
 }

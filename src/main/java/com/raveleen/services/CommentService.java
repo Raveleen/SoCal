@@ -1,7 +1,6 @@
 package com.raveleen.services;
 
 import com.raveleen.entities.Comment;
-
 import java.util.List;
 
 /**
@@ -9,7 +8,10 @@ import java.util.List;
  */
 public interface CommentService {
     Comment addComment(Comment comment);
+
     void delete(long id);
+
     Comment getById(long id);
+
     List<Comment> findByPostIdOrderByCreateDate(long id, int from);
 }

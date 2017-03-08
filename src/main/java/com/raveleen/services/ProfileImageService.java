@@ -7,5 +7,6 @@ import com.raveleen.entities.ProfileImage;
  */
 public interface ProfileImageService {
     ProfileImage getProfileImage(long id);
+
     ProfileImage addProfileImage(ProfileImage profileImage);
 }
