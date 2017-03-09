@@ -43,11 +43,11 @@ public class SearchController {
         int counter = 0;
         for (CustomUser a : list) {
             storage[counter][0] = a.getLogin();
-            storage[counter][1] = "" + a.getId();
+            storage[counter][1] = String.valueOf(a.getId());
             if (a.getProfileImage() != null) {
-                storage[counter][2] = "" + a.getProfileImage().getId();
+                storage[counter][2] = String.valueOf(a.getProfileImage().getId());
             } else {
-                storage[counter][2] = "" + "-1";
+                storage[counter][2] = "-1";
             }
             System.out.println(storage[counter][0] + " "
                     + storage[counter][1] + " "
