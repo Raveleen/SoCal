@@ -6,6 +6,7 @@ import com.raveleen.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * Created by Святослав on 05.02.2017.
  */
+@Service
 public class MessageServiceImpl implements MessageService {
     @Autowired
     private MessageRepository messageRepository;

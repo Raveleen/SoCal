@@ -39,51 +39,6 @@ import org.thymeleaf.templatemode.TemplateMode;
 @EnableWebMvc
 @ComponentScan("com.raveleen")
 public class ThymeleafConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
-    @Bean
-    public ImageService imageService() {
-        return new ImageServiceImpl();
-    }
-
-    @Bean
-    public UtilsService utilsService() {
-        return new UtilsService();
-    }
-
-    @Bean
-    public ProfileImageService profileImageService() {
-        return new ProfileImageServiceImpl();
-    }
-
-    @Bean
-    public UserService userService() {
-        return new UserServiceImpl();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceImpl();
-    }
-
-    @Bean
-    public PostService postService() {
-        return new PostServiceImpl();
-    }
-
-    @Bean
-    public CommentService commentService() {
-        return new CommentServiceImpl();
-    }
-
-    @Bean
-    public DialogService dialogService() {
-        return new DialogServiceImpl();
-    }
-
-    @Bean
-    public MessageService messageService() {
-        return new MessageServiceImpl();
-    }
-
     private ApplicationContext applicationContext;
 
     public void setApplicationContext(ApplicationContext applicationContext) {

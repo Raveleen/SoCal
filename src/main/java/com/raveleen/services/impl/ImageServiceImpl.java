@@ -4,11 +4,13 @@ import com.raveleen.entities.Image;
 import com.raveleen.repositories.ImageRepository;
 import com.raveleen.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Святослав on 23.01.2017.
  */
+@Service
 public class ImageServiceImpl implements ImageService {
     @Autowired
     private ImageRepository imageRepository;
