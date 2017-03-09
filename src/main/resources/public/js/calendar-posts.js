@@ -13,23 +13,15 @@ $(document).ready(function () {
         var i = 0;
         var array = data;
         if (array[0][0] === null) {
-            if (document.getElementById("#special-alert") !== null) {
-                $("#special-alert").remove();
-                $("#posts-container").append('' + special_alert_no_posts);
-            } else {
-                $("#posts-container").append('' + special_alert_no_posts);
-            }
+            $("#special-alert").remove();
+            $("#posts-container").append('' + special_alert_no_posts);
         } else {
             while (i < data.length) {
                 if (data[i][0] !== null) {
                     $("#posts-container").append('' + concatPost(data[i], false));
                 } else {
-                    if (document.getElementById("#special-alert") !== null) {
-                        $("#special-alert").remove();
-                        $("#posts-container").append('' + special_alert_no_more_posts);
-                    } else {
-                        $("#posts-container").append('' + special_alert_no_more_posts);
-                    }
+                    $("#special-alert").remove();
+                    $("#posts-container").append('' + special_alert_no_more_posts);
                 }
                 i++;
             }
@@ -51,13 +43,8 @@ $(document).ready(function () {
                         if (data[i][0] !== null) {
                             $("#posts-container").append('' + concatPost(data[i], false));
                         } else {
-                            if (document.getElementById("#special-alert") !== null) {
-                                $("#special-alert").remove();
-                                $("#posts-container").append('' + special_alert_no_more_posts);
-                            } else {
-                                $("#posts-container").append('' + special_alert_no_more_posts);
-                            }
-                            from = 0;
+                            $("#special-alert").remove();
+                            $("#posts-container").append('' + special_alert_no_more_posts);
                             flag = false;
                         }
                         i++;
