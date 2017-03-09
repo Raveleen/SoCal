@@ -11,22 +11,14 @@ $(document).ready(function () {
         var i = 0;
         var array = data;
         if (array[0] == null) {
-            if (document.getElementById("#special-alert") != null) {
-                $("#special-alert").remove();
-                $("#posts-container").append('' + special_alert_no_posts);
-            } else {
-                $("#posts-container").append('' + special_alert_no_posts);
-            }
+            $("#special-alert").remove();
+            $("#posts-container").append('' + special_alert_no_posts);
         } else {
             while (i < data.length) {
                 $("#posts-container").append('' + array[i]);
-                if ((i == data.length - 1 ) && (data.length < 10)) {
-                    if (document.getElementById("#special-alert") != null) {
-                        $("#special-alert").remove();
-                        $("#posts-container").append('' + special_alert_no_more_posts);
-                    } else {
-                        $("#posts-container").append('' + special_alert_no_more_posts);
-                    }
+                if ((i === data.length - 1 ) && (data.length < 10)) {
+                    $("#special-alert").remove();
+                    $("#posts-container").append('' + special_alert_no_more_posts);
                 }
                 i++;
             }
@@ -38,7 +30,7 @@ $(document).ready(function () {
             $.get("/get-posts/" + user_id + "/" + from, function (data) {
                 var i = 0;
                 var array = data;
-                if (array[0] == null) {
+                if (array[0] === null) {
                     flag = false;
                     $("#special-alert").remove();
                     $("#posts-container").append('' + special_alert_no_more_posts);
@@ -46,13 +38,8 @@ $(document).ready(function () {
                     while (i < data.length) {
                         $("#posts-container").append('' + array[i]);
                         if ((i == data.length - 1 ) && (data.length < 10)) {
-                            if (document.getElementById("#special-alert") != null) {
-                                $("#special-alert").remove();
-                                $("#posts-container").append('' + special_alert_no_more_posts);
-                            } else {
-                                $("#posts-container").append('' + special_alert_no_more_posts);
-                            }
-                            from = 0;
+                            $("#special-alert").remove();
+                            $("#posts-container").append('' + special_alert_no_more_posts);
                             flag = false;
                         }
                         i++;
@@ -70,7 +57,7 @@ $(document).ready(function () {
             type: 'POST',
             contentType: false,
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 $("#posts-container").prepend(data);
                 $("#special-alert").remove();
                 $("#posts-container").append('' + special_alert_no_more_posts);
@@ -90,7 +77,7 @@ $(document).ready(function () {
             type: 'POST',
             contentType: false,
             processData: false,
-            success: function() {
+            success: function () {
                 $("#" + id).remove();
                 from -= 1;
             }
