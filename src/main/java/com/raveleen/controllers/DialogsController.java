@@ -8,7 +8,10 @@ import com.raveleen.services.MessageService;
 import com.raveleen.services.UserService;
 import com.raveleen.services.UtilsService;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -106,29 +109,51 @@ public class DialogsController {
 
     @RequestMapping(value = "/dialogs/{from}")
     @ResponseBody
-    public String[] getDialogsList(@PathVariable("from") int from) {
+    public String[][] getDialogsList(@PathVariable("from") int from) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
 
         List<Dialog> dialogs = dialogService.dialogsOrderByDate(customUser.getId(), from);
-        String[] response = new String[dialogs.size()];
+        String[][] storage = new String[10][6];
 
         int counter = 0;
         for (Dialog temp : dialogs) {
             CustomUser us1 = temp.getUser1();
             CustomUser us2 = temp.getUser2();
-
             if (us1.getId() == customUser.getId()) {
-                response[counter] = utilsService.createFragmentDialog(temp, customUser, us2);
+                storage[counter] = arrayFill(temp, us2);
             } else {
-                response[counter] = utilsService.createFragmentDialog(temp, customUser, us1);
+                storage[counter] = arrayFill(temp, us1);
             }
-
             counter++;
         }
 
-        return response;
+        return storage;
+    }
+
+    private String[] arrayFill(Dialog temp, CustomUser user) {
+        String[] storage = new String[6];
+        storage[0] = String.valueOf(temp.getId());
+        storage[1] = String.valueOf(user.getId());
+        if (user.getProfileImage() == null) {
+            storage[2] = String.valueOf(-1);
+        } else {
+            storage[2] = String.valueOf(user.getProfileImage().getId());
+        }
+        storage[3] = String.valueOf(user.getLogin());
+        if (messageService.getNumberOfUnreadMessages(temp.getId(), user.getId()) != 0) {
+            storage[4] = String.valueOf(
+                    messageService.getNumberOfUnreadMessages(temp.getId(), user.getId()));
+        } else if (temp.getLastMessageDate().getTime() == temp.getCreateDate().getTime()) {
+            storage[4] = String.valueOf(-1);
+        } else {
+            SimpleDateFormat simpleDateFormat =
+                    new SimpleDateFormat("EEE, MMMMM dd, yyyy HH:mm:ss", Locale.US);
+            storage[5] =
+                    String.valueOf(simpleDateFormat.format(temp.getLastMessageDate()));
+        }
+        return storage;
     }
 
     @RequestMapping(value = "/messages/{dialog-id}/{from}")

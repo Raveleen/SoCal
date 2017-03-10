@@ -9,13 +9,12 @@ $(document).ready(function () {
     var special_alert_no_posts = "<div id=\"special-alert\" class=\"appended-result\"><div class=\"row search-result\"><div class=\"col-sm-12\"><div id=\"no-more-posts\"><h5>THERE IS NO POSTS.</h5></div></div></div><hr class=\"middle\"></div>";
     $.get("/get-posts/" + user_id + "/0", function (data) {
         var i = 0;
-        var array = data;
-        if (array[0] == null) {
+        if (data[0][0] === null) {
             $("#special-alert").remove();
             $("#posts-container").append('' + special_alert_no_posts);
         } else {
             while (i < data.length) {
-                $("#posts-container").append('' + array[i]);
+                $("#posts-container").append('' + concatPost(data[i], false));
                 if ((i === data.length - 1 ) && (data.length < 10)) {
                     $("#special-alert").remove();
                     $("#posts-container").append('' + special_alert_no_more_posts);
@@ -29,14 +28,13 @@ $(document).ready(function () {
             from += 10;
             $.get("/get-posts/" + user_id + "/" + from, function (data) {
                 var i = 0;
-                var array = data;
-                if (array[0] === null) {
+                if (data[0][0] === null) {
                     flag = false;
                     $("#special-alert").remove();
                     $("#posts-container").append('' + special_alert_no_more_posts);
                 } else {
                     while (i < data.length) {
-                        $("#posts-container").append('' + array[i]);
+                        $("#posts-container").append('' + concatPost(data[i], false));
                         if ((i == data.length - 1 ) && (data.length < 10)) {
                             $("#special-alert").remove();
                             $("#posts-container").append('' + special_alert_no_more_posts);

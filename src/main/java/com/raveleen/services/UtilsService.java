@@ -94,32 +94,6 @@ public class UtilsService {
         return sb.toString();
     }
 
-    public String createFragmentDialog(Dialog dialog, CustomUser self, CustomUser secondUser) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMMMM dd, yyyy HH:mm:ss", Locale.US);
-        StringBuilder sb = new StringBuilder();
-        sb.append("<div id=\"" + dialog.getId() + "\" onclick=\"location.href='/message-to/" + secondUser.getId() + "'\" class=\"search appended-result\"><div class=\"row search-result dialogs\"><div class=\"col-sm-2\"><div>");
-        if (secondUser.getProfileImage() == null) {
-            sb.append("<img class=\"profile-userpic-small centered-and-cropped\" src=\"/images/default-user-image.png\">");
-        } else {
-            sb.append("<img class=\"profile-userpic-small centered-and-cropped\" src=\"/profile-image/")
-                    .append(secondUser.getProfileImage().getId()).append("\">");
-        }
-        sb.append("</div></div><div class=\"col-sm-6\"><div class=\"col-sm-12\"><div class=\"profile-usertitle-small\"><div class=\"profile-usertitle-name-small-dialog\"><p class=\"user-name\"><a class=\"user-name\" href=\"/user/");
-        sb.append(secondUser.getId()).append("\">").append(secondUser.getLogin());
-        sb.append("</a></p></div></div></div><div class=\"col-sm-12\">");
-        sb.append("<p class=\"post-body-date-dialog\">");
-        if (messageService.getNumberOfUnreadMessages(dialog.getId(), secondUser.getId()) != 0) {
-            sb.append("<span class=\"pink\">You have " + messageService.getNumberOfUnreadMessages(dialog.getId(), secondUser.getId()) + " unread mesages</span>");
-        } else if (dialog.getLastMessageDate().getTime() == dialog.getCreateDate().getTime()) {
-            sb.append("There is no messages yet");
-        } else {
-            sb.append("Last message " + simpleDateFormat.format(dialog.getLastMessageDate()));
-        }
-        sb.append("</p>");
-        sb.append("</div></div><div class=\"col-sm-4\"></div><div class=\"row search-result\"></div><hr class=\"middle\"></div>");
-        return sb.toString();
-    }
-
     public String createFragmentMessage(Message message, CustomUser self) {
         StringBuilder sb = new StringBuilder();
         CustomUser second = message.getFrom();
