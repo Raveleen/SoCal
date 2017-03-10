@@ -88,7 +88,7 @@ $(document).ready(function () {
     function refresh() {
         $.get("/messages-get-unread/" + dialog_id + "/" + $("#last-message-time").text(), function (data) {
             var i = 1;
-            $("#last-message-time").text(data[0]);
+            $("#last-message-time").text(data[0][0]);
             while (i < data.length) {
                 $("#dialog-container").append('' + concatMessage(data[i]));
                 if (i > 1) {
