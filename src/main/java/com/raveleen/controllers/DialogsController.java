@@ -115,7 +115,7 @@ public class DialogsController {
         CustomUser customUser = userService.getUserByLogin(login);
 
         List<Dialog> dialogs = dialogService.dialogsOrderByDate(customUser.getId(), from);
-        String[][] storage = new String[10][6];
+        String[][] storage = new String[dialogs.size()][6];
 
         int counter = 0;
         for (Dialog temp : dialogs) {
@@ -163,9 +163,9 @@ public class DialogsController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
-
+        Dialog dialog = dialogService.getById(dialogId);
         List<Message> messages = messageService.findByDialogIdOrderByCreateDateDesc(dialogId, from);
-        String[][] storage = utilsService.arrayMessageFill(messages, customUser);
+        String[][] storage = utilsService.arrayMessageFill(messages, customUser, dialog);
         return storage;
     }
 
@@ -178,7 +178,7 @@ public class DialogsController {
         CustomUser customUser = userService.getUserByLogin(login);
         Dialog dialog = dialogService.getById(dialogId);
         List<Message> messages = messageService.getNewMessages(dialogId, time);
-        String[][] storage = utilsService.arrayMessageFill(messages, customUser);
+        String[][] storage = utilsService.arrayMessageFill(messages, customUser, dialog);
         return storage;
     }
 

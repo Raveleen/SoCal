@@ -32,13 +32,13 @@ $(document).ready(function () {
         return string;
     }
     $.get("/messages/" + dialog_id + "/0", function (data) {
-        var i = 0;
-        if (data[0] === null) {
+        var i = 1;
+        if (data[1] === null) {
         } else {
             while (i < data.length) {
                 $("#dialog-container").prepend('' + concatMessage(data[i]));
                 i++;
-                if ((i === data.length) && (data.length === 10)) {
+                if ((i === data.length) && (data.length === 11)) {
                     $("#dialog-container").prepend('' + load_more_messages);
                 }
             }
@@ -58,8 +58,7 @@ $(document).ready(function () {
                 } else {
                     while (i < data.length) {
                         $("#dialog-container").prepend('' + concatMessage(data[i]));
-                        if ((i === data.length - 1 ) && (data.length < 10)) {
-                        } else if ((i === data.length - 1 ) && (data.length === 10)) {
+                        if ((i === data.length - 1 ) && (data.length === 11)) {
                             $("#dialog-container").prepend('' + load_more_messages);
                         }
                         i++;
@@ -89,9 +88,7 @@ $(document).ready(function () {
     function refresh() {
         $.get("/messages-get-unread/" + dialog_id + "/" + $("#last-message-time").text(), function (data) {
             var i = 1;
-            var array = data;
-            $("#last-message-time").text(array[0]);
-
+            $("#last-message-time").text(data[0]);
             while (i < data.length) {
                 $("#dialog-container").append('' + concatMessage(data[i]));
                 if (i > 1) {

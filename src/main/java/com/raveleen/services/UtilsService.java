@@ -1,6 +1,7 @@
 package com.raveleen.services;
 
 import com.raveleen.entities.CustomUser;
+import com.raveleen.entities.Dialog;
 import com.raveleen.entities.Message;
 import com.raveleen.entities.Post;
 import java.text.SimpleDateFormat;
@@ -83,9 +84,10 @@ public class UtilsService {
         return storage;
     }
 
-    public String[][] arrayMessageFill(List<Message> messages, CustomUser customUser) {
-        String[][] storage = new String[messages.size()][6];
-        int counter = 0;
+    public String[][] arrayMessageFill(List<Message> messages, CustomUser customUser, Dialog dialog) {
+        String[][] storage = new String[messages.size() + 1][6];
+        int counter = 1;
+        storage[0][0] = String.valueOf(dialog.getLastMessageDate().getTime());
         for (Message temp : messages) {
             CustomUser second = temp.getFrom();
             if ((second.getId() != customUser.getId()) && (!temp.isread())) {
