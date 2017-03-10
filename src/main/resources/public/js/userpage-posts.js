@@ -14,8 +14,9 @@ $(document).ready(function () {
             $("#posts-container").append('' + special_alert_no_posts);
         } else {
             while (i < data.length) {
-                $("#posts-container").append('' + concatPost(data[i]));
-                if ((i === data.length - 1 ) && (data.length < 10)) {
+                if (data[i][0] !== null) {
+                    $("#posts-container").append('' + concatPost(data[i]));
+                } else {
                     $("#special-alert").remove();
                     $("#posts-container").append('' + special_alert_no_more_posts);
                 }
@@ -34,8 +35,9 @@ $(document).ready(function () {
                     $("#posts-container").append('' + special_alert_no_more_posts);
                 } else {
                     while (i < data.length) {
-                        $("#posts-container").append('' + concatPost(data[i]));
-                        if ((i == data.length - 1 ) && (data.length < 10)) {
+                        if (data[i][0] !== null) {
+                            $("#posts-container").append('' + concatPost(data[i]));
+                        } else {
                             $("#special-alert").remove();
                             $("#posts-container").append('' + special_alert_no_more_posts);
                             flag = false;
