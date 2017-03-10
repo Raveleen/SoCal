@@ -1,7 +1,7 @@
 /**
  * Created by Святослав on 09.03.2017.
  */
-function concatPost(array, withDelete) {
+function concatPost(array) {
     var string = "<div id=\"";
     string += array[0];
     string += "\" class=\"post row\"><div class=\"post-header row\"><div class=\"col-sm-2\"><div>";
@@ -17,7 +17,7 @@ function concatPost(array, withDelete) {
     string += "\">";
     string += array[3];
     string += "</a></p></div></div></div><div class=\"col-sm-1\">";
-    if (withDelete === true) {
+    if (array[10] === "1") {
         string += "<div class=\"delete-button-div\"><a class=\"delete-button\"><span class=\"glyphicon glyphicon-remove\"></span></a></div>";
     }
     string += "</div></div><div class=\"post-body row\"><div class=\"col-sm-12 post-body-img-div\"><img class=\"post-userpic centered-and-cropped\" src=\"/image/";

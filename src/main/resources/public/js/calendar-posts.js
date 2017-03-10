@@ -17,7 +17,7 @@ $(document).ready(function () {
         } else {
             while (i < data.length) {
                 if (data[i][0] !== null) {
-                    $("#posts-container").append('' + concatPost(data[i], false));
+                    $("#posts-container").append('' + concatPost(data[i]));
                 } else {
                     $("#special-alert").remove();
                     $("#posts-container").append('' + special_alert_no_more_posts);
@@ -39,7 +39,7 @@ $(document).ready(function () {
                 } else {
                     while (i < data.length) {
                         if (data[i][0] !== null) {
-                            $("#posts-container").append('' + concatPost(data[i], false));
+                            $("#posts-container").append('' + concatPost(data[i]));
                         } else {
                             $("#special-alert").remove();
                             $("#posts-container").append('' + special_alert_no_more_posts);

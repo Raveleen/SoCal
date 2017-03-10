@@ -22,26 +22,26 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional(readOnly = true)
     public List<Post> findByAuthorIdOrderByCreateDateDesc(long id, int from) {
-        int a;
+        int counter;
         if (from == 0) {
-            a = 0;
+            counter = 0;
         } else {
-            a = from / 10;
+            counter = from / 10;
         }
-        Pageable temp = new PageRequest(a, 10);
+        Pageable temp = new PageRequest(counter, 10);
         return postRepository.findByAuthorIdOrderByCreateDateDesc(id, temp);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Post> getFollowingsPosts(long id1, int from) {
-        int a;
+        int counter;
         if (from == 0) {
-            a = 0;
+            counter = 0;
         } else {
-            a = from / 10;
+            counter = from / 10;
         }
-        Pageable temp = new PageRequest(a, 10);
+        Pageable temp = new PageRequest(counter, 10);
         return postRepository.getFollowingsPosts(id1, temp);
     }
 

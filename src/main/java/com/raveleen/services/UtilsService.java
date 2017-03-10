@@ -52,6 +52,11 @@ public class UtilsService {
                     String.valueOf(postService.isLiked(customUser.getId(), temp.getId()));
             storage[counter][8] = String.valueOf(postService.getNumberOfLikes(temp.getId()));
             storage[counter][9] = String.valueOf(postService.getNumberOfComments(temp.getId()));
+            if (customUser.getId() == temp.getAuthor().getId()) {
+                storage[counter][10] = String.valueOf(1);
+            } else {
+                storage[counter][10] = String.valueOf(-1);
+            }
             counter += 1;
         }
         return storage;
