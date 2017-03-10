@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+
+import com.raveleen.services.UtilsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -26,6 +28,9 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Controller
 public class PostController {
+    @Autowired
+    private UtilsService utilsService;
+
     @Autowired
     private UserService userService;
 
@@ -71,22 +76,15 @@ public class PostController {
 
     @RequestMapping(value = "/get-posts/{user-id}/{from}")
     @ResponseBody
-    public String[] getPosts(@PathVariable("user-id") long userId, @PathVariable("from") int from) {
+    public String[][] getPosts(@PathVariable("user-id") long userId, @PathVariable("from") int from) {
         List<Post> posts = postService.findByAuthorIdOrderByCreateDateDesc(userId, from);
-        String[] response = new String[posts.size()];
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
 
-        int counter = 0;
-        //If user gets his own posts, he gets possibility to delete this post.
-        for (Post temp : posts) {
-            response[counter] = createFragment(temp, customUser.getId(), userId);
-            counter++;
-        }
-
-        return response;
+        String[][] storage = utilsService.arrayFill(posts, customUser);
+        return storage;
     }
 
     private String createFragment(Post temp, long customUserId, long userId) {

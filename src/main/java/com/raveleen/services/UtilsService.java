@@ -1,10 +1,10 @@
 package com.raveleen.services;
 
 import com.raveleen.entities.CustomUser;
-import com.raveleen.entities.Dialog;
 import com.raveleen.entities.Message;
-
+import com.raveleen.entities.Post;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UtilsService {
     @Autowired
+    private PostService postService;
+
+    @Autowired
     private MessageService messageService;
 
     public boolean isWord(String temp) {
@@ -26,6 +29,32 @@ public class UtilsService {
             }
         }
         return flag;
+    }
+
+    public String[][] arrayFill(List<Post> posts, CustomUser customUser) {
+        String[][] storage = new String[10][10];
+        int counter = 0;
+        for (Post temp : posts) {
+            storage[counter][0] = String.valueOf(temp.getId());
+            if (temp.getAuthor().getProfileImage() == null) {
+                storage[counter][1] = "-1";
+            } else {
+                storage[counter][1] = String.valueOf(temp.getAuthor().getProfileImage().getId());
+            }
+            storage[counter][2] = String.valueOf(temp.getAuthor().getId());
+            storage[counter][3] = String.valueOf(temp.getAuthor().getLogin());
+            storage[counter][4] = String.valueOf(temp.getImage().getId());
+            storage[counter][5] = String.valueOf(temp.getText());
+            SimpleDateFormat simpleDateFormat =
+                    new SimpleDateFormat("EEE, MMMMM dd, yyyy HH:mm:ss", Locale.US);
+            storage[counter][6] = String.valueOf(simpleDateFormat.format(temp.getCreateDate()));
+            storage[counter][7] =
+                    String.valueOf(postService.isLiked(customUser.getId(), temp.getId()));
+            storage[counter][8] = String.valueOf(postService.getNumberOfLikes(temp.getId()));
+            storage[counter][9] = String.valueOf(postService.getNumberOfComments(temp.getId()));
+            counter += 1;
+        }
+        return storage;
     }
 
     public String createFragmentUser(CustomUser customUser, CustomUser self) {

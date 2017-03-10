@@ -5,9 +5,11 @@ import com.raveleen.entities.Post;
 import com.raveleen.services.PostService;
 import com.raveleen.services.UserService;
 import com.raveleen.services.UtilsService;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -62,37 +64,12 @@ public class CalendarController {
     @RequestMapping(value = "/get-following-posts/{user-id}/{from}")
     @ResponseBody
     public String[][] getFollowingPosts(@PathVariable("user-id") long userId,
-                                      @PathVariable("from") int from) {
+                                        @PathVariable("from") int from) {
         List<Post> posts = postService.getFollowingsPosts(userId, from);
-        String[] response = new String[posts.size()];
-
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
-
-        String[][] storage = new String[10][10];
-        int counter = 0;
-        for (Post temp : posts) {
-            storage[counter][0] = String.valueOf(temp.getId());
-            if (temp.getAuthor().getProfileImage() == null) {
-                storage[counter][1] = "-1";
-            } else {
-                storage[counter][1] = String.valueOf(temp.getAuthor().getProfileImage().getId());
-            }
-            storage[counter][2] = String.valueOf(temp.getAuthor().getId());
-            storage[counter][3] = String.valueOf(temp.getAuthor().getLogin());
-            storage[counter][4] = String.valueOf(temp.getImage().getId());
-            storage[counter][5] = String.valueOf(temp.getText());
-            SimpleDateFormat simpleDateFormat =
-                    new SimpleDateFormat("EEE, MMMMM dd, yyyy HH:mm:ss", Locale.US);
-            storage[counter][6] = String.valueOf(simpleDateFormat.format(temp.getCreateDate()));
-            storage[counter][7] =
-                    String.valueOf(postService.isLiked(customUser.getId(), temp.getId()));
-            storage[counter][8] = String.valueOf(postService.getNumberOfLikes(temp.getId()));
-            storage[counter][9] = String.valueOf(postService.getNumberOfComments(temp.getId()));
-            counter += 1;
-        }
-
+        String[][] storage = utilsService.arrayFill(posts, customUser);
         return storage;
     }
 
