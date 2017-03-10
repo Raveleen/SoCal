@@ -7,6 +7,7 @@ import com.raveleen.services.DialogService;
 import com.raveleen.services.MessageService;
 import com.raveleen.services.UserService;
 import com.raveleen.services.UtilsService;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 
 
 /**
@@ -158,47 +158,28 @@ public class DialogsController {
 
     @RequestMapping(value = "/messages/{dialog-id}/{from}")
     @ResponseBody
-    public String[] getMessagesList(@PathVariable("dialog-id") long dialogId,
-                                    @PathVariable("from") int from) {
+    public String[][] getMessagesList(@PathVariable("dialog-id") long dialogId,
+                                      @PathVariable("from") int from) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
 
         List<Message> messages = messageService.findByDialogIdOrderByCreateDateDesc(dialogId, from);
-        String[] response = new String[messages.size()];
-
-        System.out.println(from);
-        int counter = 0;
-        for (Message message : messages) {
-            System.out.println(message);
-            response[counter] = utilsService.createFragmentMessage(message, customUser);
-            counter++;
-        }
-
-        return response;
+        String[][] storage = utilsService.arrayMessageFill(messages, customUser);
+        return storage;
     }
 
     @RequestMapping(value = "/messages-get-unread/{dialog-id}/{time}")
     @ResponseBody
-    public String[] getMessagesList(@PathVariable("dialog-id") long dialogId,
-                                    @PathVariable("time") long time) {
+    public String[][] getMessagesList(@PathVariable("dialog-id") long dialogId,
+                                      @PathVariable("time") long time) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
-
         Dialog dialog = dialogService.getById(dialogId);
-
         List<Message> messages = messageService.getNewMessages(dialogId, time);
-        String[] response = new String[messages.size() + 1];
-        response[0] = "" + dialog.getLastMessageDate().getTime();
-
-        int counter = 1;
-        for (Message message : messages) {
-            response[counter] = utilsService.createFragmentMessage(message, customUser);
-            counter++;
-        }
-
-        return response;
+        String[][] storage = utilsService.arrayMessageFill(messages, customUser);
+        return storage;
     }
 
     @RequestMapping(value = "/message-create/{dialog-id}", method = RequestMethod.POST)

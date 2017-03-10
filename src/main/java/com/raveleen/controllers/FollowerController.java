@@ -64,41 +64,25 @@ public class FollowerController {
 
     @RequestMapping(value = "/user-list/followers/{user-id}/{from}")
     @ResponseBody
-    public String[] getUsersFollowers(@PathVariable("user-id") long userId,
+    public String[][] getUsersFollowers(@PathVariable("user-id") long userId,
                                       @PathVariable("from") int from) {
         List<CustomUser> users = userService.followersByFollowedId(userId, from);
-        String[] response = new String[users.size()];
-
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
-
-        int counter = 0;
-        for (CustomUser customUser1 : users) {
-            response[counter] = utilsService.createFragmentUser(customUser1, customUser);
-            counter++;
-        }
-
-        return response;
+        String[][] storage = utilsService.arrayUserFill(users, customUser);
+        return storage;
     }
 
     @RequestMapping(value = "/user-list/following/{user-id}/{from}")
     @ResponseBody
-    public String[] getUsersFollowing(@PathVariable("user-id") long userId,
+    public String[][] getUsersFollowing(@PathVariable("user-id") long userId,
                                       @PathVariable("from") int from) {
         List<CustomUser> users = userService.followingByFollowedId(userId, from);
-        String[] response = new String[users.size()];
-
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
-
-        int counter = 0;
-        for (CustomUser customUser1 : users) {
-            response[counter] = utilsService.createFragmentUser(customUser1, customUser);
-            counter++;
-        }
-
-        return response;
+        String[][] storage = utilsService.arrayUserFill(users, customUser);
+        return storage;
     }
 }

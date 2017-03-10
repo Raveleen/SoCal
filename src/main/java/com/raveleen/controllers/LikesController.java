@@ -98,20 +98,12 @@ public class LikesController {
 
     @RequestMapping(value = "/user-list/likes/{post-id}/{from}")
     @ResponseBody
-    public String[] getUsers(@PathVariable("post-id") long postId, @PathVariable("from") int from) {
+    public String[][] getUsers(@PathVariable("post-id") long postId, @PathVariable("from") int from) {
         List<CustomUser> users = userService.byLikedPosts(postId, from);
-        String[] response = new String[users.size()];
-
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
-        CustomUser self = userService.getUserByLogin(login);
-
-        int counter = 0;
-        for (CustomUser temp : users) {
-            response[counter] = utilsService.createFragmentUser(temp, self);
-            counter++;
-        }
-
-        return response;
+        CustomUser customUser = userService.getUserByLogin(login);
+        String[][] storage = utilsService.arrayUserFill(users, customUser);
+        return storage;
     }
 }

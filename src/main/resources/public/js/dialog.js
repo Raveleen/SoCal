@@ -9,13 +9,34 @@ $(document).ready(function () {
     var user_id = $("#ids").text();
     var dialog_id = $("#dialog-id").text();
     var flag = true;
+    function concatMessage(array) {
+        var string = "";
+        if (array[0] === "-1") {
+            string += "<div class=\"unread-message comment appended-result row\" id=\"";
+            string += array[1];
+            string += "\">";
+        } else {
+            string += "<div id=\"";
+            string += array[1];
+            string += "\" class=\"comment appended-result row\">";
+        }
+        string += "<div class=\"col-sm-3 profile-usertitle-small\"><div class=\"col-sm-12\"><div class=\"profile-usertitle-name-small\"><p class=\"user-name\"><a class=\"user-name\" href=\"/user/";
+        string += array[2];
+        string += "\">";
+        string += array[3];
+        string += "</a></p></div></div><div class=\"col-sm-12\"><p class=\"post-body-date\">";
+        string += array[4];
+        string += "</p></div></div><div class=\"col-sm-9\"><p class=\"post-comment-text\">";
+        string += array[5];
+        string += "</p></div></div>";
+        return string;
+    }
     $.get("/messages/" + dialog_id + "/0", function (data) {
         var i = 0;
-        var array = data;
-        if (array[0] === null) {
+        if (data[0] === null) {
         } else {
             while (i < data.length) {
-                $("#dialog-container").prepend('' + array[i]);
+                $("#dialog-container").prepend('' + concatMessage(data[i]));
                 i++;
                 if ((i === data.length) && (data.length === 10)) {
                     $("#dialog-container").prepend('' + load_more_messages);
@@ -33,11 +54,10 @@ $(document).ready(function () {
             processData: false,
             success: function (data) {
                 var i = 0;
-                var array = data;
-                if (array[0] === null) {
+                if (data[0] === null) {
                 } else {
                     while (i < data.length) {
-                        $("#dialog-container").prepend('' + array[i]);
+                        $("#dialog-container").prepend('' + concatMessage(data[i]));
                         if ((i === data.length - 1 ) && (data.length < 10)) {
                         } else if ((i === data.length - 1 ) && (data.length === 10)) {
                             $("#dialog-container").prepend('' + load_more_messages);
@@ -73,7 +93,7 @@ $(document).ready(function () {
             $("#last-message-time").text(array[0]);
 
             while (i < data.length) {
-                $("#dialog-container").append('' + array[i]);
+                $("#dialog-container").append('' + concatMessage(data[i]));
                 if (i > 1) {
                     from += 1;
                 }

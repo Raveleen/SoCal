@@ -8,12 +8,11 @@ $(document).ready(function () {
     var flag = true;
     $.get("/user-list/following/" + user_id + "/0", function (data) {
         var i = 0;
-        var array = data;
-        if (array[0] == null) {
+        if (data[0] == null) {
             $("#following-container").append('' + special_alert_1);
         } else {
             while (i < data.length) {
-                $("#following-container").append('' + array[i]);
+                $("#following-container").append('' + concatUsers(data[i]));
                 i++;
             }
         }
@@ -24,12 +23,11 @@ $(document).ready(function () {
             from += 10;
             $.get("/user-list/following/" + user_id + "/" + from, function (data) {
                 var i = 0;
-                var array = data;
-                if (array[0] == null) {
+                if (data[0] == null) {
                     flag = false;
                 } else {
                     while (i < data.length) {
-                        $("#following-container").append('' + array[i]);
+                        $("#following-container").append('' + concatUsers(data[i]));
                         if ((i == data.length - 1 ) && (data.length < 10)) {
                             from = 0;
                             flag = false;

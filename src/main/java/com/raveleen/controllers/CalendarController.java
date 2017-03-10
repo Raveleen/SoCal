@@ -75,21 +75,14 @@ public class CalendarController {
 
     @RequestMapping(value = "/user-list/recs/{user-id}/{from}")
     @ResponseBody
-    public String[] getUsersFollowers(@PathVariable("user-id") long userId,
+    public String[][] getUsersFollowers(@PathVariable("user-id") long userId,
                                       @PathVariable("from") int from) {
         List<CustomUser> users = userService.recFollowingByFollowedId(userId, from);
-        String[] response = new String[users.size()];
-
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
 
-        int counter = 0;
-        for (CustomUser customUser1 : users) {
-            response[counter] = utilsService.createFragmentUser(customUser1, customUser);
-            counter++;
-        }
-
-        return response;
+        String[][] storage = utilsService.arrayUserFill(users, customUser);
+        return storage;
     }
 }

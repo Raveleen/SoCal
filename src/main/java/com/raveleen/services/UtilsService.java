@@ -62,106 +62,48 @@ public class UtilsService {
         return storage;
     }
 
-    public String createFragmentUser(CustomUser customUser, CustomUser self) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<div id=\"")
-                .append(customUser.getId())
-                .append("\" class=\"search appended-result\">")
-                .append("<div class=\"row search-result\">")
-                .append("<div class=\"col-sm-2\"><div>");
-        if (customUser.getProfileImage() == null) {
-            sb.append("<img class=\"profile-userpic-small centered-and-cropped\" ")
-                    .append("src=\"/images/default-user-image.png\">");
-        } else {
-            sb.append("<img class=\"profile-userpic-small centered-and-cropped\" ")
-                    .append("src=\"/profile-image/")
-                    .append(customUser.getProfileImage().getId())
-                    .append("\">");
+    public String[][] arrayUserFill(List<CustomUser> users, CustomUser customUser) {
+        String[][] storage = new String[users.size()][4];
+        int counter = 0;
+        for (CustomUser temp : users) {
+            storage[counter][0] = String.valueOf(temp.getId());
+            if (temp.getProfileImage() == null) {
+                storage[counter][1] = String.valueOf(-1);
+            } else {
+                storage[counter][1] = String.valueOf(temp.getProfileImage().getId());
+            }
+            storage[counter][2] = temp.getLogin();
+            if (temp.getId() == customUser.getId()) {
+                storage[counter][3] = String.valueOf(1);
+            } else {
+                storage[counter][3] = String.valueOf(-1);
+            }
+            counter += 1;
         }
-        sb.append("</div></div>")
-                .append("<div class=\"col-sm-6\">")
-                .append("<div class=\"profile-usertitle-small\">")
-                .append("<div class=\"profile-usertitle-name-small\">")
-                .append("<p class=\"user-name\">")
-                .append("<a class=\"user-name\" href=\"/user/")
-                .append(customUser.getId())
-                .append("\">")
-                .append(customUser.getLogin())
-                .append("</a></p></div></div></div>")
-                .append("<div class=\"col-sm-2\">")
-                .append("<div class=\"profile-userbuttons\">")
-                .append("<div class=\"calendar-href\">")
-                .append("<a href=\"/calendar/")
-                .append(customUser.getId());
-        if (customUser.getId() == self.getId()) {
-            sb.append("\">")
-                    .append("<button type=\"submit\" ")
-                    .append("class=\"btn btn-primary btn-md btn-block button-calendar\">")
-                    .append("<span class=\"glyphicon glyphicon-th-large glyphicon\">")
-                    .append("</span></button></a></div></div></div>")
-                    .append("<div class=\"col-sm-2\">")
-                    .append("<div class=\"message-href\" class=\"\">")
-                    .append("<button id=\"button-message\" type=\"submit\" ")
-                    .append("class=\"btn btn-primary btn-md btn-block\" disabled>")
-                    .append("<span class=\"glyphicon glyphicon-remove\">")
-                    .append("</span></button></div></div></div>")
-                    .append("<hr class=\"middle\">")
-                    .append("</div>");
-        } else {
-            sb.append("\">")
-                    .append("<button type=\"submit\" ")
-                    .append("class=\"btn btn-primary btn-md btn-block button-calendar\">")
-                    .append("<span class=\"glyphicon glyphicon-th-large glyphicon\">")
-                    .append("</span></button></a></div></div></div>")
-                    .append("<div class=\"col-sm-2\">")
-                    .append("<div class=\"message-href\" class=\"\">")
-                    .append("<a href=\"/message-to/")
-                    .append(customUser.getId())
-                    .append("\">")
-                    .append("<button id=\"button-message\" type=\"submit\" ")
-                    .append("class=\"btn btn-primary btn-md btn-block\">")
-                    .append("<span class=\"glyphicon glyphicon-envelope\">")
-                    .append("</span></button></a></div></div></div>")
-                    .append("<hr class=\"middle\">")
-                    .append("</div>");
-        }
-        return sb.toString();
+        return storage;
     }
 
-    public String createFragmentMessage(Message message, CustomUser self) {
-        StringBuilder sb = new StringBuilder();
-        CustomUser second = message.getFrom();
-
-        if ((second.getId() != self.getId()) && (!message.isread())) {
-            sb.append("<div class=\"unread-message comment appended-result row\" id=\"")
-                    .append(message.getId())
-                    .append("\">");
-            message.setIsread(true);
-            message = messageService.addMessage(message);
-        } else {
-            sb.append("<div id=\"")
-                    .append(message.getId())
-                    .append("\" class=\"comment appended-result row\">");
+    public String[][] arrayMessageFill(List<Message> messages, CustomUser customUser) {
+        String[][] storage = new String[messages.size()][6];
+        int counter = 0;
+        for (Message temp : messages) {
+            CustomUser second = temp.getFrom();
+            if ((second.getId() != customUser.getId()) && (!temp.isread())) {
+                temp.setIsread(true);
+                temp = messageService.addMessage(temp);
+                storage[counter][0] = String.valueOf(-1);
+            } else {
+                storage[counter][0] = String.valueOf(1);
+            }
+            storage[counter][1] = String.valueOf(temp.getId());
+            storage[counter][2] = String.valueOf(temp.getFrom().getId());
+            storage[counter][3] = temp.getFrom().getLogin();
+            SimpleDateFormat simpleDateFormat =
+                    new SimpleDateFormat("EEE, MMMMM dd, yyyy HH:mm:ss", Locale.US);
+            storage[counter][4] = String.valueOf(simpleDateFormat.format(temp.getCreateDate()));
+            storage[counter][5] = temp.getText();
+            counter += 1;
         }
-        sb.append("<div class=\"col-sm-3 profile-usertitle-small\">")
-                .append("<div class=\"col-sm-12\">")
-                .append("<div class=\"profile-usertitle-name-small\">")
-                .append("<p class=\"user-name\">")
-                .append("<a class=\"user-name\" href=\"/user/")
-                .append(message.getFrom().getId())
-                .append("\">")
-                .append(message.getFrom().getLogin())
-                .append("</a></p></div></div>")
-                .append("<div class=\"col-sm-12\">")
-                .append("<p class=\"post-body-date\">");
-        SimpleDateFormat simpleDateFormat =
-                new SimpleDateFormat("EEE, MMMMM dd, yyyy HH:mm:ss", Locale.US);
-        sb.append(simpleDateFormat.format(message.getCreateDate()))
-                .append("</p></div></div>")
-                .append("<div class=\"col-sm-9\">")
-                .append("<p class=\"post-comment-text\">")
-                .append(message.getText())
-                .append("</p></div></div>");
-        return sb.toString();
+        return storage;
     }
 }
