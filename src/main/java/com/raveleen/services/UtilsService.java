@@ -32,7 +32,7 @@ public class UtilsService {
     }
 
     public String[][] arrayFill(List<Post> posts, CustomUser customUser) {
-        String[][] storage = new String[10][10];
+        String[][] storage = new String[10][11];
         int counter = 0;
         for (Post temp : posts) {
             storage[counter][0] = String.valueOf(temp.getId());

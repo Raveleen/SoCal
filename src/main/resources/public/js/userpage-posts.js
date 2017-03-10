@@ -56,7 +56,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (data) {
-                $("#posts-container").prepend(data);
+                $("#posts-container").prepend(concatPost(data[0]));
                 $("#special-alert").remove();
                 $("#posts-container").append('' + special_alert_no_more_posts);
                 document.getElementById('create-post-form').reset();
