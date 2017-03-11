@@ -28,7 +28,7 @@ function concatPost(array) {
     string += array[6];
     string += "</p></div></div><div class=\"post-footer row\">";
     if (array[7] === "true") {
-        string += "<div class=\"col-sm-6\"><div class=\"like-button-div\"><a class=\"like-button hidden\"><span class=\"glyphicon glyphicon-heart\"></span></a><a class=\"unlike-button\"><span class=\"glyphicon glyphicon-heart\"></span></a><a href=\"/post-likes/";
+        string += "<div class=\"col-sm-6\"><div class=\"like-button-div\"><a class=\"like-button hidden\"><span class=\"glyphicon glyphicon-heart\"></span></a><a class=\"unlike-button\"><span class=\"glyphicon glyphicon-heart\"></span> </a><a href=\"/post-likes/";
         string += array[0];
         string += "\"><span class=\"likes-number\">";
     } else {

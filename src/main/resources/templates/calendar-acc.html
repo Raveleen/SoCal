@@ -14,7 +14,7 @@
     <script src="/js/like-manipulations.js" th:src="@{/js/like-manipulations.js}"></script>
     <script src="/js/post-concat.js" th:src="@{/js/post-concat.js}"></script>
     <script src="/js/comment-manipulations.js" th:src="@{/js/comment-manipulations.js}"></script>
-    <script src="/js/calendar-posts.js" th:src="@{/js/calendar-posts.js}"></script>
+    <script src="/js/calendar-\posts.js" th:src="@{/js/calendar-posts.js}"></script>
 </head>
 <body>
 <!--TOP NAVBAR: LOGO + NAVIGATION.-->
@@ -46,24 +46,45 @@
         </div>
         <!--CENTER: POSTS, ADD POST.-->
         <div class="col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 col-md-offset-2 main">
-            <div id="rec1-row" class="row">
-                <div class="appended-result">
-                    <div class="row search-result">
-                        <div class="col-sm-12">
-                            <div class="header"><h5>INTERESTING USERS FOR YOU:</h5></div>
-                        </div>
-                    </div>
-                    <hr class=\"middle\">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+                <li role="presentation" class="active"><a href="#my-events" aria-controls="my-events" role="tab" data-toggle="tab">My events</a></li>
+                <li role="presentation" class="active"><a href="#events" aria-controls="events" role="tab" data-toggle="tab">Events</a></li>
+                <li role="presentation"><a href="#posts-container" aria-controls="posts-container" role="tab" data-toggle="tab">Posts</a></li>
+                <li role="presentation"><a href="#rec1-row" aria-controls="rec1-row" role="tab" data-toggle="tab">Users</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="my-events">
+
                 </div>
-            </div>
-            <div id="posts-container" class="row">
-                <div class="appended-result">
-                    <div class="row search-result">
-                        <div class="col-sm-12">
-                            <div class="header"><h5>POSTS YOU MIGHT LIKE:</h5></div>
+                <div role="tabpanel" class="tab-pane active" id="events">
+                    <div class="appended-result">
+                        <div class="row search-result page-header-title">
+                            <div class="col-sm-12">
+                                <div class="header"><h5>EVENTS HOSTED BY WHO YOU FOLLOW:</h5></div>
+                            </div>
                         </div>
+                        <hr class=\"middle\">
                     </div>
-                    <hr class=\"middle\">
+                </div>
+                <div role="tabpanel" class="tab-pane" id="posts-container">
+                    <div class="appended-result">
+                        <div class="row search-result page-header-title">
+                            <div class="col-sm-12">
+                                <div class="header"><h5>POSTS YOU MIGHT LIKE:</h5></div>
+                            </div>
+                        </div>
+                        <hr class=\"middle\">
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="rec1-row">
+                    <div class="appended-result">
+                        <div class="row search-result page-header-title">
+                            <div class="col-sm-12">
+                                <div class="header"><h5>INTERESTING USERS FOR YOU:</h5></div>
+                            </div>
+                        </div>
+                        <hr class=\"middle\">
+                    </div>
                 </div>
             </div>
         </div>
