@@ -60,7 +60,7 @@
                 <li role="presentation" class="active"><a href="#my-events"
                                                           aria-controls="my-events" role="tab"
                                                           data-toggle="tab">My events</a></li>
-                <li role="presentation" class="active"><a href="#events" aria-controls="events"
+                <li role="presentation"><a href="#events" aria-controls="events"
                                                           role="tab" data-toggle="tab">Events</a>
                 </li>
                 <li role="presentation"><a href="#posts-container" aria-controls="posts-container"
@@ -71,17 +71,12 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="my-events">
                     <div id="create-event-box" class="row">
-                        <hr class=\"middle\">
-                        <a id="create-event-box-href"><span id="arrow-down"
-                                                            class="glyphicon glyphicon-menu-down"></span><span
-                                id="arrow-up" class="glyphicon glyphicon-menu-up hidden"></span></a>
+                        <a id="create-event-box-href"><span id="arrow-down" class="glyphicon glyphicon-menu-down"></span><span id="arrow-up" class="glyphicon glyphicon-menu-up hidden"></span></a>
                         <div id="create-event-form-div" class="hidden">
-                            <form enctype="multipart/form-data" id="create-event-form"
-                                  method="POST">
+                            <form enctype="multipart/form-data" id="create-event-form" method="POST">
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <textarea class="form-control" maxlength="30" rows="1"
-                                                  id="event-title" name="title"></textarea>
+                                        <textarea class="form-control" maxlength="30" rows="1" id="event-title" name="title"></textarea>
                                         <div id="title-counter">
                                             <p id="counter-title-line"><span
                                                     id="characters-title-number">30</span> symbols

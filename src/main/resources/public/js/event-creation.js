@@ -17,15 +17,29 @@ $(document).ready(function () {
         if ($("#event-info").val().length == 0) {
             flag_info = 0;
         }
-        if ($("#event_info").val().length > 0) {
+        if ($("#event-info").val().length > 0) {
             flag_info = 1;
         }
-        if ((flag_info + flag_text) == 2) {
+        if ((flag_title + flag_info) == 2) {
             $("#create-event-button").prop("disabled", false);
         } else {
             $("#create-event-button").prop("disabled", true);
         }
-        $("#characters-number").text(5000 - $("#event-info").val().length);
+        $("#characters-number").text(1000 - $("#event-info").val().length);
+    });
+    $("#event-title").keyup(function () {
+        if ($("#event-title").val().length == 0) {
+            flag_title = 0;
+        }
+        if ($("#event-title").val().length > 0) {
+            flag_title = 1;
+        }
+        if ((flag_info + flag_title) == 2) {
+            $("#create-event-button").prop("disabled", false);
+        } else {
+            $("#create-event-button").prop("disabled", true);
+        }
+        $("#characters-title-number").text(30 - $("#event-title").val().length);
     });
     //_Arrow, which opens form
     $("#arrow-down").click(function () {
