@@ -2,26 +2,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/user-page.css" th:href="@{/css/user-page.css}">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/user-page.css"
+          th:href="@{/css/user-page.css}">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
     <title>SoCal</title>
     <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/js/event-concat.js" th:src="@{/js/event-concat.js}"></script>
+    <script src="/js/event-creation.js" th:src="@{/js/event-creation.js}"></script>
+    <script src="/js/events.js" th:src="@{/js/events.js}"></script>
     <script src="/js/google-analytics.js" th:src="@{/js/google-analytics.js}"></script>
     <script src="/js/like-manipulations.js" th:src="@{/js/like-manipulations.js}"></script>
     <script src="/js/post-concat.js" th:src="@{/js/post-concat.js}"></script>
     <script src="/js/comment-manipulations.js" th:src="@{/js/comment-manipulations.js}"></script>
-    <script src="/js/calendar-\posts.js" th:src="@{/js/calendar-posts.js}"></script>
+    <script src="/js/calendar-posts.js" th:src="@{/js/calendar-posts.js}"></script>
 </head>
 <body>
 <!--TOP NAVBAR: LOGO + NAVIGATION.-->
 <nav class="navbar navbar-inverse navbar-fixed-top nav-top">
     <div class="container-fluid">
         <div class="navbar-header col-md-offset-1">
-            <img src="/images/logo-navbar.png" class="navbar-brand" th:src="@{/images/logo-navbar.png}">
+            <img src="/images/logo-navbar.png" class="navbar-brand"
+                 th:src="@{/images/logo-navbar.png}">
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -38,25 +45,92 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li><a href="/"><span class="glyphicon glyphicon-user"></span> My page</a></li>
-                <li><a href="/dialogs"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
-                <li><a href="/calendar"><span class="glyphicon glyphicon-th-large glyphicon"></span> Calendar</a></li>
-                <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                <li><a href="/dialogs"><span class="glyphicon glyphicon-envelope"></span>
+                    Messages</a></li>
+                <li><a href="/calendar"><span class="glyphicon glyphicon-th-large glyphicon"></span>
+                    Calendar</a></li>
+                <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span> Settings</a>
+                </li>
                 <li><a href="/logout"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
             </ul>
         </div>
         <!--CENTER: POSTS, ADD POST.-->
         <div class="col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 col-md-offset-2 main">
             <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li role="presentation" class="active"><a href="#my-events" aria-controls="my-events" role="tab" data-toggle="tab">My events</a></li>
-                <li role="presentation" class="active"><a href="#events" aria-controls="events" role="tab" data-toggle="tab">Events</a></li>
-                <li role="presentation"><a href="#posts-container" aria-controls="posts-container" role="tab" data-toggle="tab">Posts</a></li>
-                <li role="presentation"><a href="#rec1-row" aria-controls="rec1-row" role="tab" data-toggle="tab">Users</a></li>
+                <li role="presentation" class="active"><a href="#my-events"
+                                                          aria-controls="my-events" role="tab"
+                                                          data-toggle="tab">My events</a></li>
+                <li role="presentation" class="active"><a href="#events" aria-controls="events"
+                                                          role="tab" data-toggle="tab">Events</a>
+                </li>
+                <li role="presentation"><a href="#posts-container" aria-controls="posts-container"
+                                           role="tab" data-toggle="tab">Posts</a></li>
+                <li role="presentation"><a href="#rec1-row" aria-controls="rec1-row" role="tab"
+                                           data-toggle="tab">Users</a></li>
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="my-events">
+                    <div id="create-event-box" class="row">
+                        <hr class=\"middle\">
+                        <a id="create-event-box-href"><span id="arrow-down"
+                                                            class="glyphicon glyphicon-menu-down"></span><span
+                                id="arrow-up" class="glyphicon glyphicon-menu-up hidden"></span></a>
+                        <div id="create-event-form-div" class="hidden">
+                            <form enctype="multipart/form-data" id="create-event-form"
+                                  method="POST">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <textarea class="form-control" maxlength="30" rows="1"
+                                                  id="event-title" name="title"></textarea>
+                                        <div id="title-counter">
+                                            <p id="counter-title-line"><span
+                                                    id="characters-title-number">30</span> symbols
+                                                left.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <textarea class="form-control" maxlength="1000" rows="5"
+                                                  id="event-info" name="info"></textarea>
+                                        <div id="counter">
+                                            <p id="counter-line"><span
+                                                    id="characters-number">1000</span> symbols left.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <input type="date" id="date-input" class="form-control"
+                                               name="date" th:min="${dateMin}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <input type="time" id="time-input" class="form-control"
+                                               name="time" th:min="${timeMin}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <button type="button" id="create-event-button"
+                                                class="btn btn-primary btn-md btn-block">
+                                            Share an event
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-12">
+                            <hr class=\"middle\">
+                        </div>
+                        <div id="my-events-container" class="col-sm-12">
 
+                        </div>
+                    </div>
                 </div>
-                <div role="tabpanel" class="tab-pane active" id="events">
+                <div role="tabpanel" class="tab-pane" id="events">
                     <div class="appended-result">
                         <div class="row search-result page-header-title">
                             <div class="col-sm-12">
@@ -94,12 +168,14 @@
                 <div class="profile-sidebar box-main">
                     <div th:if="${user.profileImage} != null">
                         <div>
-                            <img class="profile-userpic centered-and-cropped" th:src="@{'/profile-image/' + ${user.profileImage.id}}">
+                            <img class="profile-userpic centered-and-cropped"
+                                 th:src="@{'/profile-image/' + ${user.profileImage.id}}">
                         </div>
                     </div>
                     <div th:if="${user.profileImage} == null">
                         <div>
-                            <img class="profile-userpic centered-and-cropped" src="images/default-user-image.png"
+                            <img class="profile-userpic centered-and-cropped"
+                                 src="images/default-user-image.png"
                                  th:src="@{/images/default-user-image.png}">
                         </div>
                     </div>

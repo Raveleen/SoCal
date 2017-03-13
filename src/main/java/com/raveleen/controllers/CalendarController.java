@@ -7,6 +7,7 @@ import com.raveleen.services.UserService;
 import com.raveleen.services.UtilsService;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -39,7 +40,14 @@ public class CalendarController {
         String login = user.getUsername();
 
         CustomUser dbUser = userService.getUserByLogin(login);
+        String datePart = "yyyy-MM-dd";
+        String timePart = "HH:mm:ss";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(datePart);
+        SimpleDateFormat timeFormat = new SimpleDateFormat(timePart);
+        Date current = new Date();
 
+        model.addAttribute("dateMin", dateFormat.format(current));
+        model.addAttribute("timeMin", timeFormat.format(current));
         model.addAttribute("user", dbUser);
         model.addAttribute("followers", userService.getNumberOfFollowers(dbUser.getId()));
         model.addAttribute("following", userService.getNumberOfFollowings(dbUser.getId()));

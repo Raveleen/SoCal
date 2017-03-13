@@ -1,8 +1,13 @@
 package com.raveleen.controllers;
 
 import com.raveleen.entities.CustomUser;
+import com.raveleen.entities.Event;
 import com.raveleen.entities.Image;
 import com.raveleen.entities.Post;
+import com.raveleen.entities.UserRate;
+import com.raveleen.services.AddressService;
+import com.raveleen.services.EventService;
+import com.raveleen.services.UserRateService;
 import com.raveleen.services.UserService;
 import com.raveleen.services.UtilsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +36,15 @@ public class EventsController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRateService userRateService;
+
+    @Autowired
+    private AddressService addressService;
+
+    @Autowired
+    private EventService eventService;
+
     @RequestMapping(value = "/get-events/{user-id}/{from}")
     @ResponseBody
     public String[][] getEvents(@PathVariable("user-id") long userId,
@@ -38,8 +52,9 @@ public class EventsController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
+        List<Event> events = eventService.findByHostIdOrderByEventDateDesc(userId, from);
 
-        String[][] storage = new String[1][1];
+        String[][] storage = utilsService.arrayEventFill(events, customUser);
         return storage;
     }
 
@@ -50,10 +65,13 @@ public class EventsController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
+        List<Event> events = eventService.getFollowingsEvents(userId, from);
 
-        String[][] storage = new String[1][1];
+        String[][] storage = utilsService.arrayEventFill(events, customUser);
         return storage;
     }
+
+    //TODO: SET UP EVENT CREATION
 
     @RequestMapping(value = "/event-create", method = RequestMethod.POST)
     @ResponseBody
@@ -63,7 +81,7 @@ public class EventsController {
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
 
-        String[][] storage = new String[1][1];
+        String[][] storage = utilsService.arrayEventFill(new ArrayList<Event>(), customUser);
 
         return storage;
     }

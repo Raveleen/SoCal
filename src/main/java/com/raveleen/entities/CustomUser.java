@@ -59,6 +59,9 @@ public class CustomUser {
     @OneToMany(mappedBy = "author")
     private List<Post> posts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "host")
+    private List<Event> events = new ArrayList<>();
+
     @OneToMany(mappedBy = "id")
     private List<Dialog> dialogs = new ArrayList<>();
 
@@ -206,5 +209,13 @@ public class CustomUser {
 
     public void setLikedPosts(List<Post> likedPosts) {
         this.likedPosts = likedPosts;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 }

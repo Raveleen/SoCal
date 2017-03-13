@@ -2,6 +2,7 @@ package com.raveleen.services;
 
 import com.raveleen.entities.CustomUser;
 import com.raveleen.entities.Dialog;
+import com.raveleen.entities.Event;
 import com.raveleen.entities.Message;
 import com.raveleen.entities.Post;
 import java.text.SimpleDateFormat;
@@ -104,6 +105,15 @@ public class UtilsService {
                     new SimpleDateFormat("EEE, MMMMM dd, yyyy HH:mm:ss", Locale.US);
             storage[counter][4] = String.valueOf(simpleDateFormat.format(temp.getCreateDate()));
             storage[counter][5] = temp.getText();
+            counter += 1;
+        }
+        return storage;
+    }
+
+    public String[][] arrayEventFill(List<Event> events, CustomUser customUser) {
+        String[][] storage = new String[events.size()][6];
+        int counter = 1;
+        for (Event temp : events) {
             counter += 1;
         }
         return storage;
