@@ -13,9 +13,10 @@
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    //TODO: ADD JS LINKS TO EVENTS' SCRIPTS
     <script src="/js/event-concat.js" th:src="@{/js/event-concat.js}"></script>
     <script src="/js/event-creation.js" th:src="@{/js/event-creation.js}"></script>
-    <script src="/js/events.js" th:src="@{/js/events.js}"></script>
+    <script src="/js/events.js" th:src="@{/js/events-my.js}"></script>
     <script src="/js/google-analytics.js" th:src="@{/js/google-analytics.js}"></script>
     <script src="/js/like-manipulations.js" th:src="@{/js/like-manipulations.js}"></script>
     <script src="/js/post-concat.js" th:src="@{/js/post-concat.js}"></script>
@@ -125,6 +126,16 @@
                         </div>
                     </div>
                 </div>
+                <div role="tabpanel" class="tab-pane" id="past-events">
+                    <div class="appended-result">
+                        <div class="row search-result page-header-title">
+                            <div class="col-sm-12">
+                                <div class="header"><h5>YOUR PAST EVENTS:</h5></div>
+                            </div>
+                        </div>
+                        <hr class=\"middle\">
+                    </div>
+                </div>
                 <div role="tabpanel" class="tab-pane" id="events">
                     <div class="appended-result">
                         <div class="row search-result page-header-title">
@@ -140,16 +151,6 @@
                         <div class="row search-result page-header-title">
                             <div class="col-sm-12">
                                 <div class="header"><h5>POSTS YOU MIGHT LIKE:</h5></div>
-                            </div>
-                        </div>
-                        <hr class=\"middle\">
-                    </div>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="rec1-row">
-                    <div class="appended-result">
-                        <div class="row search-result page-header-title">
-                            <div class="col-sm-12">
-                                <div class="header"><h5>INTERESTING USERS FOR YOU:</h5></div>
                             </div>
                         </div>
                         <hr class=\"middle\">

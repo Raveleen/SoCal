@@ -61,4 +61,36 @@ $(document).ready(function () {
             }
         }
     });
+    $("#create-event-button").click(function () {
+        var form = $('form')[0];
+        var formData = new FormData(form);
+        $.ajax({
+            url: '/event-create',
+            data: formData,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $("#my-events-container").prepend(concatEvent(data[0]));
+                $("#special-alert").remove();
+                $("#posts-container").append('' + special_alert_no_more_posts);
+                document.getElementById('create-event-form').reset();
+                $("#characters-number").text(1000);
+                $("#characters-title-number").text(1000);
+                $("#create-event-button").prop("disabled", true);
+            }
+        })
+    });
+    $(document.body).on("click", ".delete-button", function () {
+        var id = $(this).closest(".event").attr("id");
+        $.ajax({
+            url: '/event-delete/' + id,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            success: function () {
+                $("#" + id).remove();
+            }
+        })
+    });
 });

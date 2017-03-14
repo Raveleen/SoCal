@@ -64,8 +64,6 @@ $(document).ready(function () {
                 document.getElementById('create-post-form').reset();
                 $("#characters-number").text(5000);
                 from += 1;
-                flag_file = 0;
-                flag_text = 0;
                 $("#create-post-button").prop("disabled", true);
             }
         })

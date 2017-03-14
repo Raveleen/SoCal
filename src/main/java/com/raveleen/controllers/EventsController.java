@@ -85,4 +85,6 @@ public class EventsController {
 
         return storage;
     }
+
+    //TODO: SET UP EVENT DELETE FUNCTION
 }

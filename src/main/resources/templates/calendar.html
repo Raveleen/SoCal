@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    //TODO: ADD JS LINKS TO EVENTS' SCRIPTS
     <script src="/js/google-analytics.js" th:src="@{/js/google-analytics.js}"></script>
     <script src="/js/post-concat.js" th:src="@{/js/post-concat.js}"></script>
     <script src="/js/like-manipulations.js" th:src="@{/js/like-manipulations.js}"></script>
@@ -47,14 +48,18 @@
         </div>
         <!--CENTER: CALENDAR.-->
         <div class="col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 col-md-offset-2 main">
-            <div id="posts-container" class="row">
-                <div class="appended-result">
-                    <div class="row search-result">
-                        <div class="col-sm-12">
-                            <div class="header"><h5>POSTS FROM WHO THIS USER FOLLOWS:</h5></div>
-                        </div>
-                    </div>
-                    <hr class=\"middle\">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+                <li role="presentation" class="active"><a href="#past-events"
+                                                          aria-controls="past-events" role="tab"
+                                                          data-toggle="tab">Past events</a></li>
+                <li role="presentation"><a href="#future-events" aria-controls="events"
+                                           role="tab" data-toggle="tab">Future events</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="past-events">
+                </div>
+                <div role="tabpanel" class="tab-pane" id="future-events">
                 </div>
             </div>
         </div>
