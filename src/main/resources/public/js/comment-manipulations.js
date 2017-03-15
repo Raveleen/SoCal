@@ -5,7 +5,7 @@ $(document).ready(function () {
     var load_more_comments = "<div id=\"load-more-comments\" class=\"appended-result\"><div class=\"row search-result\"><div class=\"col-sm-12\"><hr class=\"middle\"></div><div class=\"col-sm-12 load-more\"><a id=\"load-comments-href\"><span id=\"plus\" class=\"glyphicon glyphicon-plus\"></span><span class=\"glyphicon glyphicon-menu-up hidden\"></span></a></div><div class=\"col-sm-12\"><hr class=\"middle\"></div></div></div>";
     var comments_from = 0;
     var comments_flag = true;
-    function appender(data) {
+    function appender(data, b) {
         var i = 0;
         if (data[0] !== null) {
             while (i < data.length) {
@@ -40,7 +40,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function(data) {
-                appender(data);
+                appender(data, b);
             }
         })
     });
@@ -95,7 +95,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function(data) {
-                appender(data);
+                appender(data, b);
             }
         })
     });
