@@ -64,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/calendar/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
                 .antMatchers("/calendar/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
                 .antMatchers("/news").hasAnyRole("USER", "ADMIN", "MODERATOR")
+                //TODO: ADD EVENTS QUERIES.
                 .antMatchers("/login").permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/unauthorized")

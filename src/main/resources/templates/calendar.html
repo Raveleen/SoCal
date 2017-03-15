@@ -2,20 +2,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/user-page.css" th:href="@{/css/user-page.css}">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/user-page.css"
+          th:href="@{/css/user-page.css}">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
     <title>SoCal</title>
     <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     //TODO: ADD JS LINKS TO EVENTS' SCRIPTS
     <script src="/js/google-analytics.js" th:src="@{/js/google-analytics.js}"></script>
     <script src="/js/post-concat.js" th:src="@{/js/post-concat.js}"></script>
     <script src="/js/like-manipulations.js" th:src="@{/js/like-manipulations.js}"></script>
     <script src="/js/comment-manipulations.js" th:src="@{/js/comment-manipulations.js}"></script>
-    <script src="/js/follow-unfollow-manipulations.js" th:src="@{/js/follow-unfollow-manipulations.js}"></script>
+    <script src="/js/follow-unfollow-manipulations.js"
+            th:src="@{/js/follow-unfollow-manipulations.js}"></script>
     <script src="/js/calendar-posts.js" th:src="@{/js/calendar-posts.js}"></script>
 </head>
 <body>
@@ -23,7 +27,8 @@
 <nav class="navbar navbar-inverse navbar-fixed-top nav-top">
     <div class="container-fluid">
         <div class="navbar-header col-md-offset-1">
-            <img src="/images/logo-navbar.png" class="navbar-brand" th:src="@{/images/logo-navbar.png}">
+            <img src="/images/logo-navbar.png" class="navbar-brand"
+                 th:src="@{/images/logo-navbar.png}">
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -40,26 +45,29 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li><a href="/"><span class="glyphicon glyphicon-user"></span> My page</a></li>
-                <li><a href="/dialogs"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
-                <li><a href="/calendar"><span class="glyphicon glyphicon-th-large glyphicon"></span> Calendar</a></li>
-                <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                <li><a href="/dialogs"><span class="glyphicon glyphicon-envelope"></span>
+                    Messages</a></li>
+                <li><a href="/calendar"><span class="glyphicon glyphicon-th-large glyphicon"></span>
+                    Calendar</a></li>
+                <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span> Settings</a>
+                </li>
                 <li><a href="/logout"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
             </ul>
         </div>
         <!--CENTER: CALENDAR.-->
         <div class="col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 col-md-offset-2 main">
             <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li role="presentation" class="active"><a href="#past-events"
-                                                          aria-controls="past-events" role="tab"
-                                                          data-toggle="tab">Past events</a></li>
-                <li role="presentation"><a href="#future-events" aria-controls="events"
+                <li role="presentation"  class="active"><a href="#future-events" aria-controls="events"
                                            role="tab" data-toggle="tab">Future events</a>
                 </li>
+                <li role="presentation"><a href="#past-events"
+                                                          aria-controls="past-events" role="tab"
+                                                          data-toggle="tab">Past events</a></li>
             </ul>
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="past-events">
+                <div role="tabpanel" class="tab-pane active" id="future-events">
                 </div>
-                <div role="tabpanel" class="tab-pane" id="future-events">
+                <div role="tabpanel" class="tab-pane" id="past-events">
                 </div>
             </div>
         </div>
@@ -69,12 +77,14 @@
                 <div class="profile-sidebar box-main">
                     <div th:if="${user.profileImage} != null">
                         <div>
-                            <img class="profile-userpic centered-and-cropped" th:src="@{'/profile-image/' + ${user.profileImage.id}}">
+                            <img class="profile-userpic centered-and-cropped"
+                                 th:src="@{'/profile-image/' + ${user.profileImage.id}}">
                         </div>
                     </div>
                     <div th:if="${user.profileImage} == null">
                         <div>
-                            <img class="profile-userpic centered-and-cropped" src="images/default-user-image.png"
+                            <img class="profile-userpic centered-and-cropped"
+                                 src="images/default-user-image.png"
                                  th:src="@{/images/default-user-image.png}">
                         </div>
                     </div>
@@ -100,20 +110,33 @@
                     </div>
                     <div class="profile-userbuttons">
                         <div id="follow" class="hidden">
-                            <button id="button-follow" type="submit" class="btn btn-primary btn-md btn-block">Follow</button>
+                            <button id="button-follow" type="submit"
+                                    class="btn btn-primary btn-md btn-block">Follow
+                            </button>
                         </div>
                         <div id="unfollow" class="hidden">
-                            <button id="button-unfollow" type="submit" class="btn btn-primary btn-md btn-block">Unfollow</button>
+                            <button id="button-unfollow" type="submit"
+                                    class="btn btn-primary btn-md btn-block">Unfollow
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div class="profile-sidebar box-main">
                     <div class="profile-userbuttons row">
                         <div id="calendar-href" class="col-sm-6">
-                            <a th:href="@{'/calendar/' + ${user.id}}"><button type="submit" class="btn btn-primary btn-md btn-block button-calendar"><span class="glyphicon glyphicon-th-large glyphicon"></span></button></a>
+                            <a th:href="@{'/calendar/' + ${user.id}}">
+                                <button type="submit"
+                                        class="btn btn-primary btn-md btn-block button-calendar">
+                                    <span class="glyphicon glyphicon-th-large glyphicon"></span>
+                                </button>
+                            </a>
                         </div>
                         <div id="message-href" class="col-sm-6">
-                            <a th:href="@{'/message-to/' + ${user.id}}"><button type="submit" class="btn btn-primary btn-md btn-block button-message"><span class="glyphicon glyphicon-envelope"></span></button></a>
+                            <a th:href="@{'/message-to/' + ${user.id}}">
+                                <button type="submit"
+                                        class="btn btn-primary btn-md btn-block button-message">
+                                    <span class="glyphicon glyphicon-envelope"></span></button>
+                            </a>
                         </div>
                     </div>
                 </div>
