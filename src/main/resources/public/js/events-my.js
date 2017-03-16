@@ -7,10 +7,10 @@ $(document).ready(function () {
     var from = 0;
     var flag = true;
     var special_alert_no_my_future_events = "<div id=\"special-alert-no-my-future-events\" class=\"appended-result\"><div class=\"row search-result\"><div class=\"col-sm-12\"><div class=\"no-more-events\"><h5>THERE IS NO EVENTS.</h5></div></div></div><hr class=\"middle\"></div>";
-    $("#my-events").append(special_alert_no_my_future_events);
-    getFirstTen(user_id, "/get-my-future-events/", "#special-alert-no-my-future-events", "#my-events", load_more_my_future_events);
+    $("#my-events-container").append(special_alert_no_my_future_events);
+    getFirstTen(user_id, "/get-my-future-events/", "#special-alert-no-my-future-events", "#my-events-container", load_more_my_future_events);
     $(document.body).on("click", "#load-more-my-future-events-href", function () {
-        var array = getNextTen(user_id, from, "/get-my-future-events/", "#my-events", load_more_my_future_events);
+        var array = getNextTen(user_id, from, "/get-my-future-events/", "#my-events-container", load_more_my_future_events);
         from = array[0];
     });
 });

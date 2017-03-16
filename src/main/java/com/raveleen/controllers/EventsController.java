@@ -45,46 +45,66 @@ public class EventsController {
     @Autowired
     private EventService eventService;
 
-    @RequestMapping(value = "/get-events/{user-id}/{from}")
-    @ResponseBody
-    public String[][] getEvents(@PathVariable("user-id") long userId,
-                                        @PathVariable("from") int from) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String login = user.getUsername();
-        CustomUser customUser = userService.getUserByLogin(login);
-        List<Event> events = eventService.findByHostIdOrderByEventDateDesc(userId, from);
-
-        String[][] storage = utilsService.arrayEventFill(events, customUser);
-        return storage;
-    }
-
     @RequestMapping(value = "/get-following-events/{user-id}/{from}")
     @ResponseBody
     public String[][] getFollowingEvents(@PathVariable("user-id") long userId,
-                                        @PathVariable("from") int from) {
+                                         @PathVariable("from") int from) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
         List<Event> events = eventService.getFollowingsEvents(userId, from);
-
         String[][] storage = utilsService.arrayEventFill(events, customUser);
         return storage;
     }
 
-    //TODO: SET UP EVENT CREATION
-
-    @RequestMapping(value = "/event-create", method = RequestMethod.POST)
+    @RequestMapping(value = "/get-future-events/{user-id}/{from}")
     @ResponseBody
-    public String[][] createEvent(@RequestParam("text") String text,
-                                 @RequestParam(value = "photo") MultipartFile body) throws IOException {
+    public String[][] getFutureEvents(@PathVariable("user-id") long userId,
+                                      @PathVariable("from") int from) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
+        List<Event> events = new ArrayList<>();
+        //TODO: SET UP "get-future-events" response
+        String[][] storage = utilsService.arrayEventFill(events, customUser);
 
+        return storage;
+    }
+
+    @RequestMapping(value = "/get-past-events/{user-id}/{from}")
+    @ResponseBody
+    public String[][] getPastEvents(@PathVariable("user-id") long userId,
+                                    @PathVariable("from") int from) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String login = user.getUsername();
+        CustomUser customUser = userService.getUserByLogin(login);
+        List<Event> events = new ArrayList<>();
+
+        String[][] storage = utilsService.arrayEventFill(events, customUser);
+
+        return storage;
+    }
+
+
+    @RequestMapping(value = "/event-create", method = RequestMethod.POST)
+    @ResponseBody
+    public String[][] createEvent(@RequestParam("title") String title,
+                                  @RequestParam("info") String info,
+                                  @RequestParam(value = "photo") MultipartFile body) throws IOException {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String login = user.getUsername();
+        CustomUser customUser = userService.getUserByLogin(login);
+        //TODO: SET UP EVENT CREATION
         String[][] storage = utilsService.arrayEventFill(new ArrayList<Event>(), customUser);
 
         return storage;
     }
 
-    //TODO: SET UP EVENT DELETE FUNCTION
+    @RequestMapping(value = "/event-delete/event-{event-id}", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteEvent(@PathVariable("event-id") long eventId) throws IOException {
+        //TODO: SET UP EVENT DELETE FUNCTION
+
+        return "deleted";
+    }
 }
