@@ -65,7 +65,7 @@ public class EventsController {
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
         List<Event> events = new ArrayList<>();
-        //TODO: SET UP "get-future-events" response
+        //TODO: set up "get-future-events" response
         String[][] storage = utilsService.arrayEventFill(events, customUser);
 
         return storage;
@@ -79,7 +79,7 @@ public class EventsController {
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
         List<Event> events = new ArrayList<>();
-
+        //TODO: set up "get-past-events" response
         String[][] storage = utilsService.arrayEventFill(events, customUser);
 
         return storage;
@@ -94,7 +94,7 @@ public class EventsController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
-        //TODO: SET UP EVENT CREATION
+        //TODO: set up event creation
         String[][] storage = utilsService.arrayEventFill(new ArrayList<Event>(), customUser);
 
         return storage;
@@ -103,8 +103,31 @@ public class EventsController {
     @RequestMapping(value = "/event-delete/event-{event-id}", method = RequestMethod.POST)
     @ResponseBody
     public String deleteEvent(@PathVariable("event-id") long eventId) throws IOException {
-        //TODO: SET UP EVENT DELETE FUNCTION
+        //TODO: set up event delete function
 
         return "deleted";
+    }
+
+    @RequestMapping(value = "/event-visit/event-{event-id}")
+    @ResponseBody
+    public String visitEvent(@PathVariable("event-id") long eventId) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String login = user.getUsername();
+        CustomUser customUser = userService.getUserByLogin(login);
+        //TODO: set up "event-visit" function
+
+        return "confirmed";
+    }
+
+    @RequestMapping(value = "/event-rate/event-{event-id}/{rate}")
+    @ResponseBody
+    public String rateEvent(@PathVariable("event-id") long eventId,
+                                    @PathVariable("rate") int from) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String login = user.getUsername();
+        CustomUser customUser = userService.getUserByLogin(login);
+        //TODO: set up "event-rate" function
+
+        return "rated";
     }
 }

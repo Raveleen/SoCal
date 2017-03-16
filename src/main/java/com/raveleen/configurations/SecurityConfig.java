@@ -64,7 +64,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/calendar/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
                 .antMatchers("/calendar/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
                 .antMatchers("/news").hasAnyRole("USER", "ADMIN", "MODERATOR")
-                //TODO: ADD EVENTS QUERIES.
+                .antMatchers("/create-event/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
+                .antMatchers("/delete-event/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
+                .antMatchers("/get-following-events/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
+                .antMatchers("/get-past-events/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
+                .antMatchers("/get-future-events/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
                 .antMatchers("/login").permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/unauthorized")
