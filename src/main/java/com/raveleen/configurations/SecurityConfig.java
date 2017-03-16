@@ -69,6 +69,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/get-following-events/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
                 .antMatchers("/get-past-events/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
                 .antMatchers("/get-future-events/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
+                .antMatchers("/event-visit/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
+                .antMatchers("/event-rate/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
                 .antMatchers("/login").permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/unauthorized")

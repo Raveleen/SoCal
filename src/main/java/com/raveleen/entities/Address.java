@@ -1,5 +1,6 @@
 package com.raveleen.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,6 +14,9 @@ public class Address {
     @GeneratedValue
     private long id;
 
+    @Column(length = 200)
+    private String placeId;
+
     public Address() {
     }
 
@@ -22,5 +26,13 @@ public class Address {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
     }
 }

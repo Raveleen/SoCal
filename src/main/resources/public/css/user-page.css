@@ -65,7 +65,6 @@ textarea {
 }
 
 #create-post-box {
-    margin-bottom: 15px;
     text-align: center;
 }
 
@@ -552,4 +551,25 @@ a.unlike-button:hover {
 #create-event-box {
     margin-top: 20px;
     text-align: center;
+}
+
+.event {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    background-color: #fff;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    border: 1px solid #ddd;
+    -moz-box-shadow: 0 2px 2px rgba(80, 80, 80, 0.3);
+    -webkit-box-shadow: 0 2px 2px rgba(80, 80, 80, 0.3);
+    box-shadow: 0 2px 2px rgba(80, 80, 80, 0.3);
+    margin-bottom: 10px;
+}
+
+.no-more-events {
+    text-align: center;
+    color: #9d9d9d;
 }

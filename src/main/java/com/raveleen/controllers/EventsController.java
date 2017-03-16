@@ -90,10 +90,12 @@ public class EventsController {
     @ResponseBody
     public String[][] createEvent(@RequestParam("title") String title,
                                   @RequestParam("info") String info,
-                                  @RequestParam(value = "photo") MultipartFile body) throws IOException {
+                                  @RequestParam("date") String date,
+                                  @RequestParam("time") String time) throws IOException {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
+        System.out.println(date + " " + time + " " + title + " " + info);
         //TODO: set up event creation
         String[][] storage = utilsService.arrayEventFill(new ArrayList<Event>(), customUser);
 
@@ -122,7 +124,7 @@ public class EventsController {
     @RequestMapping(value = "/event-rate/event-{event-id}/{rate}")
     @ResponseBody
     public String rateEvent(@PathVariable("event-id") long eventId,
-                                    @PathVariable("rate") int from) {
+                            @PathVariable("rate") int from) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);

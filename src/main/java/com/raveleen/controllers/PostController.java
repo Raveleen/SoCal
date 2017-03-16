@@ -67,11 +67,6 @@ public class PostController {
     @RequestMapping(value = "/post-delete/{post-id}", method = RequestMethod.POST)
     @ResponseBody
     public String deletePost(@PathVariable("post-id") long postId) throws IOException {
-        /*User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String login = user.getUsername();
-        CustomUser customUser = userService.getUserByLogin(login);
-        customUser.removePost(postService.getById(postId));
-        userService.updateUser(customUser);*/
         postService.deletePostById(postId);
 
         return "deleted";

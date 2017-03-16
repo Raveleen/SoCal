@@ -71,9 +71,8 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (data) {
-                $("#my-events-container").prepend(concatEvent(data[0]));
-                $("#special-alert").remove();
-                $("#posts-container").append('' + special_alert_no_more_posts);
+                $("#future-events").prepend(concatEvent(data[0]));
+                $("#special-alert-no-future-events").remove();
                 document.getElementById('create-event-form').reset();
                 $("#characters-number").text(1000);
                 $("#characters-title-number").text(1000);
