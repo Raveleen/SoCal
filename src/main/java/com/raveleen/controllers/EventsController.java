@@ -22,7 +22,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,8 +56,9 @@ public class EventsController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
-        List<Event> events = eventService.getFollowingsEvents(userId, from);
+        List<Event> events = eventService.getFollowingsEvents(userId, new Date(), from);
         String[][] storage = utilsService.arrayEventFill(events, customUser);
+
         return storage;
     }
 
@@ -64,8 +69,7 @@ public class EventsController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
-        List<Event> events = new ArrayList<>();
-        //TODO: set up "get-future-events" response
+        List<Event> events = eventService.getFutureEvents(userId, new Date(), from);
         String[][] storage = utilsService.arrayEventFill(events, customUser);
 
         return storage;
@@ -78,8 +82,7 @@ public class EventsController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
-        List<Event> events = new ArrayList<>();
-        //TODO: set up "get-past-events" response
+        List<Event> events = eventService.getPastEvents(userId, new Date(), from);
         String[][] storage = utilsService.arrayEventFill(events, customUser);
 
         return storage;
@@ -91,13 +94,25 @@ public class EventsController {
     public String[][] createEvent(@RequestParam("title") String title,
                                   @RequestParam("info") String info,
                                   @RequestParam("date") String date,
-                                  @RequestParam("time") String time) throws IOException {
+                                  @RequestParam("time") String time) throws IOException, ParseException {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
         System.out.println(date + " " + time + " " + title + " " + info);
         //TODO: set up event creation
-        String[][] storage = utilsService.arrayEventFill(new ArrayList<Event>(), customUser);
+        String datePart = "yyyy-MM-dd";
+        String timePart = "HH:mm:ss";
+        DateFormat sdf = new SimpleDateFormat(datePart + " " + timePart);
+        Event event = new Event();
+        Date input = sdf.parse(date + " " + time);
+        event.setEventDate(input);
+        event.setTitle(title);
+        event.setInfo(info);
+        event.setHost(customUser);
+        event = eventService.addEvent(event);
+        ArrayList<Event> events = new ArrayList<>();
+        events.add(event);
+        String[][] storage = utilsService.arrayEventFill(events, customUser);
 
         return storage;
     }
