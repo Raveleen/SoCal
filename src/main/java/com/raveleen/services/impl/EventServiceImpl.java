@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,7 @@ public class EventServiceImpl implements EventService {
     private EventRepository eventRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Event> getFollowingsEvents(long id1, Date time, int from) {
         int counter;
         if (from == 0) {
@@ -32,26 +34,31 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Event getById(long id) {
         return eventRepository.findOne(id);
     }
 
     @Override
+    @Transactional
     public void updateEvent(Event event) {
         eventRepository.saveAndFlush(event);
     }
 
     @Override
+    @Transactional
     public void deleteEventById(long id) {
         eventRepository.delete(id);
     }
 
     @Override
+    @Transactional
     public Event addEvent(Event event) {
         return eventRepository.saveAndFlush(event);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Event> getFutureEvents(long id, Date time, int from) {
         int counter;
         if (from == 0) {
@@ -64,6 +71,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Event> getPastEvents(long id, Date time, int from) {
         int counter;
         if (from == 0) {

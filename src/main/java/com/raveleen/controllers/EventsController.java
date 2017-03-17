@@ -1,5 +1,6 @@
 package com.raveleen.controllers;
 
+import com.raveleen.entities.Address;
 import com.raveleen.entities.CustomUser;
 import com.raveleen.entities.Event;
 import com.raveleen.entities.Image;
@@ -94,7 +95,10 @@ public class EventsController {
     public String[][] createEvent(@RequestParam("title") String title,
                                   @RequestParam("info") String info,
                                   @RequestParam("date") String date,
-                                  @RequestParam("time") String time) throws IOException, ParseException {
+                                  @RequestParam("time") String time,
+                                  @RequestParam("address") String address,
+                                  @RequestParam("placeId") String placeId)
+            throws IOException, ParseException {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
@@ -109,6 +113,9 @@ public class EventsController {
         event.setTitle(title);
         event.setInfo(info);
         event.setHost(customUser);
+        Address address1 = new Address();
+        address1.setAddressLine(address);
+        address1.setPlaceId(placeId);
         event = eventService.addEvent(event);
         ArrayList<Event> events = new ArrayList<>();
         events.add(event);
