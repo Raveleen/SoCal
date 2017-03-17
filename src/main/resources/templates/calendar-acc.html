@@ -14,6 +14,7 @@
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="/js/google-analytics.js" th:src="@{/js/google-analytics.js}"></script>
+    <script src="/js/map-creation.js" th:src="@{/js/map-creation.js}"></script>
     <script src="/js/events-get-with-parameter.js" th:src="@{/js/events-get-with-parameter.js}"></script>
     <script src="/js/event-delete.js" th:src="@{/js/event-delete.js}"></script>
     <script src="/js/event-concat.js" th:src="@{/js/event-concat.js}"></script>
@@ -70,7 +71,7 @@
                                                           role="tab" data-toggle="tab">My past events</a>
                 </li>
                 <li role="presentation"><a href="#events" aria-controls="events" role="tab"
-                                           data-toggle="tab">Users</a></li>
+                                           data-toggle="tab">Following events</a></li>
                 <li role="presentation"><a href="#posts-container" aria-controls="posts-container"
                                            role="tab" data-toggle="tab">Posts</a></li>
             </ul>
@@ -78,7 +79,7 @@
                 <div role="tabpanel" class="tab-pane active" id="my-events">
                     <div id="create-event-box" class="row">
                         <a id="create-event-box-href"><span id="arrow-down" class="glyphicon glyphicon-menu-down"></span><span id="arrow-up" class="glyphicon glyphicon-menu-up hidden"></span></a>
-                        <div id="create-event-form-div" class="hidden">
+                        <div id="create-event-form-div" class="hidden"><!--class="hidden"-->
                             <form enctype="multipart/form-data" id="create-event-form" method="POST">
                                 <div class="form-group">
                                     <div class="col-sm-12">
@@ -111,6 +112,18 @@
                                     <div class="col-sm-6">
                                         <input type="time" id="time-input" class="form-control"
                                                name="time" th:min="${timeMin}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <input id="pac-input" class="controls form-control"
+                                               placeholder="Enter a location" name="address">
+                                        <div id="map"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group hidden">
+                                    <div class="col-sm-12">
+                                        <input id="place-id-form" class="controls from-control" type="text" name="placeId">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -207,5 +220,7 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9v0TTB1Flv6b5s1UkKemWNlS9ab7P0A8&libraries=places&callback=initMap"
+        async defer></script>
 </body>
 </html>

@@ -11,14 +11,13 @@ $(document).ready(function () {
     //_Getting first posts on load.
     $.get("/get-following-posts/" + user_id + "/0", function (data) {
         var i = 0;
-        if (data[0][0] === null) {
+        if (data === null) {
             $("#special-alert").remove();
             $("#posts-container").append('' + special_alert_no_posts);
         } else {
             while (i < data.length) {
-                if (data[i][0] !== null) {
-                    $("#posts-container").append('' + concatPost(data[i]));
-                } else {
+                $("#posts-container").append('' + concatPost(data[i]));
+                if (i === 9) {
                     $("#special-alert").remove();
                     $("#posts-container").append('' + special_alert_no_more_posts);
                 }
@@ -32,15 +31,14 @@ $(document).ready(function () {
             from += 10;
             $.get("/get-following-posts/" + user_id + "/" + from, function (data) {
                 var i = 0;
-                if (data[0][0] === null) {
+                if (data === null) {
                     flag = false;
                     $("#special-alert").remove();
                     $("#posts-container").append('' + special_alert_no_more_posts);
                 } else {
                     while (i < data.length) {
-                        if (data[i][0] !== null) {
-                            $("#posts-container").append('' + concatPost(data[i]));
-                        } else {
+                        $("#posts-container").append('' + concatPost(data[i]));
+                        if (i === 9) {
                             $("#special-alert").remove();
                             $("#posts-container").append('' + special_alert_no_more_posts);
                             flag = false;

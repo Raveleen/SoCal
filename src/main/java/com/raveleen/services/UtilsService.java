@@ -34,6 +34,9 @@ public class UtilsService {
     }
 
     public String[][] arrayFill(List<Post> posts, CustomUser customUser) {
+        if (posts.size() == 0) {
+            return null;
+        }
         String[][] storage = new String[10][11];
         int counter = 0;
         for (Post temp : posts) {
@@ -65,6 +68,9 @@ public class UtilsService {
     }
 
     public String[][] arrayUserFill(List<CustomUser> users, CustomUser customUser) {
+        if (users.size() == 0) {
+            return null;
+        }
         String[][] storage = new String[users.size()][4];
         int counter = 0;
         for (CustomUser temp : users) {
@@ -86,6 +92,9 @@ public class UtilsService {
     }
 
     public String[][] arrayMessageFill(List<Message> messages, CustomUser customUser, Dialog dialog) {
+        if (messages.size() == 0) {
+            return null;
+        }
         String[][] storage = new String[messages.size() + 1][6];
         int counter = 1;
         storage[0][0] = String.valueOf(dialog.getLastMessageDate().getTime());
@@ -111,9 +120,20 @@ public class UtilsService {
     }
 
     public String[][] arrayEventFill(List<Event> events, CustomUser customUser) {
+        if (events.size() == 0) {
+            return null;
+        }
         String[][] storage = new String[events.size()][6];
-        int counter = 1;
+        int counter = 0;
         for (Event temp : events) {
+            storage[counter][0] = String.valueOf(temp.getId());
+            storage[counter][1] = String.valueOf(temp.getHost().getId());
+            storage[counter][2] = temp.getHost().getLogin();
+            SimpleDateFormat simpleDateFormat =
+                    new SimpleDateFormat("HH:mm, EEE dd MMMMM, yyyy", Locale.US);
+            storage[counter][3] = String.valueOf(simpleDateFormat.format(temp.getEventDate()));
+            storage[counter][4] = String.valueOf(temp.getAddress().getPlaceId());
+            //TODO: set "user-visit" check and "user-rate" check
             counter += 1;
         }
         return storage;

@@ -15,6 +15,9 @@ public class Address {
     private long id;
 
     @Column(length = 200)
+    private String addressLine;
+
+    @Column(length = 200)
     private String placeId;
 
     public Address() {
@@ -34,5 +37,13 @@ public class Address {
 
     public void setPlaceId(String placeId) {
         this.placeId = placeId;
+    }
+
+    public String getAddressLine() {
+        return addressLine;
+    }
+
+    public void setAddressLine(String addressLine) {
+        this.addressLine = addressLine;
     }
 }

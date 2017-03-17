@@ -116,6 +116,8 @@ public class EventsController {
         Address address1 = new Address();
         address1.setAddressLine(address);
         address1.setPlaceId(placeId);
+        address1 = addressService.addAddress(address1);
+        event.setAddress(address1);
         event = eventService.addEvent(event);
         ArrayList<Event> events = new ArrayList<>();
         events.add(event);

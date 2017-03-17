@@ -50,6 +50,7 @@ $(document).ready(function () {
                 $("#create-event-form-div").slideDown();
             }
         }
+        initMap();
     });
     //_Arrow, which closes form
     $("#arrow-up").click(function () {
