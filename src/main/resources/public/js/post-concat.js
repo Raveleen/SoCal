@@ -34,7 +34,7 @@ function concatPost(array) {
     } else {
         string += "<div class=\"col-sm-6\"><div class=\"like-button-div\"><a class=\"like-button\"><span class=\"glyphicon glyphicon-heart\"></span></a><a class=\"unlike-button hidden\"><span class=\"glyphicon glyphicon-heart\"></span></a><a href=\"/post-likes/";
         string += array[0];
-        string += "\"><span class=\"likes-number\">";
+        string += "\"> <span class=\"likes-number\"> ";
     }
     string += array[8];
     string += "</span></a></div></div><div class=\"col-sm-6\"><div class=\"comment-quantity-div\"><a class=\"comment-button\"><p class=\"\"><span class=\"comments-number\">";

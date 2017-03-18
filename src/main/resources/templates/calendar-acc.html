@@ -14,7 +14,6 @@
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="/js/google-analytics.js" th:src="@{/js/google-analytics.js}"></script>
-    <script src="/js/map-creation.js" th:src="@{/js/map-creation.js}"></script>
     <script src="/js/events-get-with-parameter.js" th:src="@{/js/events-get-with-parameter.js}"></script>
     <script src="/js/event-delete.js" th:src="@{/js/event-delete.js}"></script>
     <script src="/js/event-concat.js" th:src="@{/js/event-concat.js}"></script>
@@ -28,6 +27,7 @@
     <script src="/js/comment-manipulations.js" th:src="@{/js/comment-manipulations.js}"></script>
     <script src="/js/post-concat.js" th:src="@{/js/post-concat.js}"></script>
     <script src="/js/calendar-posts.js" th:src="@{/js/calendar-posts.js}"></script>
+    <script src="/js/map-creation.js" th:src="@{/js/map-creation.js}"></script>
 </head>
 <body>
 <!--TOP NAVBAR: LOGO + NAVIGATION.-->
@@ -82,6 +82,9 @@
                         <div id="create-event-form-div" class="hidden"><!--class="hidden"-->
                             <form enctype="multipart/form-data" id="create-event-form" method="POST">
                                 <div class="form-group">
+                                    <div class="info-text col-sm-12">
+                                        <p>Event name:</p>
+                                    </div>
                                     <div class="col-sm-12">
                                         <textarea class="form-control" maxlength="30" rows="1" id="event-title" name="title"></textarea>
                                         <div id="title-counter">
@@ -92,6 +95,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <div class="info-text col-sm-12">
+                                        <p>Event info:</p>
+                                    </div>
                                     <div class="col-sm-12">
                                         <textarea class="form-control" maxlength="1000" rows="5"
                                                   id="event-info" name="info"></textarea>
@@ -101,6 +107,9 @@
                                             </p>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="info-text col-sm-12">
+                                    <p>Date and time:</p>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-6">
@@ -220,7 +229,6 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9v0TTB1Flv6b5s1UkKemWNlS9ab7P0A8&libraries=places&callback=initMap"
-        async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9v0TTB1Flv6b5s1UkKemWNlS9ab7P0A8&libraries=places" defer></script>
 </body>
 </html>

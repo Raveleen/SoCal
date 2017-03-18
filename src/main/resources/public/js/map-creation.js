@@ -1,9 +1,9 @@
 /**
  * Created by Святослав on 17.03.2017.
  */
-
+var map;
 function initMap() {
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 50.4600556, lng: 30.5326409},
         zoom: 13
     });
