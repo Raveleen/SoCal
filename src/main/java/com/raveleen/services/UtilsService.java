@@ -23,8 +23,6 @@ public class UtilsService {
     @Autowired
     private MessageService messageService;
 
-
-
     public boolean isWord(String temp) {
         boolean flag = true;
         for (char a : temp.toCharArray()) {

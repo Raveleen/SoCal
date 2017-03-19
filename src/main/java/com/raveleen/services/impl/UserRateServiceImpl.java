@@ -48,7 +48,7 @@ public class UserRateServiceImpl implements UserRateService {
 
     @Override
     @Transactional(readOnly = true)
-    public int getAverageMark(long eventId) {
+    public double getAverageMark(long eventId) {
         return userRateRepository.getAverageMark(eventId);
     }
 

@@ -16,7 +16,7 @@ public interface UserRateService {
 
     UserRate addUserRate(UserRate userRate);
 
-    int getAverageMark(long id);
+    double getAverageMark(long id);
 
     int getNumberOfRateForEvent(long id);
 }

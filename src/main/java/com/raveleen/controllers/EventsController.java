@@ -103,7 +103,6 @@ public class EventsController {
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
         System.out.println(date + " " + time + " " + title + " " + info);
-        //TODO: set up event creation
         String datePart = "yyyy-MM-dd";
         String timePart = "HH:mm:ss";
         DateFormat sdf = new SimpleDateFormat(datePart + " " + timePart);
@@ -129,7 +128,13 @@ public class EventsController {
     @RequestMapping(value = "/event-delete/event-{event-id}", method = RequestMethod.POST)
     @ResponseBody
     public String deleteEvent(@PathVariable("event-id") long eventId) throws IOException {
-        //TODO: set up event delete function
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String login = user.getUsername();
+        CustomUser customUser = userService.getUserByLogin(login);
+        Event event = eventService.getById(eventId);
+        if (event.getHost().getId() == customUser.getId()) {
+            eventService.deleteEventById(eventId);
+        }
 
         return "deleted";
     }
