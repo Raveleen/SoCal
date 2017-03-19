@@ -11,12 +11,12 @@ import java.util.List;
  * Created by Святослав on 12.03.2017.
  */
 public interface UserRateRepository extends JpaRepository<UserRate, Long> {
-    @Query("SELECT u FROM userRate u WHERE u.host_id = :id2 AND u.event_id = :id1")
+    @Query("SELECT u FROM UserRate u INNER JOIN u.user c INNER JOIN u.event b WHERE c.id = :id2 AND b.id = :id1")
     UserRate getByIdAndUserId(@Param("id1") long id1, @Param("id2") long id2);
 
-    @Query("SELECT AVG(u.mark) FROM userRate u WHERE u.event_id = :id")
+    @Query("SELECT AVG(u.mark) FROM Event c INNER JOIN c.userRates u WHERE c.id = :id")
     double getAverageMark(@Param("id") long id);
 
-    @Query("SELECT COUNT(u) FROM userRate u WHERE u.host_id = :id")
+    @Query("SELECT COUNT(u) FROM Event c INNER JOIN c.userRates u WHERE c.id = :id")
     int getNumberOfRateForEvent(@Param("id") long id);
 }
