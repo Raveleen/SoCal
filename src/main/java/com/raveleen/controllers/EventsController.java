@@ -140,7 +140,11 @@ public class EventsController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
-        //TODO: set up "event-visit" function
+        UserRate userRate = new UserRate();
+        Event event = eventService.getById(eventId);
+        userRate.setEvent(event);
+        userRate.setUser(customUser);
+        userRateService.addUserRate(userRate);
 
         return "confirmed";
     }
@@ -148,11 +152,14 @@ public class EventsController {
     @RequestMapping(value = "/event-rate/event-{event-id}/{rate}")
     @ResponseBody
     public String rateEvent(@PathVariable("event-id") long eventId,
-                            @PathVariable("rate") int from) {
+                            @PathVariable("rate") int mark) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
-        //TODO: set up "event-rate" function
+        Event event = eventService.getById(eventId);
+        UserRate userRate = userRateService.getByIdAndUserId(eventId, customUser.getId());
+        userRate.setMark(mark);
+        userRateService.updateRate(userRate);
 
         return "rated";
     }
