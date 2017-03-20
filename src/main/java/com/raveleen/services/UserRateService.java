@@ -19,4 +19,6 @@ public interface UserRateService {
     double getAverageMark(long id);
 
     int getNumberOfRateForEvent(long id);
+
+    boolean isThereMarks(long id);
 }

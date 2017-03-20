@@ -139,7 +139,7 @@ public class EventsController {
         return "deleted";
     }
 
-    @RequestMapping(value = "/event-visit/event-{event-id}")
+    @RequestMapping(value = "/event-visit/event-attend-{event-id}")
     @ResponseBody
     public String visitEvent(@PathVariable("event-id") long eventId) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -161,7 +161,6 @@ public class EventsController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
         CustomUser customUser = userService.getUserByLogin(login);
-        Event event = eventService.getById(eventId);
         UserRate userRate = userRateService.getByIdAndUserId(eventId, customUser.getId());
         userRate.setMark(mark);
         userRateService.updateRate(userRate);

@@ -7,6 +7,7 @@ import com.raveleen.entities.Message;
 import com.raveleen.entities.Post;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -131,7 +132,7 @@ public class UtilsService {
         if (events.size() == 0) {
             return null;
         }
-        String[][] storage = new String[events.size()][9];
+        String[][] storage = new String[events.size()][11];
         int counter = 0;
         for (Event temp : events) {
             storage[counter][0] = String.valueOf(temp.getId());
@@ -146,7 +147,7 @@ public class UtilsService {
                 storage[counter][5] = "0";
             } else if (userRate == null) {
                 storage[counter][5] = "1";
-            } else if (userRate.getMark() == 0) {
+            } else if (userRate.getMark() ) {
                 storage[counter][5] = "2";
             } else {
                 storage[counter][5] = "3";
@@ -158,6 +159,16 @@ public class UtilsService {
             }
             storage[counter][7] = temp.getTitle();
             storage[counter][8] = temp.getInfo();
+            storage[counter][9] = String.valueOf(userRateService.getNumberOfRateForEvent(temp.getId()));
+            if (temp.getEventDate().getTime() < new Date().getTime()) {
+                if (userRateService.isThereMarks(temp.getId())) {
+                    storage[counter][10] = String.valueOf(userRateService.getAverageMark(temp.getId()));
+                } else {
+                    storage[counter][10] = "N/A";
+                }
+            } else {
+                storage[counter][10] = "-1";
+            }
             counter += 1;
         }
         return storage;

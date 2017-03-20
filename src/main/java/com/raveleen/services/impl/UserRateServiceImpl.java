@@ -57,4 +57,10 @@ public class UserRateServiceImpl implements UserRateService {
     public int getNumberOfRateForEvent(long eventId) {
         return userRateRepository.getNumberOfRateForEvent(eventId);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean isThereMarks(long id) {
+        return userRateRepository.isThereMarks(id);
+    }
 }

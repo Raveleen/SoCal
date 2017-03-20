@@ -17,6 +17,11 @@ public interface UserRateRepository extends JpaRepository<UserRate, Long> {
     @Query("SELECT AVG(u.mark) FROM Event c INNER JOIN c.userRates u WHERE c.id = :id")
     double getAverageMark(@Param("id") long id);
 
-    @Query("SELECT COUNT(u) FROM Event c INNER JOIN c.userRates u WHERE c.id = :id")
+    @Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM Event c "
+            + "INNER JOIN c.userRates u "
+            + "WHERE c.id = :id AND u.mark IS NOT NULL")
+    boolean isThereMarks(@Param("id") long id);
+
+    @Query("SELECT COUNT(u) FROM Event c INNER JOIN c.userRates u WHERE c.id = :id AND u.mark IS NOT NULL")
     int getNumberOfRateForEvent(@Param("id") long id);
 }
