@@ -13,4 +13,4 @@ ratings:
   paths:
   - src/**
 exclude_paths:
-- "**.js"
+- "**/js/"

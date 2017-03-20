@@ -18,7 +18,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             + "INNER JOIN u.host x "
             + "WHERE x.id IN (SELECT d.id FROM CustomUser d "
             + "INNER JOIN d.followers c WHERE c.id = :id1) "
-            + "AND u.eventDate < :lsdate "
+            + "AND u.eventDate > :lsdate "
             + "ORDER BY u.eventDate DESC")
     List<Event> getFollowingsEvents(@Param("id1") long id1, @Param("lsdate") Date time, Pageable pageable);
 
