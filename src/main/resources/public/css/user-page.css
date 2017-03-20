@@ -599,3 +599,15 @@ a.unlike-button:hover {
 .controls:focus {
     border-color: rgba(228, 98, 232, 0.8);;
 }
+
+.header-date {
+    color: rgba(228, 98, 232, 0.5);
+    text-align: left;
+}
+
+.event-body-text {
+    display: block;
+    width: 100%;
+    word-wrap: break-word;
+    color: #5e5e5e;
+}

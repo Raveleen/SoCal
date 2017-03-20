@@ -1,2 +1,16 @@
+engines:
+  rubocop:
+    enabled: true
+  golint:
+   	enabled: true
+  eslint:
+    enabled: true
+  csslint:
+    enabled: true
+  duplication:
+    enabled: false
+ratings:
+  paths:
+  - src/**
 exclude_paths:
 - "**.js"

@@ -109,7 +109,7 @@ public class EventsController {
         Event event = new Event();
         Date input = sdf.parse(date + " " + time);
         event.setEventDate(input);
-        event.setTitle(title);
+        event.setTitle(title.toUpperCase());
         event.setInfo(info);
         event.setHost(customUser);
         Address address1 = new Address();

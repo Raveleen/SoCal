@@ -5,10 +5,12 @@ import com.raveleen.entities.Dialog;
 import com.raveleen.entities.Event;
 import com.raveleen.entities.Message;
 import com.raveleen.entities.Post;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import com.raveleen.entities.UserRate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +45,7 @@ public class UtilsService {
         if (posts.size() == 0) {
             return null;
         }
-        String[][] storage = new String[10][11];
+        String[][] storage = new String[posts.size()][11];
         int counter = 0;
         for (Post temp : posts) {
             storage[counter][0] = String.valueOf(temp.getId());
@@ -129,7 +131,7 @@ public class UtilsService {
         if (events.size() == 0) {
             return null;
         }
-        String[][] storage = new String[events.size()][6];
+        String[][] storage = new String[events.size()][9];
         int counter = 0;
         for (Event temp : events) {
             storage[counter][0] = String.valueOf(temp.getId());
@@ -139,7 +141,23 @@ public class UtilsService {
                     new SimpleDateFormat("HH:mm, EEE dd MMMMM, yyyy", Locale.US);
             storage[counter][3] = String.valueOf(simpleDateFormat.format(temp.getEventDate()));
             storage[counter][4] = String.valueOf(temp.getAddress().getPlaceId());
-            //TODO: set "user-visit" check and "user-rate" check
+            UserRate userRate = userRateService.getByIdAndUserId(temp.getId(), customUser.getId());
+            if (customUser.getId() == temp.getHost().getId()) {
+                storage[counter][5] = "0";
+            } else if (userRate == null) {
+                storage[counter][5] = "1";
+            } else if (userRate.getMark() == 0) {
+                storage[counter][5] = "2";
+            } else {
+                storage[counter][5] = "3";
+            }
+            if (temp.getHost().getProfileImage() == null) {
+                storage[counter][6] = "-1";
+            } else {
+                storage[counter][6] = String.valueOf(temp.getHost().getProfileImage().getId());
+            }
+            storage[counter][7] = temp.getTitle();
+            storage[counter][8] = temp.getInfo();
             counter += 1;
         }
         return storage;

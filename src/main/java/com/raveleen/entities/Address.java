@@ -35,7 +35,7 @@ public class Address {
         return placeId;
     }
 
-    public void setPlaceId(String placeId) {
+    public void setPlaceId(String placeId){
         this.placeId = placeId;
     }
 
