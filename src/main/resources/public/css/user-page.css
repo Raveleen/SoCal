@@ -635,3 +635,11 @@ a.unlike-button:hover {
 .left-m {
     padding-left: 0px;
 }
+
+#posts-container, #events, #past-events, #future-events, #past-events {
+    text-align: center;
+}
+
+.event-map-href {
+    color: rgba(228, 98, 232, 0.5);
+}

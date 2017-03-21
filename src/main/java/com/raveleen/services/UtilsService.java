@@ -1,17 +1,29 @@
 package com.raveleen.services;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.raveleen.entities.CustomUser;
 import com.raveleen.entities.Dialog;
 import com.raveleen.entities.Event;
 import com.raveleen.entities.Message;
 import com.raveleen.entities.Post;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import com.raveleen.entities.UserRate;
+import com.raveleen.services.map.MapInfo;
+import com.raveleen.services.map.ResultJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -132,47 +144,103 @@ public class UtilsService {
         if (events.size() == 0) {
             return null;
         }
-        String[][] storage = new String[events.size()][11];
+        String[][] storage = new String[events.size()][12];
         int counter = 0;
         for (Event temp : events) {
-            storage[counter][0] = String.valueOf(temp.getId());
-            storage[counter][1] = String.valueOf(temp.getHost().getId());
-            storage[counter][2] = temp.getHost().getLogin();
             SimpleDateFormat simpleDateFormat =
                     new SimpleDateFormat("HH:mm, EEE dd MMMMM, yyyy", Locale.US);
-            storage[counter][3] = String.valueOf(simpleDateFormat.format(temp.getEventDate()));
-            storage[counter][4] = String.valueOf(temp.getAddress().getPlaceId());
-            UserRate userRate = userRateService.getByIdAndUserId(temp.getId(), customUser.getId());
-            if ((customUser.getId() == temp.getHost().getId()) && (temp.getEventDate().getTime() > new Date().getTime())) {
-                storage[counter][5] = "0";
-            } else if ((userRate == null) && !(customUser.getId() == temp.getHost().getId())) {
-                storage[counter][5] = "1";
-            } else if ((temp.getEventDate().getTime() < new Date().getTime())
-                    && !(userRateService.isUserRated(temp.getId(), customUser.getId()))) {
-                storage[counter][5] = "2";
-                System.out.println(userRateService.isUserRated(temp.getId(), customUser.getId()));
-            } else {
-                storage[counter][5] = "3";
-            }
-            if (temp.getHost().getProfileImage() == null) {
-                storage[counter][6] = "-1";
-            } else {
-                storage[counter][6] = String.valueOf(temp.getHost().getProfileImage().getId());
-            }
-            storage[counter][7] = temp.getTitle();
-            storage[counter][8] = temp.getInfo();
-            storage[counter][9] = String.valueOf(userRateService.getNumberOfRateForEvent(temp.getId()));
-            if (temp.getEventDate().getTime() < new Date().getTime()) {
-                if (userRateService.isThereMarks(temp.getId())) {
-                    storage[counter][10] = String.valueOf(userRateService.getAverageMark(temp.getId()));
+            String placeId = String.valueOf(temp.getAddress().getPlaceId());
+            try {
+                MapInfo mapInfo;
+                System.out.println(placeId);
+                System.out.println(temp.getId());
+                mapInfo = parserForGoogleMapApi(placeId);
+
+                UserRate userRate = userRateService.getByIdAndUserId(temp.getId(), customUser.getId());
+
+                storage[counter][0] = String.valueOf(temp.getId());
+                storage[counter][1] = String.valueOf(temp.getHost().getId());
+                storage[counter][2] = temp.getHost().getLogin();
+                storage[counter][3] = String.valueOf(simpleDateFormat.format(temp.getEventDate()));
+                storage[counter][4] = mapInfo.getUrl();
+
+                if ((customUser.getId() == temp.getHost().getId())
+                        && (temp.getEventDate().getTime() > new Date().getTime())) {
+                    storage[counter][5] = "0";
+                } else if ((userRate == null) && !(customUser.getId() == temp.getHost().getId())) {
+                    storage[counter][5] = "1";
+                } else if (!(customUser.getId() == temp.getHost().getId())
+                        && (temp.getEventDate().getTime() < new Date().getTime())
+                        && !(userRateService.isUserRated(temp.getId(), customUser.getId()))) {
+                    storage[counter][5] = "2";
+                    System.out.println(userRateService.isUserRated(temp.getId(), customUser.getId()));
                 } else {
-                    storage[counter][10] = "N/A";
+                    storage[counter][5] = "3";
                 }
-            } else {
-                storage[counter][10] = "-1";
+
+                if (temp.getHost().getProfileImage() == null) {
+                    storage[counter][6] = "-1";
+                } else {
+                    storage[counter][6] = String.valueOf(temp.getHost().getProfileImage().getId());
+                }
+
+                storage[counter][7] = temp.getTitle();
+                storage[counter][8] = temp.getInfo();
+                storage[counter][9] = String.valueOf(userRateService.getNumberOfRateForEvent(temp.getId()));
+
+                if (temp.getEventDate().getTime() < new Date().getTime()) {
+                    if (userRateService.isThereMarks(temp.getId())) {
+                        storage[counter][10] = String.valueOf(userRateService.getAverageMark(temp.getId()));
+                    } else {
+                        storage[counter][10] = "N/A";
+                    }
+                } else {
+                    storage[counter][10] = "-1";
+                }
+                storage[counter][11] = mapInfo.getUrl();
+
+                counter += 1;
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            counter += 1;
         }
         return storage;
+    }
+
+    private MapInfo parserForGoogleMapApi(String placeId) throws IOException {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+
+        StringBuilder template = new StringBuilder("https://maps.googleapis.com/maps/api/place/details/json?placeid=");
+        template.append(placeId)
+                .append("&key=")
+                .append("AIzaSyBNT72MPgA8KS-FKc24XFUV8UIpnh4t4wE");
+
+        String json = readJsonFromUrl(template.toString());
+
+        ResultJson resultJson = gson.fromJson(json, ResultJson.class);
+
+        return resultJson.getMapInfo();
+    }
+
+    private String readAll(Reader rd) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        int cp;
+        while ((cp = rd.read()) != -1) {
+            sb.append((char) cp);
+        }
+        return sb.toString();
+    }
+
+    private String readJsonFromUrl(String url) throws IOException {
+        System.out.println(url);
+        InputStream inputStream = new URL(url).openStream();
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
+            String json = readAll(bufferedReader);
+            return json;
+        } finally {
+            inputStream.close();
+        }
     }
 }
