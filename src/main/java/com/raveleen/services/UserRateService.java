@@ -21,4 +21,6 @@ public interface UserRateService {
     int getNumberOfRateForEvent(long id);
 
     boolean isThereMarks(long id);
+
+    boolean isUserRated(long eventId, long userId);
 }

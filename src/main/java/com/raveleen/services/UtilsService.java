@@ -143,12 +143,14 @@ public class UtilsService {
             storage[counter][3] = String.valueOf(simpleDateFormat.format(temp.getEventDate()));
             storage[counter][4] = String.valueOf(temp.getAddress().getPlaceId());
             UserRate userRate = userRateService.getByIdAndUserId(temp.getId(), customUser.getId());
-            if (customUser.getId() == temp.getHost().getId()) {
+            if ((customUser.getId() == temp.getHost().getId()) && (temp.getEventDate().getTime() > new Date().getTime())) {
                 storage[counter][5] = "0";
-            } else if (userRate == null) {
+            } else if ((userRate == null) && !(customUser.getId() == temp.getHost().getId())) {
                 storage[counter][5] = "1";
-            } else if (userRate.getMark() ) {
+            } else if ((temp.getEventDate().getTime() < new Date().getTime())
+                    && !(userRateService.isUserRated(temp.getId(), customUser.getId()))) {
                 storage[counter][5] = "2";
+                System.out.println(userRateService.isUserRated(temp.getId(), customUser.getId()));
             } else {
                 storage[counter][5] = "3";
             }

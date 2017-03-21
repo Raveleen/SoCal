@@ -19,12 +19,12 @@ function getFirstTen(user_id, url, alert_to_remove_id, container_to_append, href
     });
 }
 
-function getNextTen(user_id, from, url, container_to_append, href_to_append) {
+function getNextTen(user_id, from, url, container_to_append, href_to_remove, href_to_append) {
     var flag = false;
     from += 10;
     $.get(url + user_id + "/" + from, function (data) {
         var i = 0;
-        $(href_to_append).remove();
+        $(href_to_remove).remove();
         if (data[0] == null) {
             flag = false;
         } else {

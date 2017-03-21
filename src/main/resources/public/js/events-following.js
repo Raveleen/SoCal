@@ -10,7 +10,7 @@ $(document).ready(function () {
     $("#events").append(special_alert_no_events);
     getFirstTen(user_id, "/get-following-events/", "#special-alert-no-events", "#events", load_more_following_future_events);
     $(document.body).on("click", "#load-more-following-future-events-href", function () {
-        var array = getNextTen(user_id, from, "/get-following-events/", "#events", load_more_following_future_events);
+        var array = getNextTen(user_id, from, "/get-following-events/", "#events", "#load-more-following-future-events", load_more_following_future_events);
         from = array[0];
     });
 });

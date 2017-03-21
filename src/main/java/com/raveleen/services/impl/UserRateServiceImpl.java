@@ -63,4 +63,10 @@ public class UserRateServiceImpl implements UserRateService {
     public boolean isThereMarks(long id) {
         return userRateRepository.isThereMarks(id);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean isUserRated(long eventId, long userId) {
+        return userRateRepository.isUserRated(eventId, userId);
+    }
 }

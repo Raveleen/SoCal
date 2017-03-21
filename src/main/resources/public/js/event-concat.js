@@ -31,7 +31,7 @@ function concatEvent(array) {
         string += array[9];
         string += "</p></a></div><div class=\"col-sm-6 profile-usertitle-right\"><p>Average user rating:</p><p class=\"mark\">N/A</p></a></div></div>";
     } else {
-        string += "<div class=\"row\"><div class=\"col-sm-6 profile-usertitle-left\"><p>Number of potential visitors:</p>";
+        string += "<div class=\"row\"><div class=\"col-sm-6 profile-usertitle-left\"><p>Number of visitors:</p>";
         string += "<p class=\"visitors\">";
         string += array[9];
         string += "</p></a></div><div class=\"col-sm-6 profile-usertitle-right\"><p>Average user rating:</p><p class=\"mark\">"
@@ -51,12 +51,11 @@ function concatEvent(array) {
             string += "<div class=\"col-sm-12\"><div class=\"attend-event-button-div\"><button type=\"button\" id=\"event-attend-";
             string += array[0];
             string += "\" class=\"attend-event-button btn btn-primary btn-md btn-block\">Attend an event</button></div></div>";
-        } else {
-
         }
     } else if (array[5] === "2") {
-        string += "<div class=\"delete-button-div\"><a class=\"event-delete-button\"><span class=\"glyphicon glyphicon-remove\"></span></a></div>";
+            string += "<div class=\"col-sm-12 rate-buttons-block\"><div class=\"col-sm-3\"><button type=\"button\" class=\"event-rate awful btn btn-primary btn-md btn-block\">Awful</button></div><div class=\"col-sm-3\"><button type=\"button\" class=\"event-rate could-be-worse btn btn-primary btn-md btn-block\">Could be worse</button></div><div class=\"col-sm-3\"><button type=\"button\" class=\"event-rate pretty-good btn btn-primary btn-md btn-block\">Pretty good</button></div><div class=\"col-sm-3\"><button type=\"button\" class=\"event-rate awesome btn btn-primary btn-md btn-block\">Awesome</button></div></div>"
     } else if (array[5] === "3") {
+
     }
     string += "</div>";
     string += "</div></div></div></div>";

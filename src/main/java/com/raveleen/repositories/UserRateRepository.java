@@ -19,8 +19,11 @@ public interface UserRateRepository extends JpaRepository<UserRate, Long> {
 
     @Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM Event c "
             + "INNER JOIN c.userRates u "
-            + "WHERE c.id = :id AND u.mark IS NOT NULL")
+            + "WHERE c.id = :id AND u.mark > 0")
     boolean isThereMarks(@Param("id") long id);
+
+    @Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM UserRate u INNER JOIN u.user c INNER JOIN u.event b WHERE c.id = :userId AND b.id = :eventId AND u.mark > 0")
+    boolean isUserRated(@Param("eventId") long eventId, @Param("userId") long userId);
 
     @Query("SELECT COUNT(u) FROM Event c INNER JOIN c.userRates u WHERE c.id = :id AND u.mark IS NOT NULL")
     int getNumberOfRateForEvent(@Param("id") long id);
