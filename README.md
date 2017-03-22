@@ -24,3 +24,12 @@ In order to start a dialog you need to find a user and click "Send message". If 
 
 ## Events
 <img src="https://github.com/Raveleen/SoCal/blob/master/events.gif" align="right"/>
+The calendar is a key function of our social network. It has wide functionality of event management. You can create and attend user-created events, see the location of the event and rate it after you have attended.
+
+In the calendar menu there are four sections: you can see your created events in “My events” section, events you have crated and already held in “Past events” section and track your following events (the ones your friends have created) in the “Following events” section. You can also see any user’s events (future and past) in his profile’s calendar menu.
+
+The fourth section in calendar menu is called “Posts”. It contains posts you may like created by people you follow.
+
+To create an event, press the arrow button in “My events” section and the event creation form will appear. Fill in the event name and main information about it, choose time and date, identify the location via built-in Google Maps API and you are ready to go! Click “Share an event button” and your subscribers will see this event in their calendars under the “Following events” section.
+
+After users have attended the event, they can rate it, so in the future other users could see the creator’s past events and their rating.
