@@ -643,3 +643,7 @@ a.unlike-button:hover {
 .event-map-href {
     color: rgba(228, 98, 232, 0.5);
 }
+
+.btn {
+    cursor: pointer;
+}

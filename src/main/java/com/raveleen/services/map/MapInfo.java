@@ -5,6 +5,8 @@ package com.raveleen.services.map;
  */
 public class MapInfo {
     private String url;
+    private String rating;
+    private MapGeometry geometry;
 
     public MapInfo() {
     }
@@ -15,5 +17,21 @@ public class MapInfo {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public MapGeometry getGeometry() {
+        return geometry;
+    }
+
+    public void setGeometry(MapGeometry geometry) {
+        this.geometry = geometry;
     }
 }

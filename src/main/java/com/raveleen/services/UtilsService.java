@@ -22,16 +22,29 @@ import java.util.List;
 import java.util.Locale;
 
 import com.raveleen.entities.UserRate;
+import com.raveleen.services.map.EventLocation;
 import com.raveleen.services.map.MapInfo;
 import com.raveleen.services.map.ResultJson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 /**
  * Created by Святослав on 11.01.2017.
  */
+@PropertySource("classpath:google-map-api.properties")
 @Service
 public class UtilsService {
+    @Value("${api-key}")
+    private String googleApiKey;
+
+    @Value("${static-map-key}")
+    private String staticMapKey;
+
+    @Value("${map-zoom}")
+    private String zoom;
+
     @Autowired
     private PostService postService;
 
@@ -144,7 +157,7 @@ public class UtilsService {
         if (events.size() == 0) {
             return null;
         }
-        String[][] storage = new String[events.size()][12];
+        String[][] storage = new String[events.size()][13];
         int counter = 0;
         for (Event temp : events) {
             SimpleDateFormat simpleDateFormat =
@@ -154,7 +167,9 @@ public class UtilsService {
                 MapInfo mapInfo;
                 System.out.println(placeId);
                 System.out.println(temp.getId());
-                mapInfo = parserForGoogleMapApi(placeId);
+                ResultJson resultJson = parserForGoogleMapApi(placeId);
+                mapInfo = resultJson.getMapInfo();
+                EventLocation eventLocation = resultJson.getMapInfo().getGeometry().getLocation();
 
                 UserRate userRate = userRateService.getByIdAndUserId(temp.getId(), customUser.getId());
 
@@ -197,8 +212,23 @@ public class UtilsService {
                 } else {
                     storage[counter][10] = "-1";
                 }
-                storage[counter][11] = mapInfo.getUrl();
-
+                StringBuilder mapImageUrl = new StringBuilder();
+                mapImageUrl.append("https://maps.googleapis.com/maps/api/staticmap?")
+                        .append("center=")
+                        .append(eventLocation.getLat())
+                        .append(",")
+                        .append(eventLocation.getLng())
+                        .append("&zoom=")
+                        .append(zoom)
+                        .append("&size=800x400")
+                        .append("&markers=color:0xe981ed%7Clabel:S%7C")
+                        .append(eventLocation.getLat())
+                        .append(",")
+                        .append(eventLocation.getLng())
+                        .append("&key=")
+                        .append(staticMapKey);
+                storage[counter][11] = mapImageUrl.toString();
+                storage[counter][12] = mapInfo.getRating() == null ? "N/A" : mapInfo.getRating();
                 counter += 1;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -207,20 +237,20 @@ public class UtilsService {
         return storage;
     }
 
-    private MapInfo parserForGoogleMapApi(String placeId) throws IOException {
+    private ResultJson parserForGoogleMapApi(String placeId) throws IOException {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
 
         StringBuilder template = new StringBuilder("https://maps.googleapis.com/maps/api/place/details/json?placeid=");
         template.append(placeId)
                 .append("&key=")
-                .append("AIzaSyBNT72MPgA8KS-FKc24XFUV8UIpnh4t4wE");
+                .append(googleApiKey);
 
         String json = readJsonFromUrl(template.toString());
 
         ResultJson resultJson = gson.fromJson(json, ResultJson.class);
 
-        return resultJson.getMapInfo();
+        return resultJson;
     }
 
     private String readAll(Reader rd) throws IOException {

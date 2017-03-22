@@ -25,29 +25,37 @@ function concatEvent(array) {
         string += "\">";
     }
     string += "</div></div></div>";
-    //TODO map static image
-    string += "<div class=\"event-body row\"><div class=\"col-sm-12 event-body-img-div\"><img class=\"post-userpic centered-and-cropped\" src=\"/image/";
-    string += array[4];
+    string += "<div class=\"event-body row\"><div class=\"col-sm-12 event-body-img-div\"><img class=\"post-userpic centered-and-cropped\" src=\"";
+    string += array[11];
     string += "\"><div class=\"col-sm-12 event-map-href\">";
-    //TODO add href to google map
     string += "<a href=\"";
     string += array[4];
-    string += "\ target=\"_blank\">View location on Google Map</a>";
+    string += "\" target=\"_blank\">View location on Google Map</a>";
     string += "</div><div class=\"col-sm-12\"><hr class=\"middle\"></div></div>";
     if (array[10] === "-1") {
-        string += "<div class=\"row\"><div class=\"col-sm-6 profile-usertitle-left\"><p>Number of potential visitors:</p>";
+        string += "<div class=\"row\"><div class=\"col-sm-4 profile-usertitle-left\"><p>Number of potential visitors:</p>";
         string += "<p class=\"visitors\">";
         string += array[9];
-        string += "</p></a></div><div class=\"col-sm-6 profile-usertitle-right\"><p>Average user rating:</p><p class=\"mark\">N/A</p></a></div></div>";
+        string += "</p></a></div>";
+        string += "<div class=\"col-sm-4 profile-usertitle-left\"><p>Location rating:</p>";
+        string += "<p class=\"mark\">";
+        string += array[12];
+        string += "</p></a></div>";
+        string += "<div class=\"col-sm-4 profile-usertitle-right\"><p>Average user rating:</p><p class=\"mark\">N/A</p></a></div>";
     } else {
-        string += "<div class=\"row\"><div class=\"col-sm-6 profile-usertitle-left\"><p>Number of visitors:</p>";
+        string += "<div class=\"row\"><div class=\"col-sm-4 profile-usertitle-left\"><p>Number of visitors:</p>";
         string += "<p class=\"visitors\">";
         string += array[9];
-        string += "</p></a></div><div class=\"col-sm-6 profile-usertitle-right\"><p>Average user rating:</p><p class=\"mark\">"
+        string += "</p></a></div>";
+        string += "<div class=\"col-sm-4 profile-usertitle-left\"><p>Location rating:</p>";
+        string += "<p class=\"mark\">";
+        string += array[12];
+        string += "</p></a></div>";
+        string += "<div class=\"col-sm-4 profile-usertitle-right\"><p>Average user rating:</p><p class=\"mark\">"
         string += array[10];
-        string += "</p></a></div></div>";
+        string += "</p></a></div>";
     }
-    string += "</div><div class=\"event-body row\"><div class=\"col-sm-12 event-body-text-div\"><p class=\"post-body-text\">";
+    string += "</div></div><div class=\"event-body row\"><div class=\"col-sm-12 event-body-text-div\"><p class=\"post-body-text\">";
     string += array[8];
     string += "</p></br></div></div><div class=\"event-footer row\">";
     if (array[5] === "0") {
