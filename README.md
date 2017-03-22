@@ -26,7 +26,7 @@ In order to start a dialog you need to find a user and click "Send message". If 
 <img src="https://github.com/Raveleen/SoCal/blob/master/events.gif" align="right"/>
 The calendar is a key function of our social network. It has wide functionality of event management. You can create and attend user-created events, see the location of the event and rate it after you have attended.
 
-In the calendar menu there are four sections: you can see your created events in “My events” section, events you have crated and already held in “Past events” section and track your following events (the ones your friends have created) in the “Following events” section. You can also see any user’s events (future and past) in his profile’s calendar menu.
+In the calendar menu there are four sections: you can see your created events in “My events” section, events you have created and already held in “Past events” section and track your following events (the ones your friends have created) in the “Following events” section. You can also see any user’s events (future and past) in his profile’s calendar menu.
 
 The fourth section in calendar menu is called “Posts”. It contains posts you may like created by people you follow.
 
