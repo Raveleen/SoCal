@@ -6,7 +6,7 @@ var load_more_my_past_events = "<div id=\"load-more-my-past-events\" class=\"app
 function getFirstTen(user_id, url, alert_to_remove_id, container_to_append, href_to_append) {
     $.get(url + user_id + "/0", function (data) {
         var i = 0;
-        if (data[0] !== null) {
+        if (data[0][0] !== null) {
             $(alert_to_remove_id).remove();
             while (i < data.length) {
                 $(container_to_append).append('' + concatEvent(data[i]));
