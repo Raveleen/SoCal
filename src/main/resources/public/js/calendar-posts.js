@@ -11,7 +11,7 @@ $(document).ready(function () {
     //_Getting first posts on load.
     $.get("/get-following-posts/" + user_id + "/0", function (data) {
         var i = 0;
-        if (data === null) {
+        if (data[0][0] === null) {
             $("#special-alert").remove();
             $("#posts-container").append('' + special_alert_no_posts);
         } else {
@@ -31,7 +31,7 @@ $(document).ready(function () {
             from += 10;
             $.get("/get-following-posts/" + user_id + "/" + from, function (data) {
                 var i = 0;
-                if (data === null) {
+                if (data[0][0] === null) {
                     flag = false;
                     $("#special-alert").remove();
                     $("#posts-container").append('' + special_alert_no_more_posts);

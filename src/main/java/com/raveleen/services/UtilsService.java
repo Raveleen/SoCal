@@ -164,12 +164,16 @@ public class UtilsService {
                     new SimpleDateFormat("HH:mm, EEE dd MMMMM, yyyy", Locale.US);
             String placeId = String.valueOf(temp.getAddress().getPlaceId());
             try {
-                MapInfo mapInfo;
+                MapInfo mapInfo = new MapInfo();
                 System.out.println(placeId);
                 System.out.println(temp.getId());
-                ResultJson resultJson = parserForGoogleMapApi(placeId);
-                mapInfo = resultJson.getMapInfo();
-                EventLocation eventLocation = resultJson.getMapInfo().getGeometry().getLocation();
+                ResultJson resultJson;
+                EventLocation eventLocation = new EventLocation();
+                if(placeId != null) {
+                    resultJson = parserForGoogleMapApi(placeId);
+                    mapInfo = resultJson.getMapInfo();
+                    eventLocation = resultJson.getMapInfo().getGeometry().getLocation();
+                }
 
                 UserRate userRate = userRateService.getByIdAndUserId(temp.getId(), customUser.getId());
 
