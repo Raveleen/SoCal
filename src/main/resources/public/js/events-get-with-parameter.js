@@ -24,10 +24,10 @@ function getNextTen(user_id, from, url, container_to_append, href_to_remove, hre
     from += 10;
     $.get(url + user_id + "/" + from, function (data) {
         var i = 0;
-        $(href_to_remove).remove();
         if (data[0] == null) {
             flag = false;
         } else {
+            $(href_to_remove).remove();
             while (i < data.length) {
                 $(container_to_append).append('' + concatEvent(data[i]));
                 if ((i == data.length - 1 ) && (data.length < 10)) {
