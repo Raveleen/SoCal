@@ -24,7 +24,7 @@ function getNextTen(user_id, from, url, container_to_append, href_to_remove, hre
     from += 10;
     $.get(url + user_id + "/" + from, function (data) {
         var i = 0;
-        if (data[0] == null) {
+        if (data[0][0] == null) {
             flag = false;
         } else {
             $(href_to_remove).remove();
