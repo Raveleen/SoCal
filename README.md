@@ -2,7 +2,6 @@
 
 # SoCal
 
-<a href="https://codeclimate.com/github/Raveleen/SoCal"><img src="https://codeclimate.com/github/Raveleen/SoCal/badges/gpa.svg" /></a>
 >Simple social network with user-friendly interface.
 
 ## Authorization
